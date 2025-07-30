@@ -1,4 +1,4 @@
-name: CI with Windows
+name: Processing with Windows
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
             semver: "227.0.0"
     steps:
       - uses: actions/checkout@v2
-      - uses: ./github/workflows/action.yml
+      - uses: .github/workflows/action.yml
         id: setup-processing
         with:
           tag: ${{matrix.processing.tag}}
