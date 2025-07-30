@@ -1,0 +1,35 @@
+name: CI with Windows
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        processing:
+          - tag: "processing-1292-4.2"
+            semver: "1292.0.0"
+          - tag: "processing-1272-4.0a3"
+            semver: "1272.0.0"
+          - tag: "processing-0270-3.5.4"
+            semver: "270.0.0"
+          - tag: "processing-0232-3.0a5"
+            semver: "232.0.0"
+          - tag: "processing-0227-2.2.1"
+            semver: "227.0.0"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        id: setup-processing
+        with:
+          tag: ${{matrix.processing.tag}}
+      - run: echo "${{steps.setup-processing.outputs.install-dir}}"
+      - run: where.exe processing
+      - run: where.exe processing-java
+      - run: processing-java --help
+      - run: processing --help
