@@ -1,35 +1,24 @@
-name: Processing with Windows
+# .github/workflows/demo.yml
 
+name: CI
+
+# Controls when the workflow will run
 on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [main]
+    branches: [ "main" ]
   pull_request:
-    branches: [main]
-
+    branches: [ "main" ]
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  # This workflow contains a single job called "build"
   test:
+    # The type of runner that the job will run on
     runs-on: windows-latest
-    strategy:
-      matrix:
-        processing:
-          - tag: "processing-1292-4.2"
-            semver: "1292.0.0"
-          - tag: "processing-1272-4.0a3"
-            semver: "1272.0.0"
-          - tag: "processing-0270-3.5.4"
-            semver: "270.0.0"
-          - tag: "processing-0232-3.0a5"
-            semver: "232.0.0"
-          - tag: "processing-0227-2.2.1"
-            semver: "227.0.0"
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v2
-      - uses: .github/workflows/action.yml
-        id: setup-processing
-        with:
-          tag: ${{matrix.processing.tag}}
-      - run: echo "${{steps.setup-processing.outputs.install-dir}}"
-      - run: where.exe processing
-      - run: where.exe processing-java
-      - run: processing-java --help
-      - run: processing --help
+      # Checks out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+        if: ${{ github.event_name == 'pull_request' && github.event.action == 'unassigned' }}
+
