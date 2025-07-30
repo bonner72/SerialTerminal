@@ -23,15 +23,17 @@ jobs:
           - tag: "processing-0227-2.2.1"
             semver: "227.0.0"
     steps:
+    
     -name: Checkout repository
       -uses: actions/checkout@v2
-    -name: Run local action
-      -uses: .github/workflows/action.yml
-        id: setup-processing
-        with:
-          tag: ${{matrix.processing.tag}}
-      - run: echo "${{steps.setup-processing.outputs.install-dir}}"
-      - run: where.exe processing
-      - run: where.exe processing-java
-      - run: processing-java --help
-      - run: processing --help
+    id: setup-processing
+    uses: pr1metine/setup-processing@v2.2.0
+    with:
+    # Tag of Processing GitHub Release, e.g. processing-1292-4.2
+    # See https://github.com/processing/processing4/releases and
+    # https://github.com/processing/processing4/releases
+    tag: "processing-1292-4.2" # optional, will use latest release by default
+    # Name of a Processing GitHub Release Asset, e.g. processing-4.2-linux-arm64.tgz
+    asset-name: "processing-4.2-linux-x64.tgz" # optional, will infer based on Runner by default
+    - name: Output Processing installation directory
+  run: echo "${{steps.setup-processing.outputs.install-dir}}"
