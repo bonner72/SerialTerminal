@@ -11,6 +11,9 @@ Functions:
 
 <img width="1002" height="832" alt="Capture1" src="https://github.com/user-attachments/assets/02fbe9b2-e8e8-4ea6-b4a4-43eabf5ce77c" />
 
+<img width="1002" height="832" alt="Capture1" src="https://github.com/user-attachments/assets/69848f3a-4ec5-4001-8a08-a6279fc5e58b" />
+
+<img width="1002" height="832" alt="Capture" src="https://github.com/user-attachments/assets/899cd6eb-b00e-4392-8ac2-1d5f6e3d2854" />
 
 ## Demonstration
 
