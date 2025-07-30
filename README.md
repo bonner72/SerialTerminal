@@ -7,9 +7,10 @@ Functions:
 --Basic data sending and receiving.
 
 ## Screenshots
-<img width="1920" height="1080" alt="Screenshot (34)" src="https://github.com/user-attachments/assets/382784d6-8f5b-4579-b137-455e64d99bdc" />
+<img width="1002" height="832" alt="Capture" src="https://github.com/user-attachments/assets/13a570ca-1274-49c0-b02f-f3659de74906" />
 
-<img width="1920" height="1080" alt="Screenshot (38)" src="https://github.com/user-attachments/assets/b8466adc-67d8-4647-b0b3-6b38e4d57960" />
+<img width="1002" height="832" alt="Capture1" src="https://github.com/user-attachments/assets/02fbe9b2-e8e8-4ea6-b4a4-43eabf5ce77c" />
+
 
 ## Demonstration
 
