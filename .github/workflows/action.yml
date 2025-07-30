@@ -29,7 +29,5 @@ jobs:
         with:
           tag: ${{matrix.processing.tag}}
       - run: echo "${{steps.setup-processing.outputs.install-dir}}"
-      - run: where.exe processing
-      - run: where.exe processing-java
       - run: processing-java --help
       - run: processing --help
