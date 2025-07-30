@@ -24,9 +24,9 @@ jobs:
             semver: "227.0.0"
     steps:
     -name: Checkout repository
-      uses: actions/checkout@v2
+      -uses: actions/checkout@v2
     -name: Run local action
-      uses: .github/workflows/action.yml
+      -uses: .github/workflows/action.yml
         id: setup-processing
         with:
           tag: ${{matrix.processing.tag}}
