@@ -1,23 +1,21 @@
-# Serial Terminal
 
-A Terminal for serial devices.
+<img width="100" height="100" alt="icon" src="https://github.com/user-attachments/assets/2b929eea-9743-4355-8a82-663f248ab463" />
 
-Functions:
+### A simple Serial Terminal
 
---Basic data sending and receiving.
+[Releases](https://github.com/bonner72/Serial-Terminal/releases)•[Arduino test code](https://github.com/bonner72/Serial-Terminal/blob/main/Arduino-Test-Code/Arduino-Test-Code/Arduino-Test-Code.ino)
 
 ## Screenshots
-<img width="1002" height="832" alt="Capture" src="https://github.com/user-attachments/assets/13a570ca-1274-49c0-b02f-f3659de74906" />
+<img width="1002" height="832" alt="Capture" src="https://github.com/user-attachments/assets/4b62e1d7-a410-49de-8ef6-5f587601b1bc" />
 
-<img width="1002" height="832" alt="Capture1" src="https://github.com/user-attachments/assets/02fbe9b2-e8e8-4ea6-b4a4-43eabf5ce77c" />
+<img width="1002" height="832" alt="Capture2" src="https://github.com/user-attachments/assets/75e83875-dd29-4446-9e47-63cb7a7c0910" />
 
-<img width="1002" height="832" alt="Capture1" src="https://github.com/user-attachments/assets/69848f3a-4ec5-4001-8a08-a6279fc5e58b" />
+<img width="1002" height="832" alt="Capture3" src="https://github.com/user-attachments/assets/24b0afe9-4b4e-43a1-a1bf-f9d65b176fe8" />
 
-<img width="1002" height="832" alt="Capture" src="https://github.com/user-attachments/assets/899cd6eb-b00e-4392-8ac2-1d5f6e3d2854" />
+<img width="1002" height="832" alt="Capture4" src="https://github.com/user-attachments/assets/3fc5e48b-bb13-43da-8982-3b821d31247c" />
 
 ## Demonstration
 
 Connected to an arduino.
 
-https://github.com/user-attachments/assets/c338c3a5-c9d9-4325-ae33-668a7270df7f
-
+https://github.com/user-attachments/assets/5d7cf0a9-a997-4b96-a7df-b9ed1eb4498c
