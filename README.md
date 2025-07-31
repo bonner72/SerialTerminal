@@ -18,4 +18,5 @@
 
 Connected to an arduino.
 
-https://github.com/user-attachments/assets/5d7cf0a9-a997-4b96-a7df-b9ed1eb4498c
+https://github.com/user-attachments/assets/f353ed85-0af3-489f-b537-903327fe05ed
+
