@@ -1,4 +1,3 @@
-# .github/workflows/demo.yml
 
 name: CI
 
@@ -9,9 +8,19 @@ on:
     branches: [ "main", "development" ]
   pull_request:
     branches: [ "main", "development" ] 
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
+  open-issue:
+    runs-on: windows-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - run: |
+          gh issue --repo ${{ github.repository }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   test:
     # The type of runner that the job will run on
     runs-on: windows-latest
