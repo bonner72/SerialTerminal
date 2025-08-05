@@ -11,8 +11,9 @@ void loop() {
     if (input = "hello"){ //if hello is entered in Serial-Monitor
       Serial.println("hello world!"); //send a response
     }
+    Serial.println("TEST");
   }    
 
-  
-
+  Serial.println("TEST");
+  delay(100);
 }
