@@ -1,7 +1,9 @@
 
 <img width="100" height="100" alt="icon" src="https://github.com/user-attachments/assets/2b929eea-9743-4355-8a82-663f248ab463" />
 
-### A simple Serial Terminal
+### A simple Serial Terminal 
+
+Currently only tested for Windows10
 
 [Releases](https://github.com/bonner72/Serial-Terminal/releases)•[Arduino test code](https://github.com/bonner72/Serial-Terminal/blob/main/Arduino-Test-Code/Arduino-Test-Code/Arduino-Test-Code.ino)
 
