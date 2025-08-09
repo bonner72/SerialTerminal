@@ -2,7 +2,7 @@ String input;
 
 void setup() {
 Serial.begin(9600); //initialize serial
-
+Serial.println("Startup");
 }
 
 void loop() {
