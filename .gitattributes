@@ -38,3 +38,6 @@
 /SerialTerminal/windows-amd64/java/lib/tzmappings filter=lfs diff=lfs merge=lfs -text
 /SerialTerminal/windows-amd64/java/release filter=lfs diff=lfs merge=lfs -text
 *.java filter=lfs diff=lfs merge=lfs -text
+filename filter=lfs diff=lfs merge=lfs -text
+C:/Users/swp791/Documents/GitHub/Serial-Terminal/SerialTerminal/linux-amd64/java/lib/modules.File filter=lfs diff=lfs merge=lfs -text
+*.File filter=lfs diff=lfs merge=lfs -text
