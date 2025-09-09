@@ -13,7 +13,6 @@ void setup() {
 
 void loop() {
   l++;
-  x = millis();
   if (Serial.available() > 0) {        //check if serial is connected
     input = Serial.readString();       //read serial data
  
@@ -21,9 +20,7 @@ void loop() {
     Serial.print("hello world ");
     Serial.print(" @ ");
     Serial.print(l);
-    Serial.print(" lines");
-    Serial.print(" Scan Time = ");
-    Serial.println(y);
-    y = millis() - x;
+    Serial.print(" scans");
+    Serial.write(10);
   
 }
