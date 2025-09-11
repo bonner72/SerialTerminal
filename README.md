@@ -8,5 +8,5 @@ Windows10, Kubuntu25.04
 [Releases](https://github.com/bonner72/Serial-Terminal/releases)•[Arduino test code](https://github.com/bonner72/Serial-Terminal/blob/main/Arduino-Test-Code/Arduino-Test-Code/Arduino-Test-Code.ino)
 
 ## Screenshots
-<img width="696" height="504" alt="11 09 2025_09 08 06_REC" src="https://github.com/user-attachments/assets/8219e3ce-c552-492c-a89b-b51c7f6d6c9a" />
-<img width="694" height="503" alt="11 09 2025_09 08 32_REC" src="https://github.com/user-attachments/assets/6adacbd5-1414-469a-a619-f80b400ff5e5" />
+<img width="686" height="493" alt="Capture" src="https://github.com/user-attachments/assets/4398de1b-e005-4570-9b1f-b72df294bd98" />
+<img width="686" height="494" alt="Capture1" src="https://github.com/user-attachments/assets/44048aca-3b4e-4639-b4cb-e5c0423926dc" />
