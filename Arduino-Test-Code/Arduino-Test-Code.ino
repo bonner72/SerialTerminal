@@ -5,11 +5,11 @@ void setup() {
 }
 
 void loop() {
-  l++;
+  l++; //count program scans
 
     Serial.print("hello world ");
     Serial.print(" @ ");
-    Serial.print(l);
+    Serial.print(l); //print program scan count
     Serial.print(" scans");
     Serial.write(10);
   
