@@ -12,5 +12,6 @@ void loop() {
     Serial.print(l); //print program scan count
     Serial.print(" scans");
     Serial.write(10);
+
   
 }
