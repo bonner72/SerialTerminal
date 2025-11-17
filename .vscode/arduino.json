@@ -1,5 +1,5 @@
 {
-    "port": "COM3",
+    "port": "COM4",
     "configuration": "cpu=atmega2560",
     "board": "arduino:avr:mega",
     "sketch": "Arduino-Test-Code\\Arduino-Test-Code.ino"
