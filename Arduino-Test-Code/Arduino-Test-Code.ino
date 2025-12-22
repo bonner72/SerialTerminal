@@ -8,10 +8,10 @@ void loop() {
   l++; //count program scans
 
     Serial.print("hello world ");
-    Serial.print(" @ ");
-    Serial.print(l); //print program scan count
-    Serial.print(" scans");
-    Serial.write(10);
+    //Serial.print(" @ ");
+   // Serial.print(l); //print program scan count
+    //Serial.print(" scans");
+    //Serial.write(10);
 
   
 }
