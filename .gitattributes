@@ -1,43 +1,43 @@
-*.4  diff=lfs merge=lfs -text
-*.pde  diff=lfs merge=lfs -text
-*.ttf  diff=lfs merge=lfs -text
-/SerialTerminal/data/list_358588  diff=lfs merge=lfs -text
-/SerialTerminal/data/list_741836  diff=lfs merge=lfs -text
-/SerialTerminal/data/list_753525  diff=lfs merge=lfs -text
-/SerialTerminal/data/list_778348  diff=lfs merge=lfs -text
-*.exe  diff=lfs merge=lfs -text
-/SerialTerminal/windows-amd64/data/list_358588  diff=lfs merge=lfs -text
-/SerialTerminal/windows-amd64/data/list_741836  diff=lfs merge=lfs -text
-/SerialTerminal/windows-amd64/data/list_753525  diff=lfs merge=lfs -text
-/SerialTerminal/windows-amd64/data/list_778348  diff=lfs merge=lfs -text
-/SerialTerminal/windows-amd64/java/NOTICE  diff=lfs merge=lfs -text
-*.dll  diff=lfs merge=lfs -text
-*.jsa  diff=lfs merge=lfs -text
-*.properties  diff=lfs merge=lfs -text
-*.access  diff=lfs merge=lfs -text
-*.template  diff=lfs merge=lfs -text
-*.policy  diff=lfs merge=lfs -text
-*.security  diff=lfs merge=lfs -text
-*.txt  diff=lfs merge=lfs -text
-*.h  diff=lfs merge=lfs -text
-*.jmod  diff=lfs merge=lfs -text
-*.zip  diff=lfs merge=lfs -text
-/SerialTerminal/windows-amd64/java/lib/classlist  diff=lfs merge=lfs -text
-*.sym  diff=lfs merge=lfs -text
-*.bfc  diff=lfs merge=lfs -text
-*.src  diff=lfs merge=lfs -text
-*.lib  diff=lfs merge=lfs -text
-*.jfc  diff=lfs merge=lfs -text
-*.jar  diff=lfs merge=lfs -text
-*.cfg  diff=lfs merge=lfs -text
-/SerialTerminal/windows-amd64/java/lib/modules  diff=lfs merge=lfs -text
-*.ja  diff=lfs merge=lfs -text
-*.certs  diff=lfs merge=lfs -text
-/SerialTerminal/windows-amd64/java/lib/security/cacerts  diff=lfs merge=lfs -text
-*.dat  diff=lfs merge=lfs -text
-/SerialTerminal/windows-amd64/java/lib/tzmappings  diff=lfs merge=lfs -text
-/SerialTerminal/windows-amd64/java/release  diff=lfs merge=lfs -text
-*.java  diff=lfs merge=lfs -text
-filename  diff=lfs merge=lfs -text
-C:/Users/swp791/Documents/GitHub/Serial-Terminal/SerialTerminal/linux-amd64/java/lib/modules.File  diff=lfs merge=lfs -text
-*.File  diff=lfs merge=lfs -text
+# *.4  diff=lfs merge=lfs -text
+# *.pde  diff=lfs merge=lfs -text
+# *.ttf  diff=lfs merge=lfs -text
+# /SerialTerminal/data/list_358588  diff=lfs merge=lfs -text
+# /SerialTerminal/data/list_741836  diff=lfs merge=lfs -text
+# /SerialTerminal/data/list_753525  diff=lfs merge=lfs -text
+# /SerialTerminal/data/list_778348  diff=lfs merge=lfs -text
+# *.exe  diff=lfs merge=lfs -text
+# /SerialTerminal/windows-amd64/data/list_358588  diff=lfs merge=lfs -text
+# /SerialTerminal/windows-amd64/data/list_741836  diff=lfs merge=lfs -text
+# /SerialTerminal/windows-amd64/data/list_753525  diff=lfs merge=lfs -text
+# /SerialTerminal/windows-amd64/data/list_778348  diff=lfs merge=lfs -text
+# /SerialTerminal/windows-amd64/java/NOTICE  diff=lfs merge=lfs -text
+# *.dll  diff=lfs merge=lfs -text
+# *.jsa  diff=lfs merge=lfs -text
+# *.properties  diff=lfs merge=lfs -text
+# *.access  diff=lfs merge=lfs -text
+# *.template  diff=lfs merge=lfs -text
+# *.policy  diff=lfs merge=lfs -text
+# *.security  diff=lfs merge=lfs -text
+# *.txt  diff=lfs merge=lfs -text
+# *.h  diff=lfs merge=lfs -text
+# *.jmod  diff=lfs merge=lfs -text
+# *.zip  diff=lfs merge=lfs -text
+# /SerialTerminal/windows-amd64/java/lib/classlist  diff=lfs merge=lfs -text
+# *.sym  diff=lfs merge=lfs -text
+# *.bfc  diff=lfs merge=lfs -text
+# *.src  diff=lfs merge=lfs -text
+# *.lib  diff=lfs merge=lfs -text
+# *.jfc  diff=lfs merge=lfs -text
+# *.jar  diff=lfs merge=lfs -text
+# *.cfg  diff=lfs merge=lfs -text
+# /SerialTerminal/windows-amd64/java/lib/modules  diff=lfs merge=lfs -text
+# *.ja  diff=lfs merge=lfs -text
+# *.certs  diff=lfs merge=lfs -text
+# /SerialTerminal/windows-amd64/java/lib/security/cacerts  diff=lfs merge=lfs -text
+# *.dat  diff=lfs merge=lfs -text
+# /SerialTerminal/windows-amd64/java/lib/tzmappings  diff=lfs merge=lfs -text
+# /SerialTerminal/windows-amd64/java/release  diff=lfs merge=lfs -text
+# *.java  diff=lfs merge=lfs -text
+# filename  diff=lfs merge=lfs -text
+# *C:/Users/swp791/Documents/GitHub/Serial-Terminal/SerialTerminal/linux-amd64/java/lib/modules.File  diff=lfs merge=lfs -text
+# *.File  diff=lfs merge=lfs -text
