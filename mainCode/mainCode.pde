@@ -203,7 +203,8 @@ public void setup() {
   while (mainUiInit == false) {
     delay(1);
   }
-
+  loadTable();    //load preferences table
+  getTableData(); //get preferences table data
   getOS();          //get operating system
   searchForPorts(); //search for available serial ports
   initSearch();     //initialize textAreaMain searching
@@ -220,4 +221,3 @@ public void draw() {
 public void settings() {
   size(wndMinW, wndMinH);
 }
-

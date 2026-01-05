@@ -85,6 +85,8 @@ FileWriter Writer; //create object of FileWriter for data logging
 int intBaudRate = int(selectedBaudRate); //integer value of selectedBaudRate for Serial constructor
 processing.serial.Serial COMPort = null; //create object of Serial class
 
+Table preferenceTable; //preferences table
+
 //Controls for main window
 JPanel panelMain; //main window panel
 JTextArea textAreaMain; //main window text area
