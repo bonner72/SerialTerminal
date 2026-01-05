@@ -12,6 +12,8 @@ public void processCommands() {
     textAreaMainMsg("", "-lresume : Resume data logging", "\n"); //resume data logging
     textAreaMainMsg("", "-settings : Open settings window", "\n"); //open settings window
     textAreaMainMsg("", "-tstamp=<true|false> : Enable/disable time stamp", "\n"); //toggle time stamp
+    textAreaMainMsg("", "-font=<fontNumber> : Set font for main text area and input field" + "\n" + "available font types:" + "\n" + "1. Courier(default)" + "\n" + "2. Cascadia Code" + "\n" + "3. Lucida Console", "\n"); //set font
+    textAreaMainMsg("", "-fontsize=<size> : Set font size for main text area and input field" + "\n" + "available font sizes:" + "\n" + "12" + "\n" + "14(Default)" + "\n" + "16" + "\n" + "18", ""); //set font size
   } else if (enteredCommand.equals("-clear")) { //clear main text area
     textAreaMain.setText(""); //clear main text area
   } else if (enteredCommand.equals("-v")) { //display version info
@@ -77,6 +79,38 @@ public void processCommands() {
       }
     } else {
       textAreaMainMsg("\n", "Connection Status: Not connected to any serial port.", "");
+    }
+  } else if (enteredCommand.startsWith("-font") && !enteredCommand.startsWith("-fontsize")) { //set font
+    if (enteredCommand.contains("=")) {
+      String enteredCommandSplit = enteredCommand.split("=")[1];
+      int fontIndex = int(enteredCommandSplit) - 1;
+      if (fontIndex >= 0 && fontIndex < fontList.length) {
+        selectedFont = fontList[fontIndex]; //set selected font
+        setTableData(); //save selected font to preferences table
+        textAreaMain.setFont(new Font(selectedFont, Font.PLAIN, selectedFontSize)); //update main text area font
+        textFieldMain.setFont(new Font(selectedFont, Font.PLAIN, selectedFontSize)); //update main text field font
+        textAreaMainMsg("\n", "Set font to " + selectedFont + ".", "");
+      } else {
+        textAreaMainMsg("\n", "Invalid font number. Use -font=<fontNumber> where fontNumber is between 1 and " + fontList.length + ".", ""); //invalid font number message
+      }
+    } else {
+      textAreaMainMsg("\n", "Invalid command parameter. Use -font=<fontNumber> e.g. -font=1", ""); //invalid format message
+    }
+  } else if (enteredCommand.startsWith("-fontsize")) { //set font size
+    if (enteredCommand.contains("=")) {
+      String enteredCommandSplit = enteredCommand.split("=")[1];
+      int fontSize = int(enteredCommandSplit);
+      if (fontSize == 12 || fontSize == 14 || fontSize == 16 || fontSize == 18) {
+        selectedFontSize = fontSize; //set selected font size
+        setTableData(); //save selected font size to preferences table
+        textAreaMain.setFont(new Font(selectedFont, Font.PLAIN, selectedFontSize)); //update main text area font size
+        textFieldMain.setFont(new Font(selectedFont, Font.PLAIN, selectedFontSize)); //update main text field font size
+        textAreaMainMsg("\n", "Set font size to " + selectedFontSize + ".", "");
+      } else {
+        textAreaMainMsg("\n", "Invalid font size. Use -fontsize=<size> where size is 12, 14, 16, or 18.", ""); //invalid font size message
+      }
+    } else {
+      textAreaMainMsg("\n", "Invalid command parameter. Use -fontsize=<size>", ""); //invalid format message
     }
   }
 } // END processCommands

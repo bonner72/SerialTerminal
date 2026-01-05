@@ -31,7 +31,7 @@ void drawTextAreaMain() {
   textAreaMain = new JTextArea();
   textAreaMainScrollPane = new JScrollPane(textAreaMain);
   textAreaMainScrollPane.setPreferredSize(new Dimension(width - 10, height - 75));
-  textAreaMain.setFont(new Font("Monospaced", Font.PLAIN, 14));
+  textAreaMain.setFont(new Font(selectedFont, Font.PLAIN, selectedFontSize));
   textAreaMain.setEditable(false);
   textAreaMain.setLineWrap(true);
   panelMain.add(textAreaMainScrollPane);
@@ -43,7 +43,7 @@ void drawTextAreaMain() {
 void drawTextFieldMain() {
   textFieldMain = new JTextField();
   textFieldMain.setPreferredSize(new Dimension(width - 215, 30));
-  textFieldMain.setFont(new Font("Monospaced", Font.PLAIN, 14));
+  textFieldMain.setFont(new Font(selectedFont, Font.PLAIN, selectedFontSize));
   textFieldMain.setText("Press return key to send text...");
   textFieldMain.setForeground(Color.GRAY);
   panelMain.add(textFieldMain);
@@ -91,8 +91,10 @@ void drawTextFieldMain() {
         }
       }
       // if entered data is not a command, send to serial port
-      if (!commandFound) {
+      if (!commandFound && !textFieldMain.getText().startsWith("-")) {
         writeToPort(textFieldMain.getText());     //send entered text to serial port write process
+      } else if (!commandFound && textFieldMain.getText().startsWith("-")) {
+        textAreaMainMsg("\n", "Invalid command entered. Type -h for help.", ""); //invalid command message
       }
 
       previousEnteredCommands.append(textFieldMain.getText()); //store entered command
@@ -334,4 +336,3 @@ void drawButtonLogPauseResume() {
   systemPrintln("EDT buttonLogPauseResume = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
   buttonLogPauseResume.repaint();
 }
-

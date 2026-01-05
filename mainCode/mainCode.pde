@@ -190,7 +190,8 @@ public void setup() {
     }
   }
   );
-
+  loadTable();    //load preferences table
+  getTableData(); //get preferences table data
   //build main UI on event dispatch thread
   javax.swing.SwingUtilities.invokeLater(new Runnable() {
     public void run() {
@@ -203,8 +204,7 @@ public void setup() {
   while (mainUiInit == false) {
     delay(1);
   }
-  loadTable();    //load preferences table
-  getTableData(); //get preferences table data
+
   getOS();          //get operating system
   searchForPorts(); //search for available serial ports
   initSearch();     //initialize textAreaMain searching

@@ -11,6 +11,7 @@ int comboBoxPortSelectedIndex = 0;
 int tmr1_lastMillis = 0; //tmr1 last millis reading
 int prevCommandsLimit = 10; //limit of previous entered commands stored
 int prevCommandsIndex = 0; //count of up key presses for previous command retrieval
+int selectedFontSize = 14; //font size for textAreaMain and textFieldMain
 
 char selectedParity = 'N'; //serial port parity 'N' for none, 'E' for even, 'O' for odd, 'M' for mark, 'S' for space ('N' is the default)
 
@@ -74,8 +75,20 @@ String validCommands[] = {//list of valid commands
   "-tstamp=true", //enable timestamp
   "-tstamp=false", //disable timestamp
   "-lstart", //log start
-  "-lstop" //log stop
+  "-lstop", //log stop
+  "-font", //set font
+  "-font=1", //set font to Courier
+  "-font=2", //set font to Cascadia Code
+  "-font=3", //set font to Lucida Console
+  "-fontsize", //set font size
+  "-fontsize=12", //set font size to 12
+  "-fontsize=14", //set font size to 14
+  "-fontsize=16", //set font size to 16
+  "-fontsize=18"  //set font size to 18
 }; //list of valid commands END
+
+String fontList[] = {"Courier", "Cascadia Code", "Lucida Console"}; //list of available fonts for textAreaMain and textFieldMain
+String selectedFont = fontList[0]; //selected font for textAreaMain and textFieldMain
 
 StringList previousEnteredCommands = new StringList(); //previous command entered in textFieldMain
 
