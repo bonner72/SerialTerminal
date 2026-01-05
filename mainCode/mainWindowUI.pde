@@ -48,7 +48,7 @@ void drawTextFieldMain() {
   textFieldMain.setForeground(Color.GRAY);
   panelMain.add(textFieldMain);
   textFieldMain.setEditable(true);
-
+  textFieldMain.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, Collections.EMPTY_SET);
   //add focus listener for textFieldMain
   textFieldMain.addFocusListener(new FocusListener() {
 
@@ -79,8 +79,10 @@ void drawTextFieldMain() {
     @Override
 
       public void actionPerformed(ActionEvent e) {
-      // check if entered data is a valid command
+      prevCommandsIndex = 0;  //reset up key press count on enter keyPress
       commandFound = false; //reset commandFound variable
+
+      // check if entered data is a valid command
       for (int i = 0; i < validCommands.length; i ++) {
         if (textFieldMain.getText().equals(validCommands[i])) {
           commandFound = true;
@@ -93,13 +95,59 @@ void drawTextFieldMain() {
         writeToPort(textFieldMain.getText());     //send entered text to serial port write process
       }
 
+      previousEnteredCommands.append(textFieldMain.getText()); //store entered command
+
+      //limit previous commands to a set amount of entries
+      if (previousEnteredCommands.size() > prevCommandsLimit) {
+        previousEnteredCommands.remove(0); //remove oldest entry
+      }
+      systemPrintln(previousEnteredCommands.toString()); //print previous commands size and content to console
+
       textFieldMain.setText("");                //clear text field after enter pressed
       systemPrintln("textFieldMain keyPressed Enter" + " @ " + millis());
     }
   }
   );
-  systemPrintln("EDT txtAreaMain = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
-  textFieldMain.repaint();
+
+  textFieldMain.addKeyListener(new KeyAdapter() {
+    @Override
+      public void keyPressed(KeyEvent evt) {
+      //handle up arrow keyPress
+      if (evt.getKeyCode() == KeyEvent.VK_UP) {
+
+        if (prevCommandsIndex < previousEnteredCommands.size()) {
+          prevCommandsIndex++; // decrement previous commands index
+        }
+        // if up key press count is less than or equal to previous commands size, get previous command
+        if (previousEnteredCommands.size() > 0) {
+          String lastCommand = previousEnteredCommands.get(previousEnteredCommands.size() - prevCommandsIndex); // get last entered command
+          textFieldMain.setText(lastCommand); // print last entered command to textFieldMain
+        }
+        systemPrintln("Up arrow key pressed");
+      }
+
+      // //handle down arrow keyPress
+      if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+        if (prevCommandsIndex > 1) {
+          prevCommandsIndex--; // decrement previous commands index
+        } else {
+          prevCommandsIndex = 0; // set previous commands index to zero which clears textFieldMain's text
+        }
+        // if previous commands length an previous commands index is greater than zero, get next command
+        if (previousEnteredCommands.size() > 0 && prevCommandsIndex > 0) {
+          String nextCommand = previousEnteredCommands.get(previousEnteredCommands.size() - prevCommandsIndex); // get next entered command
+          textFieldMain.setText(nextCommand); // print next entered command to textFieldMain
+        } else {
+          textFieldMain.setText(""); // clear textFieldMain if at the most recent command
+        }
+        systemPrintln("Down arrow key pressed"); // debug print
+      }
+      systemPrintln("Key pressed: " + evt.getKeyCode() + " " + prevCommandsIndex); // debug print
+    }
+  }
+  );
+  systemPrintln("EDT txtAreaMain = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis()); // debug print
+  textFieldMain.repaint(); // repaint textFieldMain
 }
 
 // draw main window textFieldSearch textfield
@@ -286,3 +334,4 @@ void drawButtonLogPauseResume() {
   systemPrintln("EDT buttonLogPauseResume = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
   buttonLogPauseResume.repaint();
 }
+

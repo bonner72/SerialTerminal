@@ -2,6 +2,8 @@ import processing.serial.*;          //import serial library
 import java.awt.*;                   //import awt library
 import java.awt.Font;                //import awt font library
 import java.awt.event.*;             //import awt event library
+import java.awt.event.KeyAdapter;    //import awt key adapter library
+import java.awt.event.KeyEvent;      //import awt key event library
 import java.awt.Dimension.*;         //import awt dimension library
 import java.awt.image.BufferedImage; //import awt buffered image library
 import javax.swing.*;                //import swing library
@@ -9,6 +11,7 @@ import javax.swing.event.*;          //import swing event library
 import javax.swing.text.*;           //import swing text library
 import java.io.File;                 //import file library
 import java.io.FileWriter;           //import file writer library
+import java.util.Collections;        //import collections library
 
 javax.swing.JFrame frame; //create instance of JFrame
 java.awt.Canvas canvas;   //create instance of Canvas
