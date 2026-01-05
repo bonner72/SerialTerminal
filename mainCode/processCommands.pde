@@ -22,10 +22,12 @@ public void processCommands() {
       if (enteredCommandSplit.equals("true")) {
         frameSettings = null; //reset settings frame to force rebuild with new advanced options
         advancedOptions = true; //enable advanced options
+        setTableData(); //save advanced options to preferences table
         textAreaMainMsg("\n", "Advanced serial port options enabled.", "");
       } else if (enteredCommandSplit.equals("false")) {
         frameSettings = null; //reset settings frame to force rebuild with removed advanced options
         advancedOptions = false;//disable advanced options
+        setTableData(); //save advanced options to preferences table
         textAreaMainMsg("\n", "Advanced serial port options disabled.", "");
       }
     } else {
