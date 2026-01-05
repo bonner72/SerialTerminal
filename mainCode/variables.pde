@@ -1,5 +1,6 @@
 float selectedStopBits = 1.0; //serial port stop bits 1.0, 1.5, or 2.0 (1.0 is the default)
 
+
 int lettersIndex = 0; //index for random file name letters
 
 int wndMinH = 500; //minimum height of main window
@@ -8,6 +9,8 @@ int serialInputDataInt;
 int selectedDataBits = 8; //serial port data bits 5-6-7-8 (8 is default)
 int comboBoxPortSelectedIndex = 0;
 int tmr1_lastMillis = 0; //tmr1 last millis reading
+int prevCommandsLimit = 10; //limit of previous entered commands stored
+int prevCommandsIndex = 0; //count of up key presses for previous command retrieval
 
 char selectedParity = 'N'; //serial port parity 'N' for none, 'E' for even, 'O' for odd, 'M' for mark, 'S' for space ('N' is the default)
 
@@ -73,6 +76,9 @@ String validCommands[] = {//list of valid commands
   "-lstart", //log start
   "-lstop" //log stop
 }; //list of valid commands END
+
+StringList previousEnteredCommands = new StringList(); //previous command entered in textFieldMain
+
 PImage icon; //import software icon
 Font labelFont = new Font("Arial", Font.PLAIN, 12); //font for labels
 FileWriter Writer; //create object of FileWriter for data logging
