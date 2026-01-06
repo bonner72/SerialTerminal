@@ -12,8 +12,8 @@ public void processCommands() {
     textAreaMainMsg("", "-lresume : Resume data logging", "\n"); //resume data logging
     textAreaMainMsg("", "-settings : Open settings window", "\n"); //open settings window
     textAreaMainMsg("", "-tstamp=<true|false> : Enable/disable time stamp", "\n"); //toggle time stamp
-    textAreaMainMsg("", "-font=<fontNumber> : Set font for main text area and input field" + "\n" + "available font types:" + "\n" + "1. Courier(default)" + "\n" + "2. Cascadia Code" + "\n" + "3. Lucida Console", "\n"); //set font
-    textAreaMainMsg("", "-fontsize=<size> : Set font size for main text area and input field" + "\n" + "available font sizes:" + "\n" + "12" + "\n" + "14(Default)" + "\n" + "16" + "\n" + "18", ""); //set font size
+    textAreaMainMsg("", "-font=<fontNumber> : Set font for main text area and input field" + "\n" + "available font types:" + "\n \t" + "1. Courier(default)" + "\n \t" + "2. Cascadia Code" + "\n \t" + "3. Lucida Console", "\n"); //set font
+    textAreaMainMsg("", "-fontsize=<size> : Set font size for main text area and input field" + "\n" + "available font sizes:" + "\n \t" + "12" + "\n \t" + "14(Default)" + "\n \t" + "16" + "\n \t" + "18", "\n"); //set font size
   } else if (enteredCommand.equals("-clear")) { //clear main text area
     textAreaMain.setText(""); //clear main text area
   } else if (enteredCommand.equals("-v")) { //display version info

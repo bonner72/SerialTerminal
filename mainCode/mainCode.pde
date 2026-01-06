@@ -148,8 +148,8 @@ public void setup() {
   frame.setTitle(versionInfo); //set frame title
   frame.setResizable(true); //allow frame resizing
   frame.setVisible(true); //make frame visible
-  //add component listener for main frame
 
+  //add component listener for main frame
   frame.addComponentListener(new java.awt.event.ComponentAdapter() {
     public void componentResized(ComponentEvent e) {
       if (mainUiInit == true) { //only run if main UI has been initialized

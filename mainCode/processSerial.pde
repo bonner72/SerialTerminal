@@ -39,7 +39,7 @@ public void connectPort() {
         systemPrintln("Connected to: " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits);
         textAreaMainMsg("\n", "Connected to: " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits, "\n");
         buttonConnect.setText("Connected to: " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits);
-        buttonConnect.setBackground(Color.GREEN);
+        buttonConnect.setBackground(buttonConnectGreen);
         connectedToCOM = true;
       } else {
         // print connecting statements
@@ -51,7 +51,7 @@ public void connectPort() {
         systemPrintln("Connected to: " + selectedPort + "@" + selectedBaudRate);
         textAreaMainMsg("\n", "Connected to: " + selectedPort + "@" + selectedBaudRate, "\n");
         buttonConnect.setText("Connected-click to disconnect " + selectedPort + "@" + selectedBaudRate);
-        buttonConnect.setBackground(Color.GREEN);
+        buttonConnect.setBackground(buttonConnectGreen);
         connectedToCOM = true;
       }
     }
@@ -78,12 +78,12 @@ public void disconnectPort() {
         systemPrintln("Disconnected from: " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits);
         textAreaMainMsg("\n", "Disconnected from: " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits, "");
         buttonConnect.setText("Disconnected-click to connect " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits);
-        buttonConnect.setBackground(Color.RED);
+        buttonConnect.setBackground(buttonConnectRed);
       } else {
         systemPrintln("Disconnected from: " + selectedPort + "@" + selectedBaudRate);
         textAreaMainMsg("\n", "Disconnected from: " + selectedPort + "@" + selectedBaudRate, "");
         buttonConnect.setText("Disconnected-click to connect " + selectedPort + "@" + selectedBaudRate);
-        buttonConnect.setBackground(Color.RED);
+        buttonConnect.setBackground(buttonConnectRed);
       }
     }
     catch (Exception error) {
