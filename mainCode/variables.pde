@@ -92,6 +92,9 @@ String selectedFont = fontList[0]; //selected font for textAreaMain and textFiel
 
 StringList previousEnteredCommands = new StringList(); //previous command entered in textFieldMain
 
+Color bConnectRed = new Color(#EC4242); //red color for disconnected button
+Color bConnectGreen = new Color(#3DC73D); //green color for connected button
+
 PImage icon; //import software icon
 Font labelFont = new Font("Arial", Font.PLAIN, 12); //font for labels
 FileWriter Writer; //create object of FileWriter for data logging
