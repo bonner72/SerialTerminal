@@ -232,7 +232,7 @@ void drawTextFieldSearch() {
 void drawButtonConnect() {
   buttonConnect = new JButton();
   buttonConnect.setPreferredSize(new Dimension(width - 251, 25));
-  buttonConnect.setBackground(bConnectRed);
+  buttonConnect.setBackground(buttonConnectRed);
   buttonConnect.setFocusPainted(false);
   panelMain.add(buttonConnect);
 

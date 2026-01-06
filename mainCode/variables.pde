@@ -34,7 +34,6 @@ boolean mainUiInit, settingsUiInit, drawPortConfigInit, drawDataConfigInit, draw
 boolean commandFound = false; //true if entered command is a valid command
 boolean advancedOptions = false; //true if advanced serial port options are enabled
 
-
 String versionInfo = "SerialTerminal 2.2.0";
 String selectedPort = null;  // Name of selected COM port
 String[] baudRateList = {"2400", "4800", "9600", "38400", "57600", "115200", "250000", "500000", "1000000", "2000000"};
@@ -84,7 +83,7 @@ String validCommands[] = {//list of valid commands
   "-fontsize=12", //set font size to 12
   "-fontsize=14", //set font size to 14
   "-fontsize=16", //set font size to 16
-  "-fontsize=18"  //set font size to 18
+  "-fontsize=18" //set font size to 18
 }; //list of valid commands END
 
 String fontList[] = {"Courier", "Cascadia Code", "Lucida Console"}; //list of available fonts for textAreaMain and textFieldMain
@@ -92,8 +91,8 @@ String selectedFont = fontList[0]; //selected font for textAreaMain and textFiel
 
 StringList previousEnteredCommands = new StringList(); //previous command entered in textFieldMain
 
-Color bConnectRed = new Color(#EC4242); //red color for disconnected button
-Color bConnectGreen = new Color(#3DC73D); //green color for connected button
+Color buttonConnectRed = new Color(#EC4242); //red color for disconnected button
+Color buttonConnectGreen = new Color(#3DC73D); //green color for connected button
 
 PImage icon; //import software icon
 Font labelFont = new Font("Arial", Font.PLAIN, 12); //font for labels
@@ -123,7 +122,6 @@ JLabel labelPort; //settings window Port label
 JLabel labelBaudRate; //settings window Baud Rate label
 JLabel labelDataConfig; //settings window Data Configuration label
 JLabel labelLogConfig; //settings window Log Configuration label
-JLabel labelSearchTf; //settings window Search TextField label
 JLabel labelPortParity; //settings window Port Parity label
 JLabel labelPortDataBits; //settings window Port Data Bits label
 JLabel labelPortStopBits; //settings window Port Stop Bits label
