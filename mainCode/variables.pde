@@ -34,7 +34,7 @@ boolean mainUiInit, settingsUiInit, drawPortConfigInit, drawDataConfigInit, draw
 boolean commandFound = false; //true if entered command is a valid command
 boolean advancedOptions = false; //true if advanced serial port options are enabled
 
-String versionInfo = "SerialTerminal 2.2.0";
+String versionInfo = "SerialTerminal 2.3.0";
 String selectedPort = null;  // Name of selected COM port
 String[] baudRateList = {"2400", "4800", "9600", "38400", "57600", "115200", "250000", "500000", "1000000", "2000000"};
 String selectedBaudRate = baudRateList[2];
