@@ -5,7 +5,7 @@
 
 Windows10, Kubuntu25.04, Ubuntu24.04.2, LinuxMint 22.1 Cinnamon
 
-[Releases](https://github.com/bonner72/Serial-Terminal/releases)•[Arduino test code](https://github.com/bonner72/Serial-Terminal/blob/main/Arduino-Test-Code/Arduino-Test-Code/Arduino-Test-Code.ino)
+[Releases]https://github.com/bonner72/Serial-Terminal/releases)•[Arduino test code]https://github.com/bonner72/Serial-Terminal/blob/main/Arduino-Test-Code/Arduino-Test-Code/Arduino-Test-Code.ino)
 
 ## Screenshots
 
@@ -17,7 +17,7 @@ _Settings window_
 
 <img width="702" height="532" alt="13 01 2026_14 00 53_REC" src="https://github.com/user-attachments/assets/01cbde59-2021-499a-99f2-980b915008c5" /> <br/>
 
-_Settings window (advanced options enabled)_
+_Settings window advanced options enabled)_
 
 <img width="702" height="532" alt="13 01 2026_14 01 22_REC" src="https://github.com/user-attachments/assets/28c1a743-2391-4082-8a8a-fcce5fad2114" /> <br/>
 
@@ -27,10 +27,17 @@ _Text finder_
 
 ## Commands
 
--h *(prints all available commands)* <br/>
--v *(prints version info)* <br/>
--s *(prints connection status)* <br/>
--a *<true|false> toggles advanced serial port options* <br/>
-- -a=true *(enables advanced serial port options)* <br/>
-- -a=false *(disables advanced serial port options)* <br/>
+-h *prints all available commands* <br/>
+-v *prints version info* <br/>
+-s *prints connection status* <br/>
+-a *toggles advanced serial port options*
+- -a=true *enables advanced serial port options* <br/>
+- -a=false *disables advanced serial port options* <br/>
+-connect *connect to selected serial port* <br/>
+-disconnect *disconnect from connected serial port* <br/>          
+-clear *clear main text area* <br/>
+-lpause *pause data logging* <br/>
+-lresume *resume data logging* <br/>
+-settings *open settings window* <br/>
+-tstamp
 
