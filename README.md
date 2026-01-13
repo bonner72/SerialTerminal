@@ -31,4 +31,6 @@ _Text finder_
 -v *(prints version info)* <br/>
 -s *(prints connection status)* <br/>
 -a *<true|false> toggles advanced serial port options* <br/>
+- -a=true *(enables advanced serial port options)* <br/>
+- -a=false *(disables advanced serial port options)* <br/>
 
