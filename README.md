@@ -13,6 +13,8 @@ Main window.
 
 <img width="702" height="532" alt="13 01 2026_14 00 13_REC" src="https://github.com/user-attachments/assets/c76b0634-9b45-4459-bda1-be528cb2f5c6" />
 
+
+
 Settings window.
 
 <img width="702" height="532" alt="13 01 2026_14 00 53_REC" src="https://github.com/user-attachments/assets/01cbde59-2021-499a-99f2-980b915008c5" />
