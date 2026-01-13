@@ -12,8 +12,8 @@ public void processCommands() {
     textAreaMainMsg("", "-lresume : Resume data logging", "\n"); //resume data logging
     textAreaMainMsg("", "-settings : Open settings window", "\n"); //open settings window
     textAreaMainMsg("", "-tstamp=<true|false> : Enable/disable time stamp", "\n"); //toggle time stamp
-    textAreaMainMsg("", "-font=<fontNumber> : Set font for main text area and input field" + "\n" + "available font types:" + "\n \t" + "1. Courier(default)" + "\n \t" + "2. Cascadia Code" + "\n \t" + "3. Lucida Console", "\n"); //set font
-    textAreaMainMsg("", "-fontsize=<size> : Set font size for main text area and input field" + "\n" + "available font sizes:" + "\n \t" + "12" + "\n \t" + "14(Default)" + "\n \t" + "16" + "\n \t" + "18", "\n"); //set font size
+    textAreaMainMsg("", "-font=<fontNumber> : Set font for main text area and input field" + "\n" + "available font types:" + "\n \t" + "1. Courier" + "\n \t" + "2. Cascadia Code" + "\n \t" + "3. JetBrains Mono(default" + "\n \t" + "4. Liberation Mono", "\n"); //set font
+    textAreaMainMsg("", "-fontsize=<size> : Set font size for main text area and input field" + "\n" + "available font sizes:" + "\n \t" + "10" + "\n \t" + "12" + "\n \t" + "14(Default)" + "\n \t" + "16" + "\n \t" + "18", "\n"); //set font size
   } else if (enteredCommand.equals("-clear")) { //clear main text area
     textAreaMain.setText(""); //clear main text area
   } else if (enteredCommand.equals("-v")) { //display version info
@@ -87,8 +87,7 @@ public void processCommands() {
       if (fontIndex >= 0 && fontIndex < fontList.length) {
         selectedFont = fontList[fontIndex]; //set selected font
         setTableData(); //save selected font to preferences table
-        textAreaMain.setFont(new Font(selectedFont, Font.PLAIN, selectedFontSize)); //update main text area font
-        textFieldMain.setFont(new Font(selectedFont, Font.PLAIN, selectedFontSize)); //update main text field font
+        setFont(selectedFont, selectedFontSize); //apply selected font
         textAreaMainMsg("\n", "Set font to " + selectedFont + ".", "");
       } else {
         textAreaMainMsg("\n", "Invalid font number. Use -font=<fontNumber> where fontNumber is between 1 and " + fontList.length + ".", ""); //invalid font number message
@@ -100,11 +99,10 @@ public void processCommands() {
     if (enteredCommand.contains("=")) {
       String enteredCommandSplit = enteredCommand.split("=")[1];
       int fontSize = int(enteredCommandSplit);
-      if (fontSize == 12 || fontSize == 14 || fontSize == 16 || fontSize == 18) {
+      if (fontSize == 10 || fontSize == 12 || fontSize == 14 || fontSize == 16 || fontSize == 18) {
         selectedFontSize = fontSize; //set selected font size
         setTableData(); //save selected font size to preferences table
-        textAreaMain.setFont(new Font(selectedFont, Font.PLAIN, selectedFontSize)); //update main text area font size
-        textFieldMain.setFont(new Font(selectedFont, Font.PLAIN, selectedFontSize)); //update main text field font size
+        setFont(selectedFont, selectedFontSize); //apply selected font size
         textAreaMainMsg("\n", "Set font size to " + selectedFontSize + ".", "");
       } else {
         textAreaMainMsg("\n", "Invalid font size. Use -fontsize=<size> where size is 12, 14, 16, or 18.", ""); //invalid font size message

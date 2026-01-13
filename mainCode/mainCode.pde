@@ -12,6 +12,7 @@ import javax.swing.text.*;           //import swing text library
 import java.io.File;                 //import file library
 import java.io.FileWriter;           //import file writer library
 import java.util.Collections;        //import collections library
+import java.util.Scanner;            //import scanner library
 
 javax.swing.JFrame frame; //create instance of JFrame
 java.awt.Canvas canvas;   //create instance of Canvas
@@ -134,6 +135,33 @@ public void systemPrintln(String msg) {
   }
 }
 
+// set terminal text fonts
+public void setFont(String fontName, float fontSize) {
+  try {
+    // Path to your font file (TTF or OTF)
+    File fontFile = new File(dataPath("") + "\\" + fontName);
+    //println(fontFile.getAbsolutePath());
+    if (!fontFile.exists()) {
+      throw new IOException("Font file not found: " + fontFile.getAbsolutePath());
+    }
+
+    // Load the font
+    Font customFont = Font.createFont(Font.TRUETYPE_FONT, fontFile)
+      .deriveFont(Font.PLAIN, fontSize); // Set style and size
+
+    // Apply font to textAreaMain and textFieldMain
+    textAreaMain.setFont(customFont);
+    textFieldMain.setFont(customFont);
+    systemPrintln("setFont complete @ " + millis());
+  }
+  catch (FontFormatException e) {
+    System.err.println("Invalid font format: " + e.getMessage());
+  }
+  catch (IOException e) {
+    System.err.println("Error loading font: " + e.getMessage());
+  }
+}
+
 // Processing setup function
 public void setup() {
   icon = loadImage("icon.png");    //import software icon
@@ -190,8 +218,8 @@ public void setup() {
     }
   }
   );
-  loadTable();    //load preferences table
-  getTableData(); //get preferences table data
+
+
   //build main UI on event dispatch thread
   javax.swing.SwingUtilities.invokeLater(new Runnable() {
     public void run() {
@@ -204,15 +232,39 @@ public void setup() {
   while (mainUiInit == false) {
     delay(1);
   }
-
+  loadTable();    //load preferences table
+  getTableData(); //get preferences table data
   getOS();          //get operating system
   searchForPorts(); //search for available serial ports
   initSearch();     //initialize textAreaMain searching
   textAreaMainMsg("", " -------------------------------" + versionInfo +  "-------------------------------", "");
   textAreaMainMsg("\n", "Enter -h for help", "");
   systemPrintln("Startup complete" + " @ " + millis());
-}
+  //printArray(PFont.list());
 
+  // try {
+  //   // Path to your font file (TTF or OTF)
+  //   File fontFile = new File(dataPath("") + "\\" + "courier-prime.regular.ttf");
+
+  //   if (!fontFile.exists()) {
+  //     throw new IOException("Font file not found: " + fontFile.getAbsolutePath());
+  //   }
+
+  //   // Load the font
+  //   Font customFont = Font.createFont(Font.TRUETYPE_FONT, fontFile)
+  //     .deriveFont(Font.PLAIN, 14f); // Set style and size
+
+  //   // Apply font to JTextArea
+  //   textAreaMain.setFont(customFont);
+  // }
+  // catch (FontFormatException e) {
+  //   System.err.println("Invalid font format: " + e.getMessage());
+  // }
+  // catch (IOException e) {
+  //   System.err.println("Error loading font: " + e.getMessage());
+  // }
+ // setFont(selectedFont, selectedFontSize); //set terminal font
+}
 // Processing loop function
 public void draw() {
 }

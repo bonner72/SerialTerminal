@@ -1,5 +1,6 @@
 float selectedStopBits = 1.0; //serial port stop bits 1.0, 1.5, or 2.0 (1.0 is the default)
-
+float fontSizeFloat[] = {10f, 12f, 14f, 16f, 18f}; //font size as float for textAreaMain and textFieldMain
+float selectedFontSize = 14; //selected font size as float for textAreaMain and textFieldMain
 
 int lettersIndex = 0; //index for random file name letters
 
@@ -11,7 +12,6 @@ int comboBoxPortSelectedIndex = 0;
 int tmr1_lastMillis = 0; //tmr1 last millis reading
 int prevCommandsLimit = 10; //limit of previous entered commands stored
 int prevCommandsIndex = 0; //count of up key presses for previous command retrieval
-int selectedFontSize = 14; //font size for textAreaMain and textFieldMain
 
 char selectedParity = 'N'; //serial port parity 'N' for none, 'E' for even, 'O' for odd, 'M' for mark, 'S' for space ('N' is the default)
 
@@ -28,7 +28,7 @@ boolean portsFound = false;
 boolean textAreaMainMsgIsRunning = false;
 boolean textFieldSearchHasText = false; //if textFieldSearch has text other than prompt text
 boolean serialPortRemoved = false; //if serial port was removed while connected
-boolean showDebugStatements = true; //if true show debug statements in console
+boolean showDebugStatements = false; //if true show debug statements in console
 
 boolean mainUiInit, settingsUiInit, drawPortConfigInit, drawDataConfigInit, drawLogConfigInit = false; //if UI has been initialized
 boolean commandFound = false; //true if entered command is a valid command
@@ -78,15 +78,17 @@ String validCommands[] = {//list of valid commands
   "-font", //set font
   "-font=1", //set font to Courier
   "-font=2", //set font to Cascadia Code
-  "-font=3", //set font to Lucida Console
+  "-font=3", //set font to JetBrains Mono (default)
+  "-font=4", //set font to Liberation Mono
   "-fontsize", //set font size
+  "-fontsize=10", //set font size to 10
   "-fontsize=12", //set font size to 12
   "-fontsize=14", //set font size to 14
   "-fontsize=16", //set font size to 16
   "-fontsize=18" //set font size to 18
 }; //list of valid commands END
 
-String fontList[] = {"Courier", "Cascadia Code", "Lucida Console"}; //list of available fonts for textAreaMain and textFieldMain
+String fontList[] = {"courier-prime.regular.ttf", "cascadia.code.ttf", "jetbrains-mono.regular.ttf", "liberation-mono.regular.ttf"}; //list of available fonts for textAreaMain and textFieldMain
 String selectedFont = fontList[0]; //selected font for textAreaMain and textFieldMain
 
 StringList previousEnteredCommands = new StringList(); //previous command entered in textFieldMain
@@ -95,7 +97,9 @@ Color buttonConnectRed = new Color(#EC4242); //red color for disconnected button
 Color buttonConnectGreen = new Color(#3DC73D); //green color for connected button
 
 PImage icon; //import software icon
+
 Font labelFont = new Font("Arial", Font.PLAIN, 12); //font for labels
+Font terminalFont;
 FileWriter Writer; //create object of FileWriter for data logging
 int intBaudRate = int(selectedBaudRate); //integer value of selectedBaudRate for Serial constructor
 processing.serial.Serial COMPort = null; //create object of Serial class
