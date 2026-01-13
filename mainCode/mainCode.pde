@@ -139,7 +139,7 @@ public void systemPrintln(String msg) {
 public void setFont(String fontName, float fontSize) {
   try {
     // Path to your font file (TTF or OTF)
-    File fontFile = new File(dataPath("") + "\\" + fontName);
+    File fontFile = new File(dataPath("") + OsDirChar + fontName);
     //println(fontFile.getAbsolutePath());
     if (!fontFile.exists()) {
       throw new IOException("Font file not found: " + fontFile.getAbsolutePath());
@@ -263,7 +263,7 @@ public void setup() {
   // catch (IOException e) {
   //   System.err.println("Error loading font: " + e.getMessage());
   // }
- // setFont(selectedFont, selectedFontSize); //set terminal font
+  // setFont(selectedFont, selectedFontSize); //set terminal font
 }
 // Processing loop function
 public void draw() {
@@ -273,3 +273,4 @@ public void draw() {
 public void settings() {
   size(wndMinW, wndMinH);
 }
+
