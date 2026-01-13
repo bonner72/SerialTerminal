@@ -32,7 +32,7 @@ _Text finder_
 -s *(prints connection status)* <br/>
 -a *(toggles advanced serial port options)*
 * -a=true *(enables advanced serial port options)* <br/>
-* -a=false *(disables advanced serial port options)* <br/>
+* -a=false *(disables advanced serial port options)*
 
 -connect *(connect to selected serial port)* <br/>
 -disconnect *(disconnect from connected serial port)* <br/>          
