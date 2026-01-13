@@ -25,7 +25,7 @@ _Text finder_
 
 <img width="702" height="532" alt="13 01 2026_14 01 52_REC" src="https://github.com/user-attachments/assets/985790a1-68a8-46c5-8ae1-2302a463170b" /> <br/>
 
-##Commands.
+## Commands.
 
 -h *(prints all available commands)*<br/>
 - -v *(prints version info)*
