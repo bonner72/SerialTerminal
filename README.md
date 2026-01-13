@@ -28,5 +28,7 @@ _Text finder_
 ## Commands
 
 -h *(prints all available commands)*
-- -v *(prints version info)*
+-v *(prints version info)*
+-s *(prints connection status)*
+-a *<true|false> toggles advanced serial port options*
 
