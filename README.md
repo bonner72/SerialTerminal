@@ -15,17 +15,18 @@ _Main window_
 
 _Settings window_
 
-<img width="702" height="532" alt="13 01 2026_14 00 53_REC" src="https://github.com/user-attachments/assets/01cbde59-2021-499a-99f2-980b915008c5" />
+<img width="702" height="532" alt="13 01 2026_14 00 53_REC" src="https://github.com/user-attachments/assets/01cbde59-2021-499a-99f2-980b915008c5" /> <br/>
 
 _Settings window (advanced options enabled)_
 
-<img width="702" height="532" alt="13 01 2026_14 01 22_REC" src="https://github.com/user-attachments/assets/28c1a743-2391-4082-8a8a-fcce5fad2114" />
+<img width="702" height="532" alt="13 01 2026_14 01 22_REC" src="https://github.com/user-attachments/assets/28c1a743-2391-4082-8a8a-fcce5fad2114" /> <br/>
 
 _Text finder_
 
-<img width="702" height="532" alt="13 01 2026_14 01 52_REC" src="https://github.com/user-attachments/assets/985790a1-68a8-46c5-8ae1-2302a463170b" />
+<img width="702" height="532" alt="13 01 2026_14 01 52_REC" src="https://github.com/user-attachments/assets/985790a1-68a8-46c5-8ae1-2302a463170b" /> <br/>
 
 ##Commands.
 
--h (lists all available commands)
+-h *(prints all available commands)*<br/>
+- -v *(prints version info)*
 
