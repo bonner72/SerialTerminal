@@ -11,8 +11,7 @@ Windows10, Kubuntu25.04, Ubuntu24.04.2, LinuxMint 22.1 Cinnamon
 
 Main window.
 
-<img width="702" height="532" alt="13 01 2026_14 00 13_REC" src="https://github.com/user-attachments/assets/c76b0634-9b45-4459-bda1-be528cb2f5c6" />
-\
+<img width="702" height="532" alt="13 01 2026_14 00 13_REC" src="https://github.com/user-attachments/assets/c76b0634-9b45-4459-bda1-be528cb2f5c6" /> /
 
 Settings window.
 
