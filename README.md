@@ -38,9 +38,14 @@ _Text finder_
 * -a=false *(disables advanced serial port options)*
   
 -connect *(connect to selected serial port)* <br/>
--disconnect *(disconnect from connected serial port)* <br/>          
+
+-disconnect *(disconnect from connected serial port)* <br/>  
+
 -clear *(clear main text area)* <br/>
+
 -lpause *(pause data logging)* <br/>
+
 -lresume *(resume data logging)* <br/>
+
 -settings *(open settings window)* <br/>
 
