@@ -1,7 +1,7 @@
 
 <img width="100" height="100" alt="icon" src="https://github.com/user-attachments/assets/2b929eea-9743-4355-8a82-663f248ab463" />
 
-### A simple Serial Terminal 
+### A basic Serial Terminal 
 
 Windows10, Kubuntu25.04, Ubuntu24.04.2, LinuxMint 22.1 Cinnamon
 
