@@ -27,17 +27,17 @@ _Text finder_
 
 ## Commands
 
--h *prints all available commands* <br/>
--v *prints version info* <br/>
--s *prints connection status* <br/>
--a *toggles advanced serial port options*
-- -a=true *enables advanced serial port options* <br/>
-- -a=false *disables advanced serial port options* <br/>
--connect *connect to selected serial port* <br/>
--disconnect *disconnect from connected serial port* <br/>          
--clear *clear main text area* <br/>
--lpause *pause data logging* <br/>
--lresume *resume data logging* <br/>
--settings *open settings window* <br/>
+-h *(prints all available commands)* <br/>
+-v *(prints version info)* <br/>
+-s *(prints connection status)* <br/>
+-a *(toggles advanced serial port options)*
+  -a=true *(enables advanced serial port options)* <br/>
+  -a=false *(disables advanced serial port options)* <br/>
+-connect *(connect to selected serial port)* <br/>
+-disconnect *(disconnect from connected serial port)* <br/>          
+-clear *(clear main text area)* <br/>
+-lpause *(pause data logging)* <br/>
+-lresume *(resume data logging)* <br/>
+-settings *(open settings window)* <br/>
 -tstamp
 
