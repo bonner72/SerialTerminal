@@ -49,3 +49,20 @@ _Text finder_
 
 -settings *(open settings window)* <br/>
 
+-tstamp *(toggles time stamp in main text area and log file)*
+* -tstamp=true *(enables time stamp in main text area and log file)* <br/>
+* -tstamp=false *(disables time stamp in main text area and log file)*
+
+-font *(select custom font for main text area and text field)*
+* -font=1 *(Courier)* <br/>
+* -font=2 *(Cascadia Code)* <br/>
+* -font=3 *(JetBrains Mono)(default)* <br/>
+* -font=4 *(Liberation Mono)
+  
+-fontsize *(set font size for main text area and main text field)*
+* -fontsize=10 *(set font size to 10)* <br/>
+* -fontsize=12 *(set font size to 12)* <br/>
+* -fontsize=14 *(set font size to 14)* <br/>
+* -fontsize=16 *(set font size to 16)* <br/>
+* -fontsize=18 *(set font size to 18)*
+
