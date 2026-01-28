@@ -169,6 +169,7 @@ public void setup() {
   frame = (javax.swing.JFrame) ((processing.awt.PSurfaceAWT.SmoothCanvas) surface.getNative()).getFrame();
   canvas = (processing.awt.PSurfaceAWT.SmoothCanvas) ((processing.awt.PSurfaceAWT)surface).getNative();
   frame.setLocation(displayWidth/2 - wndMinW/2, displayHeight/2 - wndMinH/2);
+  frame.setSize(wndMinW, wndMinH);
   frame.remove(canvas);
   frame.setMinimumSize(new Dimension(wndMinW, wndMinH));
   frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -237,34 +238,20 @@ public void setup() {
   getTableData(); //get preferences table data
   searchForPorts(); //search for available serial ports
   initSearch();     //initialize textAreaMain searching
-  textAreaMainMsg("", " -------------------------------" + versionInfo +  "-------------------------------", "");
-  textAreaMainMsg("\n", "Enter -h for help", "");
+  //set startup message length based on selected font size
+  if (selectedFontSize == 12) {
+    textAreaMainMsg("", " -------------------------------------" + versionInfo +  "-------------------------------------", "");
+  } else   if (selectedFontSize == 14) {
+    textAreaMainMsg("", " -------------------------------" + versionInfo +  "-------------------------------", "");
+  } else   if (selectedFontSize == 16) {
+    textAreaMainMsg("", " -----------------------" + versionInfo +  "----------------------", "");
+  } else   if (selectedFontSize == 18) {
+    textAreaMainMsg("", " -------------------" + versionInfo +  "--------------------", "");
+  }
+  textAreaMainMsg("\n", "Enter -h for help", ""); //print help message
   systemPrintln("Startup complete" + " @ " + millis());
-  //printArray(PFont.list());
+} // END setup
 
-  // try {
-  //   // Path to your font file (TTF or OTF)
-  //   File fontFile = new File(dataPath("") + "\\" + "courier-prime.regular.ttf");
-
-  //   if (!fontFile.exists()) {
-  //     throw new IOException("Font file not found: " + fontFile.getAbsolutePath());
-  //   }
-
-  //   // Load the font
-  //   Font customFont = Font.createFont(Font.TRUETYPE_FONT, fontFile)
-  //     .deriveFont(Font.PLAIN, 14f); // Set style and size
-
-  //   // Apply font to JTextArea
-  //   textAreaMain.setFont(customFont);
-  // }
-  // catch (FontFormatException e) {
-  //   System.err.println("Invalid font format: " + e.getMessage());
-  // }
-  // catch (IOException e) {
-  //   System.err.println("Error loading font: " + e.getMessage());
-  // }
-  // setFont(selectedFont, selectedFontSize); //set terminal font
-}
 // Processing loop function
 public void draw() {
 }
