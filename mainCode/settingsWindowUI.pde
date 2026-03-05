@@ -439,6 +439,7 @@ void drawLogConfig() {
     //action performed event handler
     public void actionPerformed(ActionEvent actionEvent) {
       if (loggingData == false) {
+        dataLogPause = false;
         initLogFile();
       }
       systemPrintln("buttonStartLog clicked" + " @ " + millis());
@@ -461,7 +462,7 @@ void drawLogConfig() {
     //action performed event handler
     public void actionPerformed(ActionEvent actionEvent) {
       try {
-        if (loggingData) {
+        if (loggingData || dataLogPause) {
           Writer.flush();
           Writer.close();
           Writer = null;
