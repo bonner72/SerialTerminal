@@ -471,7 +471,7 @@ void drawLogConfig() {
           loggingData = false;
         }
       }
-      catch (IOException e) {
+      catch (Exception e) {
         textAreaMainMsg("\n", "Failed to stop logging data. " + e, "");
       }
       systemPrintln("buttonStopLog clicked" + " @ " + millis());
