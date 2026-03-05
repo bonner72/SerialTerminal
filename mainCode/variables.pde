@@ -15,6 +15,7 @@ int prevCommandsIndex = 0; //count of up key presses for previous command retrie
 
 char selectedParity = 'N'; //serial port parity 'N' for none, 'E' for even, 'O' for odd, 'M' for mark, 'S' for space ('N' is the default)
 
+boolean showDebugStatements = true; //if true show debug statements in console
 boolean connectToCOM = false;          //if connecting to com port
 boolean connectedToCOM = false;        //if connected to com port
 boolean loggingData = false ;          //if logging succeeded
@@ -28,7 +29,7 @@ boolean portsFound = false;
 boolean textAreaMainMsgIsRunning = false;
 boolean textFieldSearchHasText = false; //if textFieldSearch has text other than prompt text
 boolean serialPortRemoved = false; //if serial port was removed while connected
-boolean showDebugStatements = false; //if true show debug statements in console
+boolean logFileExists = false; //if log file already exists when creating log file
 
 boolean mainUiInit, settingsUiInit, drawPortConfigInit, drawDataConfigInit, drawLogConfigInit = false; //if UI has been initialized
 boolean commandFound = false; //true if entered command is a valid command

@@ -4,15 +4,18 @@ public void initLogFile() {
   textFieldFileDirInput = textFieldFileDir.getText() + OsDirChar;
   fileDirectory = textFieldFileDirInput + fileNameInput + ".log";
   fileDirectoryReplaced = fileDirectory.replace("\\", "/");
+
   try {
     File logFile = new File(fileDirectoryReplaced);
     // Creating File
     if (logFile.createNewFile()) {
+      logFileExists = false;
       textAreaMainMsg("\n", "File created: " + textFieldFileDirInput + logFile.getName(), "");
       systemPrintln("File created: " + textFieldFileDirInput + logFile.getName());
-    } else {
-      textAreaMainMsg("\n", "File already exists. ", "");
-      systemPrintln("File already exists.");
+    } else if (logFile.exists()) {
+      logFileExists = true;
+      textAreaMainMsg("\n", "File already exists: " + textFieldFileDirInput + logFile.getName(), "");
+      systemPrintln("File already exists: " + textFieldFileDirInput + logFile.getName());
     }
   }
   catch (IOException e) {
@@ -22,8 +25,7 @@ public void initLogFile() {
   }
 
   try {
-    //create file writer
-    Writer = new FileWriter(fileDirectoryReplaced);
+    Writer = new FileWriter(fileDirectoryReplaced, true);
     initLogFileOk = true;
     logData = true;
     textAreaMainMsg("\n", "Logging data to. " + fileDirectory, "");
@@ -38,7 +40,8 @@ public void initLogFile() {
 public void writeToFile(String data) {
   if (logData == true && dataLogPause == false) {
     try {
-      Writer.write(data);
+      Writer.append(data);
+      //Writer.write(data);
       Writer.flush();
       loggingData = true;
     }
@@ -47,3 +50,4 @@ public void writeToFile(String data) {
     }
   }
 }
+
