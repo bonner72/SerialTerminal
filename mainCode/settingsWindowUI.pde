@@ -1,4 +1,11 @@
 //draw main ui for settings window
+/*
+ TODO: Change settings window to a JDialog
+ TODO: Set settings window Undecorated
+ TODO: Add custom title bar to settings window with Icon and "Settings" title
+ TODO: Add mouse listener to settings window to make it draggable
+ ? Set settings window to always be on top of main window
+ */
 void settingsUI() {
   frameSettings = new JFrame("Settings");
   frameSettings.setSize(500, 300);
@@ -489,3 +496,4 @@ void drawLogConfig() {
 
   // end of drawLogConfig
 }
+
