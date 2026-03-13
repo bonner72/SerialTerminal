@@ -1,4 +1,6 @@
 import processing.serial.*;          //import serial library
+import com.formdev.flatlaf.FlatLightLaf; //import flatlaf light theme
+import com.formdev.flatlaf.FlatDarkLaf;  //import flatlaf dark theme
 import java.awt.*;                   //import awt library
 import java.awt.Font;                //import awt font library
 import java.awt.event.*;             //import awt event library
@@ -162,8 +164,28 @@ public void setFont(String fontName, float fontSize) {
   }
 }
 
+// set software theme
+public void setTheme(String theme) {
+  try {
+    if (theme.equals("light")) {
+      UIManager.setLookAndFeel(new FlatLightLaf());
+      systemPrintln("setTheme complete @ " + millis());
+    } else if (theme.equals("dark")) {
+      UIManager.setLookAndFeel(new FlatDarkLaf());
+      systemPrintln("setTheme complete @ " + millis());
+    } else {
+      systemPrintln("Theme not recognized, defaulting to light theme @ " + millis());
+      UIManager.setLookAndFeel(new FlatLightLaf());
+    }
+  }
+  catch (UnsupportedLookAndFeelException e) {
+    systemPrintln("Error setting theme: " + e.getMessage());
+  }
+}
+
 // Processing setup function
 public void setup() {
+  setTheme("light"); //set software theme
   icon = loadImage("icon.png");    //import software icon
   bufferedIcon = convertToBufferedImage(icon); //convert PImage to BufferedImage for use as JFrame icon
   frame = (javax.swing.JFrame) ((processing.awt.PSurfaceAWT.SmoothCanvas) surface.getNative()).getFrame();
