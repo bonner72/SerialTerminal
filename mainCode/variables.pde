@@ -30,6 +30,7 @@ boolean textAreaMainMsgIsRunning = false;
 boolean textFieldSearchHasText = false; //if textFieldSearch has text other than prompt text
 boolean serialPortRemoved = false; //if serial port was removed while connected
 boolean logFileExists = false; //if log file already exists when creating log file
+boolean tStampIsChecked = false; //if timestamp checkbox is checked in settings
 
 boolean mainUiInit, settingsUiInit, drawPortConfigInit, drawDataConfigInit, drawLogConfigInit = false; //if UI has been initialized
 boolean commandFound = false; //true if entered command is a valid command

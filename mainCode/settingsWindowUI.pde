@@ -1,18 +1,11 @@
 //draw main ui for settings window
 /*
- ? Set settings window Undecorated
- TODO: Add custom title bar to settings window with Icon and "Settings" title
- TODO: Add mouse listener to settings window to make it draggable
- ? Set settings window to always be on top of main window
+ //? Set settings window Undecorated
+ //TODO: Add custom title bar to settings window with Icon and "Settings" title
+ //TODO: Add mouse listener to settings window to make it draggable
+ //? Set settings window to always be on top of main window
  */
 void settingsUI() {
-  // frameSettings = new JFrame("Settings");
-  // frameSettings.setSize(500, 300);
-  // frameSettings.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-  // frameSettings.setResizable(false);
-  // frameSettings.setIconImage(bufferedIcon);
-  // frameSettings.setLocationRelativeTo(frame);
-
   panelMainSettings = new JDialog(frame, "Settings");
   panelMainSettings.setSize(500, 350);
   panelMainSettings.setResizable(false);
@@ -20,7 +13,7 @@ void settingsUI() {
   panelMainSettings.setLocationRelativeTo(frame);
   panelMainSettings.getContentPane().setBackground(Color.WHITE);
   panelMainSettings.setLayout(layoutSettings);
-  panelMainSettings.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+  panelMainSettings.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
   //add components here
   drawPortConfig(); //draw port config section ui
   drawDataConfig(); //draw data config section ui
@@ -29,7 +22,7 @@ void settingsUI() {
   //frameSettings.add(panelMainSettings);
 
   //check if settings UI initialized successfully
-  if (/*frameSettings != null &&*/ panelMainSettings != null && drawPortConfigInit == true && drawDataConfigInit == true && drawLogConfigInit == true) {
+  if (panelMainSettings != null && drawPortConfigInit == true && drawDataConfigInit == true && drawLogConfigInit == true) {
     systemPrintln("EDT settingsUI = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
     settingsUiInit = true;
     //frameSettings.setVisible(true); //make settings window visible
@@ -232,11 +225,9 @@ void drawDataConfig() {
     //action performed event handler
     public void actionPerformed(ActionEvent actionEvent) {
       if (checkBoxTimeStamp.isSelected() == true) {
-        showTimeStamp = true;
-        textAreaMainMsg("\n", "Enabled time stamp.", "");
+        tStampIsChecked = true;
       } else {
-        textAreaMainMsg("\n", "Disabled time stamp.", "");
-        showTimeStamp = false;
+        tStampIsChecked = false;
       }
       systemPrintln("checkBoxTimeStamp clicked" + " @ " + millis());
     }
@@ -483,6 +474,8 @@ public void drawOkCancelButtons() {
       } else {
         panelMainSettings.setVisible(false);
       }
+
+
       systemPrintln("buttonOk clicked" + " @ " + millis());
     }
   }
@@ -508,4 +501,3 @@ public void drawOkCancelButtons() {
   }
   );
 }
-
