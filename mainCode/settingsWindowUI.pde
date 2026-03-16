@@ -1,32 +1,39 @@
 //draw main ui for settings window
 /*
- TODO: Change settings window to a JDialog
- TODO: Set settings window Undecorated
+ ? Set settings window Undecorated
  TODO: Add custom title bar to settings window with Icon and "Settings" title
  TODO: Add mouse listener to settings window to make it draggable
  ? Set settings window to always be on top of main window
  */
 void settingsUI() {
-  frameSettings = new JFrame("Settings");
-  frameSettings.setSize(500, 300);
-  frameSettings.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-  frameSettings.setResizable(false);
-  frameSettings.setIconImage(bufferedIcon);
-  panelMainSettings = new JPanel();
-  panelMainSettings.setBackground(Color.white);
+  // frameSettings = new JFrame("Settings");
+  // frameSettings.setSize(500, 300);
+  // frameSettings.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+  // frameSettings.setResizable(false);
+  // frameSettings.setIconImage(bufferedIcon);
+  // frameSettings.setLocationRelativeTo(frame);
+
+  panelMainSettings = new JDialog(frame, "Settings");
+  panelMainSettings.setSize(500, 350);
+  panelMainSettings.setResizable(false);
+  panelMainSettings.setIconImage(bufferedIcon);
+  panelMainSettings.setLocationRelativeTo(frame);
+  panelMainSettings.getContentPane().setBackground(Color.WHITE);
   panelMainSettings.setLayout(layoutSettings);
+  panelMainSettings.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
   //add components here
   drawPortConfig(); //draw port config section ui
   drawDataConfig(); //draw data config section ui
   drawLogConfig();  //draw data logging section ui
-  frameSettings.add(panelMainSettings);
-  frameSettings.setLocationRelativeTo(null);
+  drawOkCancelButtons(); //draw ok and cancel buttons
+  //frameSettings.add(panelMainSettings);
 
   //check if settings UI initialized successfully
-  if (frameSettings != null && panelMainSettings != null && drawPortConfigInit == true && drawDataConfigInit == true && drawLogConfigInit == true) {
+  if (/*frameSettings != null &&*/ panelMainSettings != null && drawPortConfigInit == true && drawDataConfigInit == true && drawLogConfigInit == true) {
     systemPrintln("EDT settingsUI = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
     settingsUiInit = true;
-    frameSettings.setVisible(true); //make settings window visible
+    //frameSettings.setVisible(true); //make settings window visible
+    panelMainSettings.setVisible(true);
   } else {
     settingsUiInit = false;
   }
@@ -186,84 +193,10 @@ void drawPortConfig() {
   }
   );
 
-  //draw ok button
-  buttonOk = new JButton("OK");
-  buttonOk.setPreferredSize(new Dimension(60, 20));
-  buttonOk.setMargin(new Insets(0, 0, 0, 0));
-  buttonOk.setFocusPainted(false);
-  layoutSettings.putConstraint(SpringLayout.EAST, buttonOk, -10, SpringLayout.EAST, panelMainSettings);
-  layoutSettings.putConstraint(SpringLayout.SOUTH, buttonOk, -10, SpringLayout.SOUTH, panelMainSettings);
-  panelMainSettings.add(buttonOk);
 
-  //add action listener to buttonOk
-  buttonOk.addActionListener(new ActionListener() {
-
-    //action performed event handler
-    public void actionPerformed(ActionEvent actionEvent) {
-      if (connectedToCOM == false && portsFound == true) {
-        selectedPort = comboBoxPort.getSelectedItem().toString();
-        selectedBaudRate = comboBoxBaudRate.getSelectedItem().toString();
-
-        switch (comboBoxPortParity.getSelectedItem().toString()) {
-        case "None":
-          selectedParity = 'N';
-          break;
-        case "Even":
-          selectedParity = 'E';
-          break;
-        case "Odd":
-          selectedParity = 'O';
-          break;
-        case "Mark":
-          selectedParity = 'M';
-          break;
-        case "Space":
-          selectedParity = 'S';
-          break;
-        default:
-          selectedParity = 'N';
-          break;
-        }
-
-        selectedDataBits = int(comboBoxPortDataBits.getSelectedItem().toString());
-        selectedStopBits = float(comboBoxPortStopBits.getSelectedItem().toString());
-        comboBoxPortSelectedIndex = comboBoxPort.getSelectedIndex();
-        if (advancedOptions == true) {
-          buttonConnect.setText("Disconnected-click to connect " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits);
-        } else {
-          buttonConnect.setText("Disconnected-click to connect " + selectedPort + "@" + selectedBaudRate);
-        }
-        frameSettings.setVisible(false);
-      } else {
-        frameSettings.setVisible(false);
-      }
-      systemPrintln("buttonOk clicked" + " @ " + millis());
-    }
-  }
-  );
-
-  //draw ok button
-  buttonCancel = new JButton("CANCEL");
-  buttonCancel.setPreferredSize(new Dimension(60, 20));
-  buttonCancel.setMargin(new Insets(0, 0, 0, 0));
-  buttonCancel.setFocusPainted(false);
-  layoutSettings.putConstraint(SpringLayout.EAST, buttonCancel, -65, SpringLayout.EAST, buttonOk);
-  layoutSettings.putConstraint(SpringLayout.SOUTH, buttonCancel, -10, SpringLayout.SOUTH, panelMainSettings);
-  panelMainSettings.add(buttonCancel);
-
-  //add action listener to buttonCancel
-  buttonCancel.addActionListener(new ActionListener() {
-
-    //action performed event handler
-    public void actionPerformed(ActionEvent actionEvent) {
-      frameSettings.setVisible(false);
-      systemPrintln("buttonCancel clicked" + " @ " + millis());
-    }
-  }
-  );
 
   //check if all components initialized successfully
-  if (labelPortConfig != null && labelPort != null && labelBaudRate != null && labelPortParity != null && labelPortDataBits != null && labelPortStopBits != null && comboBoxPort != null && comboBoxBaudRate != null && comboBoxPortParity != null && comboBoxPortDataBits != null && comboBoxPortStopBits != null && buttonOk != null && buttonCancel != null) {
+  if (labelPortConfig != null && labelPort != null && labelBaudRate != null && labelPortParity != null && labelPortDataBits != null && labelPortStopBits != null && comboBoxPort != null && comboBoxBaudRate != null && comboBoxPortParity != null && comboBoxPortDataBits != null && comboBoxPortStopBits != null) {
     drawPortConfigInit = true;
     systemPrintln("EDT drawPortConfig = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
   } else {
@@ -495,5 +428,84 @@ void drawLogConfig() {
   }
 
   // end of drawLogConfig
+}
+
+//draw close open buttons
+public void drawOkCancelButtons() {
+  //draw ok button
+  buttonOk = new JButton("OK");
+  buttonOk.setPreferredSize(new Dimension(60, 20));
+  buttonOk.setMargin(new Insets(0, 0, 0, 0));
+  buttonOk.setFocusPainted(false);
+  layoutSettings.putConstraint(SpringLayout.WEST, buttonOk, 399, SpringLayout.EAST, panelMainSettings);
+  layoutSettings.putConstraint(SpringLayout.SOUTH, buttonOk, 262, SpringLayout.SOUTH, panelMainSettings);
+  panelMainSettings.add(buttonOk);
+
+  //add action listener to buttonOk
+  buttonOk.addActionListener(new ActionListener() {
+
+    //action performed event handler
+    public void actionPerformed(ActionEvent actionEvent) {
+      if (connectedToCOM == false && portsFound == true) {
+        selectedPort = comboBoxPort.getSelectedItem().toString();
+        selectedBaudRate = comboBoxBaudRate.getSelectedItem().toString();
+
+        switch (comboBoxPortParity.getSelectedItem().toString()) {
+        case "None":
+          selectedParity = 'N';
+          break;
+        case "Even":
+          selectedParity = 'E';
+          break;
+        case "Odd":
+          selectedParity = 'O';
+          break;
+        case "Mark":
+          selectedParity = 'M';
+          break;
+        case "Space":
+          selectedParity = 'S';
+          break;
+        default:
+          selectedParity = 'N';
+          break;
+        }
+
+        selectedDataBits = int(comboBoxPortDataBits.getSelectedItem().toString());
+        selectedStopBits = float(comboBoxPortStopBits.getSelectedItem().toString());
+        comboBoxPortSelectedIndex = comboBoxPort.getSelectedIndex();
+        if (advancedOptions == true) {
+          buttonConnect.setText("Disconnected-click to connect " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits);
+        } else {
+          buttonConnect.setText("Disconnected-click to connect " + selectedPort + "@" + selectedBaudRate);
+        }
+        panelMainSettings.setVisible(false);
+      } else {
+        panelMainSettings.setVisible(false);
+      }
+      systemPrintln("buttonOk clicked" + " @ " + millis());
+    }
+  }
+  );
+
+  //draw cancel button
+  buttonCancel = new JButton("CANCEL");
+  buttonCancel.setPreferredSize(new Dimension(60, 20));
+  buttonCancel.setMargin(new Insets(0, 0, 0, 0));
+  buttonCancel.setFocusPainted(false);
+  layoutSettings.putConstraint(SpringLayout.EAST, buttonCancel, -10, SpringLayout.WEST, buttonOk);
+  layoutSettings.putConstraint(SpringLayout.SOUTH, buttonCancel, 262, SpringLayout.SOUTH, panelMainSettings);
+  panelMainSettings.add(buttonCancel);
+
+  //add action listener to buttonCancel
+  buttonCancel.addActionListener(new ActionListener() {
+
+    //action performed event handler
+    public void actionPerformed(ActionEvent actionEvent) {
+      panelMainSettings.setVisible(false);
+      systemPrintln("buttonCancel clicked" + " @ " + millis());
+    }
+  }
+  );
 }
 

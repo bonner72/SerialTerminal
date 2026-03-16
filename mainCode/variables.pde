@@ -130,7 +130,7 @@ JLabel labelLogConfig; //settings window Log Configuration label
 JLabel labelPortParity; //settings window Port Parity label
 JLabel labelPortDataBits; //settings window Port Data Bits label
 JLabel labelPortStopBits; //settings window Port Stop Bits label
-JPanel panelMainSettings; //settings window main panel
+JDialog panelMainSettings; //settings window main panel
 JComboBox comboBoxPort; //settings window Port combo box
 JComboBox comboBoxBaudRate; //settings window Baud Rate combo box
 JComboBox comboBoxPortParity; //settings window Port Parity combo box
