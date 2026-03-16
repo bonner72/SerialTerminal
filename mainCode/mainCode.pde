@@ -188,8 +188,10 @@ public void setTheme(String theme) {
 // Processing setup function
 public void setup() {
   setTheme("light"); //set software theme
-  icon = loadImage("icon.png");    //import software icon
-  bufferedIcon = convertToBufferedImage(icon); //convert PImage to BufferedImage for use as JFrame icon
+  iconMain = loadImage("icon.png");    //import software icon
+  iconRefresh = loadImage("refresh.png"); //import refresh button icon
+  bufferedIconMain = convertToBufferedImage(iconMain); //convert PImage to BufferedImage for use as JFrame icon
+  bufferedIconRefresh = convertToBufferedImage(iconRefresh); //convert PImage to BufferedImage for use as refresh button icon
   frame = (javax.swing.JFrame) ((processing.awt.PSurfaceAWT.SmoothCanvas) surface.getNative()).getFrame();
   canvas = (processing.awt.PSurfaceAWT.SmoothCanvas) ((processing.awt.PSurfaceAWT)surface).getNative();
   frame.setLocation(displayWidth/2 - wndMinW/2, displayHeight/2 - wndMinH/2);
@@ -197,7 +199,7 @@ public void setup() {
   frame.remove(canvas);
   frame.setMinimumSize(new Dimension(wndMinW, wndMinH));
   frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-  frame.setIconImage(bufferedIcon); //set custom icon
+  frame.setIconImage(bufferedIconMain); //set custom icon
   frame.setTitle(versionInfo); //set frame title
   frame.setResizable(true); //allow frame resizing
   frame.setVisible(true); //make frame visible

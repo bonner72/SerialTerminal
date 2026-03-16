@@ -41,7 +41,6 @@ String selectedPort = null;  // Name of selected COM port
 String[] baudRateList = {"2400", "4800", "9600", "38400", "57600", "115200", "250000", "500000", "1000000", "2000000"};
 String selectedBaudRate = baudRateList[2];
 String[] availableCOMs;  // List of available COM ports
-String oldFirstPort;
 String serialInputData = "0";
 String textFieldFileDirInput;          //Input from fileDirectoryTextField
 String fileNameInput;           //Input from fileNameTextField
@@ -98,7 +97,8 @@ StringList previousEnteredCommands = new StringList(); //previous command entere
 Color buttonConnectRed = new Color(#EC4242); //red color for disconnected button
 Color buttonConnectGreen = new Color(#3DC73D); //green color for connected button
 
-PImage icon; //import software icon
+PImage iconMain; //software icon
+PImage iconRefresh; //serial port refresh button icon
 
 Font labelFont = new Font("Arial", Font.PLAIN, 12); //font for labels
 Font terminalFont;
@@ -122,7 +122,6 @@ Highlighter hilit;  //highlighter for textAreaMain search function
 Highlighter.HighlightPainter painter;   //painter for textAreaMain search function
 
 //Controls for settings window
-JFrame frameSettings; //settings window frame
 JLabel labelPortConfig; //settings window Port Configuration label
 JLabel labelPort; //settings window Port label
 JLabel labelBaudRate; //settings window Baud Rate label
@@ -143,8 +142,11 @@ JButton buttonCancel; //settings window Cancel button
 JButton buttonStartLog; //settings window Start Log button
 JButton buttonStopLog; //settings window Stop Log button
 JButton buttonBrowse; //settings window Browse button
+JButton buttonRefreshCOMs; //settings window refresh COMs button  Icon should be a refresh symbol
+JButton buttonEDITBaudRate; //settings window edit baud rate button Icon should be ... or a pencil
 JTextField textFieldFileName; //settings window File Name text field
 JTextField textFieldFileDir; //settings window File Directory text field
 SpringLayout layoutSettings = new SpringLayout(); //settings window layout manager
 
-BufferedImage bufferedIcon; //buffered image for icon
+BufferedImage bufferedIconMain; //buffered image for software icon
+BufferedImage bufferedIconRefresh; //buffered image for refresh button icon

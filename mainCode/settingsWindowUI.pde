@@ -9,7 +9,7 @@ void settingsUI() {
   panelMainSettings = new JDialog(frame, "Settings");
   panelMainSettings.setSize(500, 350);
   panelMainSettings.setResizable(false);
-  panelMainSettings.setIconImage(bufferedIcon);
+  panelMainSettings.setIconImage(bufferedIconMain);
   panelMainSettings.setLocationRelativeTo(frame);
   panelMainSettings.getContentPane().setBackground(Color.WHITE);
   panelMainSettings.setLayout(layoutSettings);
@@ -100,6 +100,27 @@ void drawPortConfig() {
   comboBoxPort.addActionListener(new ActionListener() {
     public void actionPerformed(ActionEvent actionEvent) {
       systemPrintln("User selected " + comboBoxPort.getSelectedItem().toString());
+    }
+  }
+  );
+
+  //draw COM refresh button
+  buttonRefreshCOMs = new JButton();
+  buttonRefreshCOMs.setPreferredSize(new Dimension(20, 20));
+  buttonRefreshCOMs.setIcon(new ImageIcon(bufferedIconRefresh));
+  layoutSettings.putConstraint(SpringLayout.WEST, buttonRefreshCOMs, 5, SpringLayout.EAST, comboBoxPort);
+  layoutSettings.putConstraint(SpringLayout.NORTH, buttonRefreshCOMs, 0, SpringLayout.NORTH, comboBoxPort);
+  panelMainSettings.add(buttonRefreshCOMs);
+  buttonRefreshCOMs.addActionListener(new ActionListener() {
+    public void actionPerformed(ActionEvent actionEvent) {
+      if (connectedToCOM == false) {
+        availableCOMs = processing.serial.Serial.list(); //get available serial ports
+        comboBoxPort.setModel(new DefaultComboBoxModel(availableCOMs));
+        systemPrintln("Available COMs:" + java.util.Arrays.toString(availableCOMs));
+        systemPrintln("buttonRefreshCOMs clicked @ " + millis());
+      } else {
+        textAreaMainMsg("\n", "Cannot refresh COM ports while connected to port.", "");
+      }
     }
   }
   );
@@ -501,3 +522,4 @@ public void drawOkCancelButtons() {
   }
   );
 }
+
