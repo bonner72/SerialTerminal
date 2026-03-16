@@ -16,6 +16,8 @@ import java.io.FileWriter;           //import file writer library
 import java.util.Collections;        //import collections library
 import java.util.Scanner;            //import scanner library
 
+
+//TODO: change main window frame and canvas names to something descriptive
 javax.swing.JFrame frame; //create instance of JFrame
 java.awt.Canvas canvas;   //create instance of Canvas
 

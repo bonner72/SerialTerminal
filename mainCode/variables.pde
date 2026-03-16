@@ -30,6 +30,7 @@ boolean textAreaMainMsgIsRunning = false;
 boolean textFieldSearchHasText = false; //if textFieldSearch has text other than prompt text
 boolean serialPortRemoved = false; //if serial port was removed while connected
 boolean logFileExists = false; //if log file already exists when creating log file
+boolean tStampIsChecked = false; //if timestamp checkbox is checked in settings
 
 boolean mainUiInit, settingsUiInit, drawPortConfigInit, drawDataConfigInit, drawLogConfigInit = false; //if UI has been initialized
 boolean commandFound = false; //true if entered command is a valid command
@@ -130,7 +131,7 @@ JLabel labelLogConfig; //settings window Log Configuration label
 JLabel labelPortParity; //settings window Port Parity label
 JLabel labelPortDataBits; //settings window Port Data Bits label
 JLabel labelPortStopBits; //settings window Port Stop Bits label
-JPanel panelMainSettings; //settings window main panel
+JDialog panelMainSettings; //settings window main panel
 JComboBox comboBoxPort; //settings window Port combo box
 JComboBox comboBoxBaudRate; //settings window Baud Rate combo box
 JComboBox comboBoxPortParity; //settings window Port Parity combo box
