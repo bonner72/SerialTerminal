@@ -483,16 +483,18 @@ public void drawOkCancelButtons() {
           break;
         }
 
-        selectedDataBits = int(comboBoxPortDataBits.getSelectedItem().toString());
-        selectedStopBits = float(comboBoxPortStopBits.getSelectedItem().toString());
-        comboBoxPortSelectedIndex = comboBoxPort.getSelectedIndex();
         if (advancedOptions == true) {
+          selectedDataBits = int(comboBoxPortDataBits.getSelectedItem().toString());
+          selectedStopBits = float(comboBoxPortStopBits.getSelectedItem().toString());
+          comboBoxPortSelectedIndex = comboBoxPort.getSelectedIndex();
           buttonConnect.setText("Disconnected-click to connect " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits);
         } else {
           buttonConnect.setText("Disconnected-click to connect " + selectedPort + "@" + selectedBaudRate);
         }
         panelMainSettings.setVisible(false);
       } else {
+        comboBoxPort.setSelectedItem(selectedPort); //reset comboBoxPort to selectedPort
+        comboBoxBaudRate.setSelectedItem(selectedBaudRate); //reset comboBoxBaudRate to selectedBaudRate
         panelMainSettings.setVisible(false);
       }
 
@@ -516,6 +518,8 @@ public void drawOkCancelButtons() {
 
     //action performed event handler
     public void actionPerformed(ActionEvent actionEvent) {
+      comboBoxPort.setSelectedItem(selectedPort); //reset comboBoxPort to selectedPort
+      comboBoxBaudRate.setSelectedItem(selectedBaudRate); //reset comboBoxBaudRate to selectedBaudRate
       panelMainSettings.setVisible(false);
       systemPrintln("buttonCancel clicked" + " @ " + millis());
     }
