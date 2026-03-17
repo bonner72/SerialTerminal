@@ -242,6 +242,7 @@ void drawDataConfig() {
   checkBoxTimeStamp.setFont(labelFont);
   checkBoxTimeStamp.setOpaque(false);
   checkBoxTimeStamp.setFocusPainted(false);
+  checkBoxTimeStamp.setSelected(showTimeStamp); //set checkBoxTimeStamp to tStampIsChecked value
   layoutSettings.putConstraint(SpringLayout.WEST, checkBoxTimeStamp, 255, SpringLayout.WEST, panelMainSettings);
   layoutSettings.putConstraint(SpringLayout.NORTH, checkBoxTimeStamp, 40, SpringLayout.NORTH, panelMainSettings);
   panelMainSettings.add(checkBoxTimeStamp);
@@ -251,11 +252,6 @@ void drawDataConfig() {
 
     //action performed event handler
     public void actionPerformed(ActionEvent actionEvent) {
-      if (checkBoxTimeStamp.isSelected() == true) {
-        tStampIsChecked = true;
-      } else {
-        tStampIsChecked = false;
-      }
       systemPrintln("checkBoxTimeStamp clicked" + " @ " + millis());
     }
   }
@@ -512,7 +508,11 @@ public void drawOkCancelButtons() {
         panelMainSettings.setVisible(false);
       }
 
-
+      if (checkBoxTimeStamp.isSelected() == true) {
+        showTimeStamp = true;
+      } else {
+        showTimeStamp = false;
+      }
       systemPrintln("buttonOk clicked" + " @ " + millis());
     }
   }
@@ -537,7 +537,7 @@ public void drawOkCancelButtons() {
       comboBoxPortParity.setSelectedItem(selectedParityString);     // reset comboBoxPortParity to selectedParityString
       comboBoxPortDataBits.setSelectedItem(selectedDataBitsString); // reset comboBoxPortDataBits to selectedDataBitsString
       comboBoxPortStopBits.setSelectedItem(selectedStopBitsString); // reset comboBoxPortStopBits to selectedStopBitsString
-
+      checkBoxTimeStamp.setSelected(showTimeStamp);               // reset checkBoxTimeStamp to tStampIsChecked
       panelMainSettings.setVisible(false);
       systemPrintln("buttonCancel clicked" + " @ " + millis());
     }
