@@ -139,7 +139,6 @@ void drawPortConfig() {
   layoutSettings.putConstraint(SpringLayout.WEST, comboBoxBaudRate, 80, SpringLayout.WEST, labelBaudRate);
   layoutSettings.putConstraint(SpringLayout.NORTH, comboBoxBaudRate, 0, SpringLayout.NORTH, labelBaudRate);
   panelMainSettings.add(comboBoxBaudRate);
-
   //add action listener to comboBoxBaudRate
   comboBoxBaudRate.addActionListener(new ActionListener() {
 
@@ -147,6 +146,20 @@ void drawPortConfig() {
     public void actionPerformed(ActionEvent actionEvent) {
 
       systemPrintln("User selected " + comboBoxBaudRate.getSelectedItem().toString() + " @ " + millis());
+    }
+  }
+  );
+
+  //draw Baud Rate edit button
+  buttonEditBaud = new JButton();
+  buttonEditBaud.setPreferredSize(new Dimension(20, 20));
+  buttonEditBaud.setIcon(new ImageIcon(bufferedIconEditBaud));
+  layoutSettings.putConstraint(SpringLayout.WEST, buttonEditBaud, 5, SpringLayout.EAST, comboBoxBaudRate);
+  layoutSettings.putConstraint(SpringLayout.NORTH, buttonEditBaud, 0, SpringLayout.NORTH, comboBoxBaudRate);
+  panelMainSettings.add(buttonEditBaud);
+  buttonEditBaud.addActionListener(new ActionListener() {
+    public void actionPerformed(ActionEvent actionEvent) {
+      systemPrintln("buttonEditBaud clicked @ " + millis());
     }
   }
   );

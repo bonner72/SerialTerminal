@@ -141,7 +141,7 @@ JButton buttonStartLog;                           // settings window Start Log b
 JButton buttonStopLog;                            // settings window Stop Log button
 JButton buttonBrowse;                             // settings window Browse button
 JButton buttonRefreshCOMs;                        // settings window refresh COMs button  Icon should be a refresh symbol
-JButton buttonEDITBaudRate;                       // settings window edit baud rate button Icon should be ... or a pencil
+JButton buttonEditBaud;                       // settings window edit baud rate button Icon should be ... or a pencil
 JTextField textFieldFileName;                     // settings window File Name text field
 JTextField textFieldFileDir;                      // settings window File Directory text field
 SpringLayout layoutSettings = new SpringLayout(); // settings window layout manager
