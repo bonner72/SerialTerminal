@@ -53,39 +53,39 @@ String defaultLogDir;                                                           
 String parityList[] = {"None", "Even", "Odd", "Mark", "Space"};
 String dataBitList[] = {"5", "6", "7", "8"};
 String stopBitList[] = {"1.0", "1.5", "2.0"};
-String selectedParityString = parityList[0];                                                                                                                        // String value of selected parity for display purposes
-String selectedDataBitsString = dataBitList[3];                                                                                                                        // String value of selected data bits for display purposes
-String selectedStopBitsString = stopBitList[0];                                                                                                                        // String value of selected stop bits for display purposes
+String selectedParityString = parityList[0];    // String value of selected parity for display purposes
+String selectedDataBitsString = dataBitList[3]; // String value of selected data bits for display purposes
+String selectedStopBitsString = stopBitList[0]; // String value of selected stop bits for display purposes
 String serialPortList[];
-String enteredCommand = "";                                                                                                                            // command entered in textFieldMain updates on enter press
-String validCommands[] = {                                                                                                                             // list of valid commands
-  "-h",            // help                                
-  "-v",            // version                             
-  "-s",            // connection status                   
-  "-a",            // advanced options                    
-  "-a=true",       // enable advanced options             
-  "-a=false",      // disable advanced options            
-  "-connect",      // connect                             
-  "-disconnect",   // disconnect                          
-  "-clear",        // clear                               
-  "-lpause",       // log pause                           
-  "-lresume",      // log resume                          
-  "-settings",     // settings                            
-  "-tstamp",       // timestamp                           
-  "-tstamp=true",  // enable timestamp                    
-  "-tstamp=false", // disable timestamp                   
-  "-lstart",       // log start                           
-  "-lstop",        // log stop                            
-  "-font",         // set font                            
-  "-font=1",       // set font to Courier                 
-  "-font=2",       // set font to Cascadia Code           
-  "-font=3",       // set font to JetBrains Mono (default)
-  "-font=4",       // set font to Liberation Mono         
-  "-fontsize",     // set font size                       
-  "-fontsize=10",  // set font size to 10                 
-  "-fontsize=12",  // set font size to 12                 
-  "-fontsize=14",  // set font size to 14                 
-  "-fontsize=16",  // set font size to 16                 
+String enteredCommand = "";                     // command entered in textFieldMain updates on enter press
+String validCommands[] = {                      // list of valid commands
+  "-h", // help
+  "-v", // version
+  "-s", // connection status
+  "-a", // advanced options
+  "-a=true", // enable advanced options
+  "-a=false", // disable advanced options
+  "-connect", // connect
+  "-disconnect", // disconnect
+  "-clear", // clear
+  "-lpause", // log pause
+  "-lresume", // log resume
+  "-settings", // settings
+  "-tstamp", // timestamp
+  "-tstamp=true", // enable timestamp
+  "-tstamp=false", // disable timestamp
+  "-lstart", // log start
+  "-lstop", // log stop
+  "-font", // set font
+  "-font=1", // set font to Courier
+  "-font=2", // set font to Cascadia Code
+  "-font=3", // set font to JetBrains Mono (default)
+  "-font=4", // set font to Liberation Mono
+  "-fontsize", // set font size
+  "-fontsize=10", // set font size to 10
+  "-fontsize=12", // set font size to 12
+  "-fontsize=14", // set font size to 14
+  "-fontsize=16", // set font size to 16
   "-fontsize=18"   // set font size to 18
 }; //list of valid commands END
 
@@ -149,3 +149,4 @@ BufferedImage bufferedIconRefresh;                // buffered image for refresh 
 BufferedImage bufferedIconEditBaud;               // buffered image for edit baud rate button icon
 PImage iconRefresh;                               // serial port refresh button icon
 PImage iconEditBaud;                              // serial port custom baud rate icon
+

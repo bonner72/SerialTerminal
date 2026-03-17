@@ -50,4 +50,3 @@ public void writeToFile(String data) {
     }
   }
 }
-

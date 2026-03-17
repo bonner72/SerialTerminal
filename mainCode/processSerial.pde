@@ -122,4 +122,3 @@ public void serialEvent(Serial p) {
   textAreaMainMsg("", serialInputData, "");
   textAreaMain.setCaretPosition(textAreaMain.getDocument().getLength()); //set textAreaMain to autoscroll
 }
-

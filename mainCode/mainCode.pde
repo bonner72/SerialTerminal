@@ -187,12 +187,12 @@ public void setTheme(String theme) {
 
 // Processing setup function
 public void setup() {
-  setTheme("light");                                           // set software theme                                                   
-  iconMain = loadImage("icon.png");                            // import software icon                                                 
-  iconRefresh = loadImage("refresh.png");                      // import refresh button icon                                           
-  iconEditBaud = loadImage("editBaud.png");                    // import edit baud rate button icon                                    
-  bufferedIconMain = convertToBufferedImage(iconMain);         // convert PImage to BufferedImage for use as JFrame icon               
-  bufferedIconRefresh = convertToBufferedImage(iconRefresh);   // convert PImage to BufferedImage for use as refresh button icon       
+  setTheme("light");                                           // set software theme
+  iconMain = loadImage("icon.png");                            // import software icon
+  iconRefresh = loadImage("refresh.png");                      // import refresh button icon
+  iconEditBaud = loadImage("editBaud.png");                    // import edit baud rate button icon
+  bufferedIconMain = convertToBufferedImage(iconMain);         // convert PImage to BufferedImage for use as JFrame icon
+  bufferedIconRefresh = convertToBufferedImage(iconRefresh);   // convert PImage to BufferedImage for use as refresh button icon
   bufferedIconEditBaud = convertToBufferedImage(iconEditBaud); // convert PImage to BufferedImage for use as edit baud rate button icon
   frame = (javax.swing.JFrame) ((processing.awt.PSurfaceAWT.SmoothCanvas) surface.getNative()).getFrame();
   canvas = (processing.awt.PSurfaceAWT.SmoothCanvas) ((processing.awt.PSurfaceAWT)surface).getNative();
