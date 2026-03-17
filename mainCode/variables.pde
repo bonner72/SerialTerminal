@@ -54,6 +54,9 @@ String defaultLogDir;                                                           
 String parityList[] = {"None", "Even", "Odd", "Mark", "Space"};
 String dataBitList[] = {"5", "6", "7", "8"};
 String stopBitList[] = {"1.0", "1.5", "2.0"};
+String selectedParityString = parityList[0];                                                                                                                        // String value of selected parity for display purposes
+String selectedDataBitsString = dataBitList[3];                                                                                                                        // String value of selected data bits for display purposes
+String selectedStopBitsString = stopBitList[0];                                                                                                                        // String value of selected stop bits for display purposes
 String serialPortList[];
 String enteredCommand = "";                                                                                                                            // command entered in textFieldMain updates on enter press
 String validCommands[] = {                                                                                                                             // list of valid commands
