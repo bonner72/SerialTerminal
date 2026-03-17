@@ -187,11 +187,13 @@ public void setTheme(String theme) {
 
 // Processing setup function
 public void setup() {
-  setTheme("light"); //set software theme
-  iconMain = loadImage("icon.png");    //import software icon
-  iconRefresh = loadImage("refresh.png"); //import refresh button icon
-  bufferedIconMain = convertToBufferedImage(iconMain); //convert PImage to BufferedImage for use as JFrame icon
-  bufferedIconRefresh = convertToBufferedImage(iconRefresh); //convert PImage to BufferedImage for use as refresh button icon
+  setTheme("light");                                           // set software theme                                                   
+  iconMain = loadImage("icon.png");                            // import software icon                                                 
+  iconRefresh = loadImage("refresh.png");                      // import refresh button icon                                           
+  iconEditBaud = loadImage("editBaud.png");                    // import edit baud rate button icon                                    
+  bufferedIconMain = convertToBufferedImage(iconMain);         // convert PImage to BufferedImage for use as JFrame icon               
+  bufferedIconRefresh = convertToBufferedImage(iconRefresh);   // convert PImage to BufferedImage for use as refresh button icon       
+  bufferedIconEditBaud = convertToBufferedImage(iconEditBaud); // convert PImage to BufferedImage for use as edit baud rate button icon
   frame = (javax.swing.JFrame) ((processing.awt.PSurfaceAWT.SmoothCanvas) surface.getNative()).getFrame();
   canvas = (processing.awt.PSurfaceAWT.SmoothCanvas) ((processing.awt.PSurfaceAWT)surface).getNative();
   frame.setLocation(displayWidth/2 - wndMinW/2, displayHeight/2 - wndMinH/2);
@@ -199,10 +201,10 @@ public void setup() {
   frame.remove(canvas);
   frame.setMinimumSize(new Dimension(wndMinW, wndMinH));
   frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-  frame.setIconImage(bufferedIconMain); //set custom icon
-  frame.setTitle(versionInfo); //set frame title
-  frame.setResizable(true); //allow frame resizing
-  frame.setVisible(true); //make frame visible
+  frame.setIconImage(bufferedIconMain);                    // set custom icon
+  frame.setTitle(versionInfo);                             // set frame title
+  frame.setResizable(true);                                // allow frame resizing
+  frame.setVisible(true);                                  // make frame visible
 
   //add component listener for main frame
   frame.addComponentListener(new java.awt.event.ComponentAdapter() {
