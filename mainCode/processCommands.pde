@@ -22,12 +22,12 @@ public void processCommands() {
     if (enteredCommand.contains("=")) {
       String enteredCommandSplit = enteredCommand.split("=")[1];
       if (enteredCommandSplit.equals("true")) {
-        frameSettings = null; //reset settings frame to force rebuild with new advanced options
+        panelMainSettings = null; //reset settings frame to force rebuild with new advanced options
         advancedOptions = true; //enable advanced options
         setTableData(); //save advanced options to preferences table
         textAreaMainMsg("\n", "Advanced serial port options enabled.", "");
       } else if (enteredCommandSplit.equals("false")) {
-        frameSettings = null; //reset settings frame to force rebuild with removed advanced options
+        panelMainSettings = null; //reset settings frame to force rebuild with removed advanced options
         advancedOptions = false;//disable advanced options
         setTableData(); //save advanced options to preferences table
         textAreaMainMsg("\n", "Advanced serial port options disabled.", "");
@@ -51,12 +51,12 @@ public void processCommands() {
       textAreaMainMsg("\n", "Invalid command parameter. Use -tstamp=<true|false>", ""); //invalid format message
     }
   } else if (enteredCommand.equals("-settings")) { //open settings window
-    if (frameSettings == null) { //if settings window has not been drawn
+    if (panelMainSettings == null) { //if settings window has not been drawn
       settingsUI(); //draw settings window
       availableCOMs = processing.serial.Serial.list(); //get available serial ports
       comboBoxPort.setModel(new DefaultComboBoxModel(availableCOMs));
     } else { //otherwise if settings window has been drawn make it visible
-      frameSettings.setVisible(true);
+      panelMainSettings.setVisible(true);
       availableCOMs = processing.serial.Serial.list();//get available serial ports
       comboBoxPort.setModel(new DefaultComboBoxModel(availableCOMs));
     }
