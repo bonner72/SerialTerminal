@@ -13,13 +13,19 @@ void settingsUI() {
   panelMainSettings.setLocationRelativeTo(frame);
   panelMainSettings.getContentPane().setBackground(Color.WHITE);
   panelMainSettings.setLayout(layoutSettings);
-  panelMainSettings.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+  panelMainSettings.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE); //simulate cancel button click on close to reset settings values
+  panelMainSettings.addWindowListener(new WindowAdapter() {
+    @Override
+      public void windowClosing(WindowEvent e) {
+      buttonCancel.doClick(); //simulate cancel button click to reset settings values and close window
+    }
+  }
+  );
   //add components here
   drawPortConfig(); //draw port config section ui
   drawDataConfig(); //draw data config section ui
   drawLogConfig();  //draw data logging section ui
   drawOkCancelButtons(); //draw ok and cancel buttons
-  //frameSettings.add(panelMainSettings);
 
   //check if settings UI initialized successfully
   if (panelMainSettings != null && drawPortConfigInit == true && drawDataConfigInit == true && drawLogConfigInit == true) {
@@ -236,6 +242,7 @@ void drawDataConfig() {
   checkBoxTimeStamp.setFont(labelFont);
   checkBoxTimeStamp.setOpaque(false);
   checkBoxTimeStamp.setFocusPainted(false);
+  checkBoxTimeStamp.setSelected(showTimeStamp); //set checkBoxTimeStamp to tStampIsChecked value
   layoutSettings.putConstraint(SpringLayout.WEST, checkBoxTimeStamp, 255, SpringLayout.WEST, panelMainSettings);
   layoutSettings.putConstraint(SpringLayout.NORTH, checkBoxTimeStamp, 40, SpringLayout.NORTH, panelMainSettings);
   panelMainSettings.add(checkBoxTimeStamp);
@@ -245,11 +252,6 @@ void drawDataConfig() {
 
     //action performed event handler
     public void actionPerformed(ActionEvent actionEvent) {
-      if (checkBoxTimeStamp.isSelected() == true) {
-        tStampIsChecked = true;
-      } else {
-        tStampIsChecked = false;
-      }
       systemPrintln("checkBoxTimeStamp clicked" + " @ " + millis());
     }
   }
@@ -483,20 +485,34 @@ public void drawOkCancelButtons() {
           break;
         }
 
-        selectedDataBits = int(comboBoxPortDataBits.getSelectedItem().toString());
-        selectedStopBits = float(comboBoxPortStopBits.getSelectedItem().toString());
-        comboBoxPortSelectedIndex = comboBoxPort.getSelectedIndex();
         if (advancedOptions == true) {
+          selectedDataBits = int(comboBoxPortDataBits.getSelectedItem().toString());
+          selectedStopBits = float(comboBoxPortStopBits.getSelectedItem().toString());
+          comboBoxPortSelectedIndex = comboBoxPort.getSelectedIndex();
+          selectedDataBitsString = comboBoxPortDataBits.getSelectedItem().toString();
+          selectedStopBitsString = comboBoxPortStopBits.getSelectedItem().toString();
+          selectedParityString = comboBoxPortParity.getSelectedItem().toString();
           buttonConnect.setText("Disconnected-click to connect " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits);
         } else {
           buttonConnect.setText("Disconnected-click to connect " + selectedPort + "@" + selectedBaudRate);
         }
         panelMainSettings.setVisible(false);
       } else {
+        comboBoxPort.setSelectedItem(selectedPort);         // reset comboBoxPort to selectedPort
+        comboBoxBaudRate.setSelectedItem(selectedBaudRate); // reset comboBoxBaudRate to selectedBaudRate
+        if (advancedOptions == true) {
+          comboBoxPortParity.setSelectedItem(selectedParityString);     // reset comboBoxPortParity to selectedParityString
+          comboBoxPortDataBits.setSelectedItem(selectedDataBitsString); // reset comboBoxPortDataBits to selectedDataBitsString
+          comboBoxPortStopBits.setSelectedItem(selectedStopBitsString); // reset comboBoxPortStopBits to selectedStopBitsString
+        }
         panelMainSettings.setVisible(false);
       }
 
-
+      if (checkBoxTimeStamp.isSelected() == true) {
+        showTimeStamp = true;
+      } else {
+        showTimeStamp = false;
+      }
       systemPrintln("buttonOk clicked" + " @ " + millis());
     }
   }
@@ -516,6 +532,12 @@ public void drawOkCancelButtons() {
 
     //action performed event handler
     public void actionPerformed(ActionEvent actionEvent) {
+      comboBoxPort.setSelectedItem(selectedPort);                   // reset comboBoxPort to selectedPort
+      comboBoxBaudRate.setSelectedItem(selectedBaudRate);           // reset comboBoxBaudRate to selectedBaudRate
+      comboBoxPortParity.setSelectedItem(selectedParityString);     // reset comboBoxPortParity to selectedParityString
+      comboBoxPortDataBits.setSelectedItem(selectedDataBitsString); // reset comboBoxPortDataBits to selectedDataBitsString
+      comboBoxPortStopBits.setSelectedItem(selectedStopBitsString); // reset comboBoxPortStopBits to selectedStopBitsString
+      checkBoxTimeStamp.setSelected(showTimeStamp);               // reset checkBoxTimeStamp to tStampIsChecked
       panelMainSettings.setVisible(false);
       systemPrintln("buttonCancel clicked" + " @ " + millis());
     }

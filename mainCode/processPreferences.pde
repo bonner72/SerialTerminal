@@ -9,7 +9,7 @@ public void getTableData() {
   advancedOptions = boolean(preferenceTable.getInt(0, "mode"));
   selectedFont = preferenceTable.getString(0, "font");
   selectedFontSize = preferenceTable.getInt(0, "fontSize");
-  setFont(selectedFont,selectedFontSize);
+  setFont(selectedFont, selectedFontSize);
   systemPrintln("getTableData complete @ " + millis());
 }
 
