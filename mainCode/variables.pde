@@ -29,7 +29,7 @@ boolean textAreaMainMsgIsRunning = false;
 boolean textFieldSearchHasText = false;                                                                // if textFieldSearch has text other than prompt text
 boolean serialPortRemoved = false;                                                                     // if serial port was removed while connected
 boolean logFileExists = false;                                                                         // if log file already exists when creating log file
-boolean mainUiInit, settingsUiInit, drawPortConfigInit, drawDataConfigInit, drawLogConfigInit = false; // if UI has been initialized
+boolean mainUiInit, settingsUiInit, dialogBaudEditIsInit, drawPortConfigInit, drawDataConfigInit, drawLogConfigInit = false; // if UI has been initialized
 boolean commandFound = false;                                                                          // true if entered command is a valid command
 boolean advancedOptions = false;                                                                       // true if advanced serial port options are enabled
 
@@ -128,7 +128,7 @@ JLabel labelLogConfig;                            // settings window Log Configu
 JLabel labelPortParity;                           // settings window Port Parity label
 JLabel labelPortDataBits;                         // settings window Port Data Bits label
 JLabel labelPortStopBits;                         // settings window Port Stop Bits label
-JDialog panelMainSettings;                        // settings window main panel
+JDialog dialogSettingsMain;                       // settings window main panel
 JComboBox comboBoxPort;                           // settings window Port combo box
 JComboBox comboBoxBaudRate;                       // settings window Baud Rate combo box
 JComboBox comboBoxPortParity;                     // settings window Port Parity combo box
@@ -141,7 +141,7 @@ JButton buttonStartLog;                           // settings window Start Log b
 JButton buttonStopLog;                            // settings window Stop Log button
 JButton buttonBrowse;                             // settings window Browse button
 JButton buttonRefreshCOMs;                        // settings window refresh COMs button  Icon should be a refresh symbol
-JButton buttonEditBaud;                       // settings window edit baud rate button Icon should be ... or a pencil
+JButton buttonEditBaud;                           // settings window edit baud rate button Icon should be ... or a pencil
 JTextField textFieldFileName;                     // settings window File Name text field
 JTextField textFieldFileDir;                      // settings window File Directory text field
 SpringLayout layoutSettings = new SpringLayout(); // settings window layout manager
@@ -149,4 +149,12 @@ BufferedImage bufferedIconRefresh;                // buffered image for refresh 
 BufferedImage bufferedIconEditBaud;               // buffered image for edit baud rate button icon
 PImage iconRefresh;                               // serial port refresh button icon
 PImage iconEditBaud;                              // serial port custom baud rate icon
+
+//Controls for baud edit window
+JDialog dialogBaudEdit;                           // baud rate edit popup dialog
+JTextArea textAreaBaudEdit;                       // dialogBaudEdit dialog text area
+JScrollPane scrollPaneBaudEdit;                   // dialogBaudEdit textArea scroll pane
+JButton buttonBaudEditOk;                         // dialogBaudEdit dialog confirm button
+JButton buttonBaudEditCancel;                     // dialogBaudEdit dialog cancel button
+SpringLayout layoutBaudEdit = new SpringLayout(); // dialogBaudEdit dialog layout manager
 

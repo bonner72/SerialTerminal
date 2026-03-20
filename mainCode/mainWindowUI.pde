@@ -288,12 +288,13 @@ void drawButtonSettings() {
   buttonSettings.addActionListener(new ActionListener() {
     @Override
       public void actionPerformed(ActionEvent actionEvent) {
-      if (panelMainSettings == null) { //if settings window has not been drawn
+      if (dialogSettingsMain == null) { //if settings window has not been drawn
         settingsUI(); //draw settings window
         availableCOMs = processing.serial.Serial.list(); //get available serial ports
         comboBoxPort.setModel(new DefaultComboBoxModel(availableCOMs));
       } else { //otherwise if settings window has been drawn make it visible
-        panelMainSettings.setVisible(true);
+        dialogSettingsMain.setLocationRelativeTo(frame); // Center the settings window relative to the main frame
+        dialogSettingsMain.setVisible(true);
         availableCOMs = processing.serial.Serial.list();//get available serial ports
         //comboBoxPort.setModel(new DefaultComboBoxModel(availableCOMs));
       }
