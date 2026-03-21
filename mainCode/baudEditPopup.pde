@@ -41,11 +41,26 @@ public void initDialogBaudEdit() {
   layoutBaudEdit.putConstraint(SpringLayout.EAST, buttonBaudEditOk, 0, SpringLayout.EAST, scrollPaneBaudEdit);
   layoutBaudEdit.putConstraint(SpringLayout.NORTH, buttonBaudEditOk, 5, SpringLayout.SOUTH, scrollPaneBaudEdit);
   dialogBaudEdit.add(buttonBaudEditOk);
-  buttonEditBaud.addActionListener( new ActionListener() {
+  buttonBaudEditOk.addActionListener( new ActionListener() {
     public void actionPerformed(ActionEvent actionEvent) {
       //comboBoxBaudRate.setModel(new DefaultComboBoxModel<>(textAreaBaudEdit.getText().split("\n")));
-      dialogBaudEdit.setVisible(false);
-      systemPrintln("buttonBaudEditOk clicked @ " + millis());
+      //dialogBaudEdit.setVisible(false);
+      int lines = textAreaBaudEdit.getLineCount();
+
+      try {// Traverse the text in the JTextArea line by line
+        for (int i = 0; i < lines; i ++) {
+          int start = textAreaBaudEdit.getLineStartOffset(i);
+          int end = textAreaBaudEdit.getLineEndOffset(i);
+          // Implement method processLine
+          //processLine(textArea.getText(start, end-start));
+            systemPrintln(textAreaBaudEdit.getText(start, end-start).trim());
+        }
+      }
+      catch(BadLocationException e) {
+        // Handle exception as you see fit
+      }
+      
+        systemPrintln("buttonBaudEditOk clicked @ " + millis());
     }
   }
   );
