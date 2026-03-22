@@ -15,6 +15,7 @@ import java.io.File;                 //import file library
 import java.io.FileWriter;           //import file writer library
 import java.util.Collections;        //import collections library
 import java.util.Scanner;            //import scanner library
+import java.util.Arrays;             //import arrays library
 
 
 //TODO: change main window frame and canvas names to something descriptive

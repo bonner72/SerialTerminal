@@ -43,24 +43,27 @@ public void initDialogBaudEdit() {
   dialogBaudEdit.add(buttonBaudEditOk);
   buttonBaudEditOk.addActionListener( new ActionListener() {
     public void actionPerformed(ActionEvent actionEvent) {
-      //comboBoxBaudRate.setModel(new DefaultComboBoxModel<>(textAreaBaudEdit.getText().split("\n")));
-      //dialogBaudEdit.setVisible(false);
-      int lines = textAreaBaudEdit.getLineCount();
-
+      int textAreaBaudEditLineCount = textAreaBaudEdit.getLineCount();
+      String[] textAreaBaudEditArray = {};
       try {// Traverse the text in the JTextArea line by line
-        for (int i = 0; i < lines; i ++) {
+        for (int i = 0; i < textAreaBaudEditLineCount; i ++) {
           int start = textAreaBaudEdit.getLineStartOffset(i);
           int end = textAreaBaudEdit.getLineEndOffset(i);
-          // Implement method processLine
           //processLine(textArea.getText(start, end-start));
-            systemPrintln(textAreaBaudEdit.getText(start, end-start).trim());
+          // Step 1: Create a new array with length = original length + 1
+          textAreaBaudEditArray = Arrays.copyOf(textAreaBaudEditArray, textAreaBaudEditArray.length + 1);
+
+          // Step 2: Add the new element to the last index of the new array
+          textAreaBaudEditArray[textAreaBaudEditArray.length - 1] = textAreaBaudEdit.getText(start, end-start).trim();
+          systemPrintln(textAreaBaudEdit.getText(start, end-start).trim());
         }
       }
       catch(BadLocationException e) {
         // Handle exception as you see fit
       }
-      
-        systemPrintln("buttonBaudEditOk clicked @ " + millis());
+      comboBoxBaudRate.removeAll();
+      comboBoxBaudRate.setModel(new DefaultComboBoxModel(textAreaBaudEditArray));
+      systemPrintln("buttonBaudEditOk clicked @ " + millis());
     }
   }
   );
