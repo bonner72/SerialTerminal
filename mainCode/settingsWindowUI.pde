@@ -6,11 +6,11 @@
  //? Set settings window to always be on top of main window
  */
 void settingsUI() {
-  dialogSettingsMain = new JDialog(frame, "Settings");
+  dialogSettingsMain = new JDialog(frameMainWindow, "Settings");
   dialogSettingsMain.setSize(500, 350);
   dialogSettingsMain.setResizable(false);
   dialogSettingsMain.setIconImage(bufferedIconMain);
-  dialogSettingsMain.setLocationRelativeTo(frame);
+  dialogSettingsMain.setLocationRelativeTo(frameMainWindow);
   dialogSettingsMain.getContentPane().setBackground(Color.WHITE);
   dialogSettingsMain.setLayout(layoutSettings);
   dialogSettingsMain.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE); //simulate cancel button click on close to reset settings values

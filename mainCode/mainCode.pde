@@ -19,8 +19,8 @@ import java.util.Arrays;             //import arrays library
 
 
 //TODO: change main window frame and canvas names to something descriptive
-javax.swing.JFrame frame; //create instance of JFrame
-java.awt.Canvas canvas;   //create instance of Canvas
+javax.swing.JFrame frameMainWindow; //create instance of JFrame
+java.awt.Canvas canvasMainWindow;   //create instance of Canvas
 
 //append text to textAreaMain
 public void textAreaMainMsg(String A, String MSG, String B) {
@@ -195,20 +195,20 @@ public void setup() {
   bufferedIconMain = convertToBufferedImage(iconMain);         // convert PImage to BufferedImage for use as JFrame icon
   bufferedIconRefresh = convertToBufferedImage(iconRefresh);   // convert PImage to BufferedImage for use as refresh button icon
   bufferedIconEditBaud = convertToBufferedImage(iconEditBaud); // convert PImage to BufferedImage for use as edit baud rate button icon
-  frame = (javax.swing.JFrame) ((processing.awt.PSurfaceAWT.SmoothCanvas) surface.getNative()).getFrame();
-  canvas = (processing.awt.PSurfaceAWT.SmoothCanvas) ((processing.awt.PSurfaceAWT)surface).getNative();
-  frame.setLocation(displayWidth/2 - wndMinW/2, displayHeight/2 - wndMinH/2);
-  frame.setSize(wndMinW, wndMinH);
-  frame.remove(canvas);
-  frame.setMinimumSize(new Dimension(wndMinW, wndMinH));
-  frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-  frame.setIconImage(bufferedIconMain);                    // set custom icon
-  frame.setTitle(versionInfo);                             // set frame title
-  frame.setResizable(true);                                // allow frame resizing
-  frame.setVisible(true);                                  // make frame visible
+  frameMainWindow = (javax.swing.JFrame) ((processing.awt.PSurfaceAWT.SmoothCanvas) surface.getNative()).getFrame();
+  canvasMainWindow = (processing.awt.PSurfaceAWT.SmoothCanvas) ((processing.awt.PSurfaceAWT)surface).getNative();
+  frameMainWindow.setLocation(displayWidth/2 - wndMinW/2, displayHeight/2 - wndMinH/2);
+  frameMainWindow.setSize(wndMinW, wndMinH);
+  frameMainWindow.remove(canvasMainWindow);
+  frameMainWindow.setMinimumSize(new Dimension(wndMinW, wndMinH));
+  frameMainWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+  frameMainWindow.setIconImage(bufferedIconMain);                    // set custom icon
+  frameMainWindow.setTitle(versionInfo);                             // set frame title
+  frameMainWindow.setResizable(true);                                // allow frame resizing
+  frameMainWindow.setVisible(true);                                  // make frame visible
 
   //add component listener for main frame
-  frame.addComponentListener(new java.awt.event.ComponentAdapter() {
+  frameMainWindow.addComponentListener(new java.awt.event.ComponentAdapter() {
     public void componentResized(ComponentEvent e) {
       if (mainUiInit == true) { //only run if main UI has been initialized
         panelMain.setBounds(0, 0, width, height);
