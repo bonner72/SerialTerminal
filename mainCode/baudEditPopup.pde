@@ -63,6 +63,8 @@ public void initDialogBaudEdit() {
       }
       comboBoxBaudRate.removeAll();
       comboBoxBaudRate.setModel(new DefaultComboBoxModel(textAreaBaudEditArray));
+      dialogSettingsMain.setEnabled(true); //enable settings window
+      dialogBaudEdit.setVisible(false);    //hide baud edit window
       systemPrintln("buttonBaudEditOk clicked @ " + millis());
     }
   }
@@ -78,7 +80,8 @@ public void initDialogBaudEdit() {
   dialogBaudEdit.add(buttonBaudEditCancel);
   buttonBaudEditCancel.addActionListener(new ActionListener() {
     public void actionPerformed (ActionEvent actionEvent) {
-      dialogBaudEdit.setVisible(false);
+      dialogSettingsMain.setEnabled(true); //enable settings window
+      dialogBaudEdit.setVisible(false);    //hide baud edit window
     }
   }
   );
@@ -87,7 +90,8 @@ public void initDialogBaudEdit() {
 
   if (dialogBaudEdit != null && textAreaBaudEdit != null && buttonBaudEditOk != null && buttonBaudEditCancel != null) {
     dialogBaudEditIsInit = true;
-    dialogBaudEdit.setVisible(true);
+    dialogBaudEdit.setVisible(true);      // show baud rate edit window
+    dialogSettingsMain.setEnabled(false); // disable setting window
   } else {
     dialogBaudEditIsInit = false;
   }

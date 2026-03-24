@@ -31,8 +31,8 @@ void settingsUI() {
   if (dialogSettingsMain != null && drawPortConfigInit == true && drawDataConfigInit == true && drawLogConfigInit == true) {
     systemPrintln("EDT settingsUI = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
     settingsUiInit = true;
-    //frameSettings.setVisible(true); //make settings window visible
-    dialogSettingsMain.setVisible(true);
+    dialogSettingsMain.setVisible(true); // show settings window
+    frameMainWindow.setEnabled(false);   // disable main window
   } else {
     settingsUiInit = false;
   }
@@ -163,7 +163,8 @@ void drawPortConfig() {
         initDialogBaudEdit();
       } else {
         dialogBaudEdit.setLocationRelativeTo(dialogSettingsMain); // Center the baud edit dialog relative to the settings dialog
-        dialogBaudEdit.setVisible(true);
+        dialogBaudEdit.setVisible(true);                          // show baud edit window                                      
+        dialogSettingsMain.setEnabled(false);                     // disable settings window
       }
       systemPrintln("buttonEditBaud clicked @ " + millis());
     }
@@ -515,7 +516,8 @@ public void drawOkCancelButtons() {
         } else {
           buttonConnect.setText("Disconnected-click to connect " + selectedPort + "@" + selectedBaudRate);
         }
-        dialogSettingsMain.setVisible(false);
+        frameMainWindow.setEnabled(true);     // disable main window when settings window is open
+        dialogSettingsMain.setVisible(false); // hide settings window
       } else {
         comboBoxPort.setSelectedItem(selectedPort);         // reset comboBoxPort to selectedPort
         comboBoxBaudRate.setSelectedItem(selectedBaudRate); // reset comboBoxBaudRate to selectedBaudRate
@@ -524,7 +526,8 @@ public void drawOkCancelButtons() {
           comboBoxPortDataBits.setSelectedItem(selectedDataBitsString); // reset comboBoxPortDataBits to selectedDataBitsString
           comboBoxPortStopBits.setSelectedItem(selectedStopBitsString); // reset comboBoxPortStopBits to selectedStopBitsString
         }
-        dialogSettingsMain.setVisible(false);
+        frameMainWindow.setEnabled(true);     // disable main window when settings window is open
+        dialogSettingsMain.setVisible(false); // hide settings window
       }
 
       if (checkBoxTimeStamp.isSelected() == true) {
@@ -556,8 +559,9 @@ public void drawOkCancelButtons() {
       comboBoxPortParity.setSelectedItem(selectedParityString);     // reset comboBoxPortParity to selectedParityString
       comboBoxPortDataBits.setSelectedItem(selectedDataBitsString); // reset comboBoxPortDataBits to selectedDataBitsString
       comboBoxPortStopBits.setSelectedItem(selectedStopBitsString); // reset comboBoxPortStopBits to selectedStopBitsString
-      checkBoxTimeStamp.setSelected(showTimeStamp);               // reset checkBoxTimeStamp to tStampIsChecked
-      dialogSettingsMain.setVisible(false);
+      checkBoxTimeStamp.setSelected(showTimeStamp);                 // reset checkBoxTimeStamp to tStampIsChecked
+      frameMainWindow.setEnabled(true);                             // disable main window when settings window is open
+      dialogSettingsMain.setVisible(false);                         // hide settings window
       systemPrintln("buttonCancel clicked" + " @ " + millis());
     }
   }
