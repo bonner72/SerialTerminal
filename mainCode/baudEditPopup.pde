@@ -56,10 +56,11 @@ public void initDialogBaudEdit() {
       catch(BadLocationException e) {
         // Handle exception as you see fit
       }
-      comboBoxBaudRate.setModel(new DefaultComboBoxModel(textAreaBaudEditArray));
-      dialogSettingsMain.setEnabled(true); //enable settings window
-      dialogBaudEdit.setVisible(false);    //hide baud edit window
-      systemPrintln("buttonBaudEditOk clicked @ " + millis());
+      newBaudRateModel = new DefaultComboBoxModel(textAreaBaudEditArray); // populate newBaudRateModel with textAreaBaudEdit's text
+      comboBoxBaudRate.setModel(newBaudRateModel);                        // set comboBoxBaudRate's model to currBaudRateModel     
+      dialogSettingsMain.setEnabled(true);                                // enable settings window                                
+      dialogBaudEdit.setVisible(false);                                   // hide baud edit window
+      systemPrintln("buttonBaudEditOk clicked @ " + millis());            // print debug statement
     }
   }
   );

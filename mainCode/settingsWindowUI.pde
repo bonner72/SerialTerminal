@@ -126,12 +126,14 @@ void drawPortConfig() {
   );
 
   //draw Baud Rate combo box
-  comboBoxBaudRate = new JComboBox(baudRateList);
+  comboBoxBaudRate = new JComboBox();
   comboBoxBaudRate.setPreferredSize(new Dimension(110, 20));
-  comboBoxBaudRate.setSelectedIndex(2);
   comboBoxBaudRate.setEditable(false);
   layoutSettings.putConstraint(SpringLayout.WEST, comboBoxBaudRate, 80, SpringLayout.WEST, labelBaudRate);
   layoutSettings.putConstraint(SpringLayout.NORTH, comboBoxBaudRate, 0, SpringLayout.NORTH, labelBaudRate);
+  newBaudRateModel = currBaudRateModel;                       // set newBaudRateModel to currBaudRateModel values          
+  comboBoxBaudRate.setModel(currBaudRateModel);               // set comboBoxBaudRate's model to currBaudRateModel         
+  comboBoxBaudRate.setSelectedIndex(2);                       // select baudRate no.2 with default baud list it equals 9600
   dialogSettingsMain.add(comboBoxBaudRate);
   //add action listener to comboBoxBaudRate
   comboBoxBaudRate.addActionListener(new ActionListener() {
@@ -157,7 +159,7 @@ void drawPortConfig() {
         initDialogBaudEdit();
       } else {
         dialogBaudEdit.setLocationRelativeTo(dialogSettingsMain); // Center the baud edit dialog relative to the settings dialog
-        dialogBaudEdit.setVisible(true);                          // show baud edit window                                      
+        dialogBaudEdit.setVisible(true);                          // show baud edit window
         dialogSettingsMain.setEnabled(false);                     // disable settings window
       }
       systemPrintln("buttonEditBaud clicked @ " + millis());
@@ -477,7 +479,8 @@ public void drawOkCancelButtons() {
       if (connectedToCOM == false && portsFound == true) {
         selectedPort = comboBoxPort.getSelectedItem().toString();
         selectedBaudRate = comboBoxBaudRate.getSelectedItem().toString();
-
+        currBaudRateModel = newBaudRateModel;         // set currBaudRateModel to newBaudRateModel
+        comboBoxBaudRate.setModel(currBaudRateModel); // set comboBoxBaudRate model to currBaudRateModel
         switch (comboBoxPortParity.getSelectedItem().toString()) {
         case "None":
           selectedParity = 'N';
@@ -515,6 +518,7 @@ public void drawOkCancelButtons() {
       } else {
         comboBoxPort.setSelectedItem(selectedPort);         // reset comboBoxPort to selectedPort
         comboBoxBaudRate.setSelectedItem(selectedBaudRate); // reset comboBoxBaudRate to selectedBaudRate
+        comboBoxBaudRate.setModel(currBaudRateModel);       // set comboBoxBaudRate model to currBaudRateModel
         if (advancedOptions == true) {
           comboBoxPortParity.setSelectedItem(selectedParityString);     // reset comboBoxPortParity to selectedParityString
           comboBoxPortDataBits.setSelectedItem(selectedDataBitsString); // reset comboBoxPortDataBits to selectedDataBitsString
@@ -548,7 +552,9 @@ public void drawOkCancelButtons() {
 
     //action performed event handler
     public void actionPerformed(ActionEvent actionEvent) {
+      newBaudRateModel = currBaudRateModel;                         // set newBaudRateModel to currBaudRateModel values
       comboBoxPort.setSelectedItem(selectedPort);                   // reset comboBoxPort to selectedPort
+      comboBoxBaudRate.setModel(currBaudRateModel);                 // set comboBoxBaudRate model to currBaudRateModel
       comboBoxBaudRate.setSelectedItem(selectedBaudRate);           // reset comboBoxBaudRate to selectedBaudRate
       comboBoxPortParity.setSelectedItem(selectedParityString);     // reset comboBoxPortParity to selectedParityString
       comboBoxPortDataBits.setSelectedItem(selectedDataBitsString); // reset comboBoxPortDataBits to selectedDataBitsString
