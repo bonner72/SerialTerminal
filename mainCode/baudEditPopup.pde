@@ -1,8 +1,3 @@
-/*
-    TODO: Set baudedit and settings dialogs to always on top respectively
- TODO: disable main and settings when above window is open param = frame.setEnabled(false) and frame.setEnabled(true) on close of above windows
- 
- */
 
 public void initDialogBaudEdit() {
   dialogBaudEdit = new JDialog(dialogSettingsMain, "Baud Rate list");
@@ -61,7 +56,6 @@ public void initDialogBaudEdit() {
       catch(BadLocationException e) {
         // Handle exception as you see fit
       }
-      comboBoxBaudRate.removeAll();
       comboBoxBaudRate.setModel(new DefaultComboBoxModel(textAreaBaudEditArray));
       dialogSettingsMain.setEnabled(true); //enable settings window
       dialogBaudEdit.setVisible(false);    //hide baud edit window

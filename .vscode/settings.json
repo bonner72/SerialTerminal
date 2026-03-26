@@ -1,3 +1,11 @@
 {
-  "cSpell.words": ["Cascadia", "Lucida"]
+  "cSpell.words": [
+    "Autoscrolls",
+    "Cascadia",
+    "flatlaf",
+    "formdev",
+    "Lucida",
+    "mbahler"
+  ],
+  "include": "**/*.{ts,js,php,css,scss,html,pde}"
 }

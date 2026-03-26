@@ -17,8 +17,6 @@ import java.util.Collections;        //import collections library
 import java.util.Scanner;            //import scanner library
 import java.util.Arrays;             //import arrays library
 
-
-//TODO: change main window frame and canvas names to something descriptive
 javax.swing.JFrame frameMainWindow; //create instance of JFrame
 java.awt.Canvas canvasMainWindow;   //create instance of Canvas
 
@@ -279,7 +277,7 @@ public void setup() {
   }
   textAreaMainMsg("\n", "Enter -h for help", ""); //print help message
   systemPrintln("Startup complete" + " @ " + millis());
-} // END setup
+} // end of setup()
 
 // Processing loop function
 public void draw() {

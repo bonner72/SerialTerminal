@@ -111,4 +111,4 @@ public void processCommands() {
       textAreaMainMsg("\n", "Invalid command parameter. Use -fontsize=<size>", ""); //invalid format message
     }
   }
-} // END processCommands
+} // end of processCommands()
