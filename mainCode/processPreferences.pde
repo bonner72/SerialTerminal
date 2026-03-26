@@ -17,6 +17,7 @@ public void setTableData() {
   preferenceTable.setInt(0, "mode", int(advancedOptions)); //save advanced options mode to preferences table
   preferenceTable.setString(0, "font", selectedFont);      //save selected font to preferences table
   preferenceTable.setFloat(0, "fontSize", selectedFontSize); //save selected font size to preferences table
+  preferenceTable.setString(0, "baudRateList", java.util.Arrays.toString(baudRateList));
   saveTable(preferenceTable, "data/preferences.csv");
   systemPrintln("setTableData complete @ " + millis());
 }

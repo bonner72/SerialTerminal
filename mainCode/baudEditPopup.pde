@@ -1,4 +1,4 @@
-
+// TODO(mbahler): Add custom baud rate read/write handler to preferences.csv
 public void initDialogBaudEdit() {
   dialogBaudEdit = new JDialog(dialogSettingsMain, "Baud Rate list");
   dialogBaudEdit.setSize(new Dimension(300, 300));
