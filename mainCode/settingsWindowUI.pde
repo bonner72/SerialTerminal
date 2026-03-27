@@ -131,8 +131,8 @@ void drawPortConfig() {
   comboBoxBaudRate.setEditable(false);
   layoutSettings.putConstraint(SpringLayout.WEST, comboBoxBaudRate, 80, SpringLayout.WEST, labelBaudRate);
   layoutSettings.putConstraint(SpringLayout.NORTH, comboBoxBaudRate, 0, SpringLayout.NORTH, labelBaudRate);
-  newBaudRateModel = currBaudRateModel;                       // set newBaudRateModel to currBaudRateModel values          
-  comboBoxBaudRate.setModel(currBaudRateModel);               // set comboBoxBaudRate's model to currBaudRateModel         
+  newBaudRateModel = currBaudRateModel;                       // set newBaudRateModel to currBaudRateModel values
+  comboBoxBaudRate.setModel(currBaudRateModel);               // set comboBoxBaudRate's model to currBaudRateModel
   comboBoxBaudRate.setSelectedIndex(2);                       // select baudRate no.2 with default baud list it equals 9600
   dialogSettingsMain.add(comboBoxBaudRate);
   //add action listener to comboBoxBaudRate
@@ -513,6 +513,7 @@ public void drawOkCancelButtons() {
         } else {
           buttonConnect.setText("Disconnected-click to connect " + selectedPort + "@" + selectedBaudRate);
         }
+        setTableData("basic");
         frameMainWindow.setEnabled(true);     // disable main window when settings window is open
         dialogSettingsMain.setVisible(false); // hide settings window
       } else {
@@ -567,4 +568,3 @@ public void drawOkCancelButtons() {
   }
   );
 }
-

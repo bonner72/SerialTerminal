@@ -294,8 +294,8 @@ void drawButtonSettings() {
         comboBoxPort.setModel(new DefaultComboBoxModel(availableCOMs));
       } else { //otherwise if settings window has been drawn make it visible
         dialogSettingsMain.setLocationRelativeTo(frameMainWindow); // Center the settings window relative to the main frame
-        dialogSettingsMain.setVisible(true);                       // show settings window                                 
-        frameMainWindow.setEnabled(false);                         // disable main window                                  
+        dialogSettingsMain.setVisible(true);                       // show settings window
+        frameMainWindow.setEnabled(false);                         // disable main window
         availableCOMs = processing.serial.Serial.list();           // get available serial ports
       }
       systemPrintln("buttonSettings clicked" + " @ " + millis());
@@ -335,4 +335,3 @@ void drawButtonLogPauseResume() {
   systemPrintln("EDT buttonLogPauseResume = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
   buttonLogPauseResume.repaint();
 }
-

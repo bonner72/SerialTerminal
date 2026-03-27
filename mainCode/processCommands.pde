@@ -24,12 +24,12 @@ public void processCommands() {
       if (enteredCommandSplit.equals("true")) {
         dialogSettingsMain = null; //reset settings frame to force rebuild with new advanced options
         advancedOptions = true; //enable advanced options
-        setTableData(); //save advanced options to preferences table
+        setTableData("advanced"); //save advanced options to preferences table
         textAreaMainMsg("\n", "Advanced serial port options enabled.", "");
       } else if (enteredCommandSplit.equals("false")) {
         dialogSettingsMain = null; //reset settings frame to force rebuild with removed advanced options
         advancedOptions = false;//disable advanced options
-        setTableData(); //save advanced options to preferences table
+        setTableData("advanced"); //save advanced options to preferences table
         textAreaMainMsg("\n", "Advanced serial port options disabled.", "");
       }
     } else {
@@ -86,7 +86,7 @@ public void processCommands() {
       int fontIndex = int(enteredCommandSplit) - 1;
       if (fontIndex >= 0 && fontIndex < fontList.length) {
         selectedFont = fontList[fontIndex]; //set selected font
-        setTableData(); //save selected font to preferences table
+        setTableData("advanced"); //save selected font to preferences table
         setFont(selectedFont, selectedFontSize); //apply selected font
         textAreaMainMsg("\n", "Set font to " + selectedFont + ".", "");
       } else {
@@ -101,7 +101,7 @@ public void processCommands() {
       int fontSize = int(enteredCommandSplit);
       if (fontSize == 10 || fontSize == 12 || fontSize == 14 || fontSize == 16 || fontSize == 18) {
         selectedFontSize = fontSize; //set selected font size
-        setTableData(); //save selected font size to preferences table
+        setTableData("advanced"); //save selected font size to preferences table
         setFont(selectedFont, selectedFontSize); //apply selected font size
         textAreaMainMsg("\n", "Set font size to " + selectedFontSize + ".", "");
       } else {
