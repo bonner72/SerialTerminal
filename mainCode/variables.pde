@@ -14,24 +14,24 @@ int prevCommandsIndex = 0;         // count of up key presses for previous comma
 
 char selectedParity = 'N'; //serial port parity 'N' for none, 'E' for even, 'O' for odd, 'M' for mark, 'S' for space ('N' is the default)
 
-boolean showDebugStatements = true;                                                                    // if true show debug statements in console
-boolean connectToCOM = false;                                                                          // if connecting to com port
-boolean connectedToCOM = false;                                                                        // if connected to com port
-boolean loggingData = false ;                                                                          // if logging succeeded
-boolean logDataButtonPressed = false;
-boolean stopLoggingDataButtonPressed = false;
-boolean dataLogPause = false;                                                                          // toggles data logging pause/resume
-boolean logData = false;
-boolean initLogFileOk = false;                                                                         // if log file successfully initialized
-boolean showTimeStamp = false;
-boolean portsFound = false;
-boolean textAreaMainMsgIsRunning = false;
-boolean textFieldSearchHasText = false;                                                                // if textFieldSearch has text other than prompt text
-boolean serialPortRemoved = false;                                                                     // if serial port was removed while connected
-boolean logFileExists = false;                                                                         // if log file already exists when creating log file
-boolean mainUiInit, settingsUiInit, drawPortConfigInit, drawDataConfigInit, drawLogConfigInit = false; // if UI has been initialized
-boolean commandFound = false;                                                                          // true if entered command is a valid command
-boolean advancedOptions = false;                                                                       // true if advanced serial port options are enabled
+boolean showDebugStatements = true;                                                                                          // if true show debug statements in console          
+boolean connectToCOM = false;                                                                                                // if connecting to com port                         
+boolean connectedToCOM = false;                                                                                              // if connected to com port                          
+boolean loggingData = false ;                                                                                                // if logging succeeded                              
+boolean logDataButtonPressed = false;                                                                                       
+boolean stopLoggingDataButtonPressed = false;                                                                               
+boolean dataLogPause = false;                                                                                                // toggles data logging pause/resume                 
+boolean logData = false;                                                                                                    
+boolean initLogFileOk = false;                                                                                               // if log file successfully initialized              
+boolean showTimeStamp = false;                                                                                              
+boolean portsFound = false;                                                                                                 
+boolean textAreaMainMsgIsRunning = false;                                                                                   
+boolean textFieldSearchHasText = false;                                                                                      // if textFieldSearch has text other than prompt text
+boolean serialPortRemoved = false;                                                                                           // if serial port was removed while connected        
+boolean logFileExists = false;                                                                                               // if log file already exists when creating log file 
+boolean mainUiInit, settingsUiInit, dialogBaudEditIsInit, drawPortConfigInit, drawDataConfigInit, drawLogConfigInit = false; // if UI has been initialized                        
+boolean commandFound = false;                                                                                                // true if entered command is a valid command        
+boolean advancedOptions = false;                                                                                             // true if advanced serial port options are enabled
 
 String versionInfo = "SerialTerminal 2.3.0";
 String selectedPort = null;                                                                                                                            // Name of selected COM port
@@ -120,33 +120,43 @@ PImage iconMain; //software icon
 
 
 //Controls for settings window
-JLabel labelPortConfig;                           // settings window Port Configuration label
-JLabel labelPort;                                 // settings window Port label
-JLabel labelBaudRate;                             // settings window Baud Rate label
-JLabel labelDataConfig;                           // settings window Data Configuration label
-JLabel labelLogConfig;                            // settings window Log Configuration label
-JLabel labelPortParity;                           // settings window Port Parity label
-JLabel labelPortDataBits;                         // settings window Port Data Bits label
-JLabel labelPortStopBits;                         // settings window Port Stop Bits label
-JDialog panelMainSettings;                        // settings window main panel
-JComboBox comboBoxPort;                           // settings window Port combo box
-JComboBox comboBoxBaudRate;                       // settings window Baud Rate combo box
-JComboBox comboBoxPortParity;                     // settings window Port Parity combo box
-JComboBox comboBoxPortDataBits;                   // settings window Port Data Bits combo box
-JComboBox comboBoxPortStopBits;                   // settings window Port Stop Bits combo box
-JCheckBox checkBoxTimeStamp = new JCheckBox();    // settings window Time Stamp check box Initialized here due to cli dependencies
-JButton buttonOk;                                 // settings window OK button
-JButton buttonCancel;                             // settings window Cancel button
-JButton buttonStartLog;                           // settings window Start Log button
-JButton buttonStopLog;                            // settings window Stop Log button
-JButton buttonBrowse;                             // settings window Browse button
-JButton buttonRefreshCOMs;                        // settings window refresh COMs button  Icon should be a refresh symbol
-JButton buttonEDITBaudRate;                       // settings window edit baud rate button Icon should be ... or a pencil
-JTextField textFieldFileName;                     // settings window File Name text field
-JTextField textFieldFileDir;                      // settings window File Directory text field
-SpringLayout layoutSettings = new SpringLayout(); // settings window layout manager
-BufferedImage bufferedIconRefresh;                // buffered image for refresh button icon
-BufferedImage bufferedIconEditBaud;               // buffered image for edit baud rate button icon
-PImage iconRefresh;                               // serial port refresh button icon
-PImage iconEditBaud;                              // serial port custom baud rate icon
+JLabel labelPortConfig;                                                          // settings window Port Configuration label
+JLabel labelPort;                                                                // settings window Port label
+JLabel labelBaudRate;                                                            // settings window Baud Rate label
+JLabel labelDataConfig;                                                          // settings window Data Configuration label
+JLabel labelLogConfig;                                                           // settings window Log Configuration label
+JLabel labelPortParity;                                                          // settings window Port Parity label
+JLabel labelPortDataBits;                                                        // settings window Port Data Bits label
+JLabel labelPortStopBits;                                                        // settings window Port Stop Bits label
+JDialog dialogSettingsMain;                                                      // settings window main panel
+JComboBox comboBoxPort;                                                          // settings window Port combo box
+JComboBox comboBoxBaudRate;                                                      // settings window Baud Rate combo box
+JComboBox comboBoxPortParity;                                                    // settings window Port Parity combo box
+JComboBox comboBoxPortDataBits;                                                  // settings window Port Data Bits combo box
+JComboBox comboBoxPortStopBits;                                                  // settings window Port Stop Bits combo box
+JCheckBox checkBoxTimeStamp = new JCheckBox();                                   // settings window Time Stamp check box Initialized here due to cli dependencies
+JButton buttonOk;                                                                // settings window OK button
+JButton buttonCancel;                                                            // settings window Cancel button
+JButton buttonStartLog;                                                          // settings window Start Log button
+JButton buttonStopLog;                                                           // settings window Stop Log button
+JButton buttonBrowse;                                                            // settings window Browse button
+JButton buttonRefreshCOMs;                                                       // settings window refresh COMs button  Icon should be a refresh symbol
+JButton buttonEditBaud;                                                          // settings window edit baud rate button Icon should be ... or a pencil
+JTextField textFieldFileName;                                                    // settings window File Name text field
+JTextField textFieldFileDir;                                                     // settings window File Directory text field
+SpringLayout layoutSettings = new SpringLayout();                                // settings window layout manager
+BufferedImage bufferedIconRefresh;                                               // buffered image for refresh button icon
+BufferedImage bufferedIconEditBaud;                                              // buffered image for edit baud rate button icon
+DefaultComboBoxModel currBaudRateModel = new DefaultComboBoxModel(baudRateList); // current model for comboBoxBaudRate
+DefaultComboBoxModel newBaudRateModel = new DefaultComboBoxModel();              // new model for comboBoxBaudRate is defined on baudEdit OK, set on settings OK
+PImage iconRefresh;                                                              // serial port refresh button icon
+PImage iconEditBaud;                                                             // serial port custom baud rate icon
+
+//Controls for baud edit window
+JDialog dialogBaudEdit;                           // baud rate edit popup dialog
+JTextArea textAreaBaudEdit;                       // dialogBaudEdit dialog text area
+JScrollPane scrollPaneBaudEdit;                   // dialogBaudEdit textArea scroll pane
+JButton buttonBaudEditOk;                         // dialogBaudEdit dialog confirm button
+JButton buttonBaudEditCancel;                     // dialogBaudEdit dialog cancel button
+SpringLayout layoutBaudEdit = new SpringLayout(); // dialogBaudEdit dialog layout manager
 

@@ -22,7 +22,7 @@ void drawPanelMain() {
   panelMain.setBounds(0, 0, width, height);
   panelMain.setBackground(Color.WHITE);
   panelMain.setLayout(new FlowLayout());
-  frame.add(panelMain); //add panel to main frame
+  frameMainWindow.add(panelMain); //add panel to main frame
   systemPrintln("EDT panelMain = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
   panelMain.repaint();
 }
@@ -288,14 +288,15 @@ void drawButtonSettings() {
   buttonSettings.addActionListener(new ActionListener() {
     @Override
       public void actionPerformed(ActionEvent actionEvent) {
-      if (panelMainSettings == null) { //if settings window has not been drawn
+      if (dialogSettingsMain == null) { //if settings window has not been drawn
         settingsUI(); //draw settings window
         availableCOMs = processing.serial.Serial.list(); //get available serial ports
         comboBoxPort.setModel(new DefaultComboBoxModel(availableCOMs));
       } else { //otherwise if settings window has been drawn make it visible
-        panelMainSettings.setVisible(true);
-        availableCOMs = processing.serial.Serial.list();//get available serial ports
-        //comboBoxPort.setModel(new DefaultComboBoxModel(availableCOMs));
+        dialogSettingsMain.setLocationRelativeTo(frameMainWindow); // Center the settings window relative to the main frame
+        dialogSettingsMain.setVisible(true);                       // show settings window
+        frameMainWindow.setEnabled(false);                         // disable main window
+        availableCOMs = processing.serial.Serial.list();           // get available serial ports
       }
       systemPrintln("buttonSettings clicked" + " @ " + millis());
     }

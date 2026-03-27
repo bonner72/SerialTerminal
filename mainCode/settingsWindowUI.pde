@@ -1,20 +1,14 @@
 //draw main ui for settings window
-/*
- //? Set settings window Undecorated
- //TODO: Add custom title bar to settings window with Icon and "Settings" title
- //TODO: Add mouse listener to settings window to make it draggable
- //? Set settings window to always be on top of main window
- */
 void settingsUI() {
-  panelMainSettings = new JDialog(frame, "Settings");
-  panelMainSettings.setSize(500, 350);
-  panelMainSettings.setResizable(false);
-  panelMainSettings.setIconImage(bufferedIconMain);
-  panelMainSettings.setLocationRelativeTo(frame);
-  panelMainSettings.getContentPane().setBackground(Color.WHITE);
-  panelMainSettings.setLayout(layoutSettings);
-  panelMainSettings.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE); //simulate cancel button click on close to reset settings values
-  panelMainSettings.addWindowListener(new WindowAdapter() {
+  dialogSettingsMain = new JDialog(frameMainWindow, "Settings");
+  dialogSettingsMain.setSize(500, 350);
+  dialogSettingsMain.setResizable(false);
+  dialogSettingsMain.setIconImage(bufferedIconMain);
+  dialogSettingsMain.setLocationRelativeTo(frameMainWindow);
+  dialogSettingsMain.getContentPane().setBackground(Color.WHITE);
+  dialogSettingsMain.setLayout(layoutSettings);
+  dialogSettingsMain.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE); //simulate cancel button click on close to reset settings values
+  dialogSettingsMain.addWindowListener(new WindowAdapter() {
     @Override
       public void windowClosing(WindowEvent e) {
       buttonCancel.doClick(); //simulate cancel button click to reset settings values and close window
@@ -28,11 +22,11 @@ void settingsUI() {
   drawOkCancelButtons(); //draw ok and cancel buttons
 
   //check if settings UI initialized successfully
-  if (panelMainSettings != null && drawPortConfigInit == true && drawDataConfigInit == true && drawLogConfigInit == true) {
+  if (dialogSettingsMain != null && drawPortConfigInit == true && drawDataConfigInit == true && drawLogConfigInit == true) {
     systemPrintln("EDT settingsUI = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
     settingsUiInit = true;
-    //frameSettings.setVisible(true); //make settings window visible
-    panelMainSettings.setVisible(true);
+    dialogSettingsMain.setVisible(true); // show settings window
+    frameMainWindow.setEnabled(false);   // disable main window
   } else {
     settingsUiInit = false;
   }
@@ -46,54 +40,54 @@ void drawPortConfig() {
   labelPortConfig = new JLabel("Port Configuration");
   labelPortConfig.setPreferredSize(new Dimension(120, 20));
   labelPortConfig.setFont(labelFont);
-  layoutSettings.putConstraint(SpringLayout.WEST, labelPortConfig, 10, SpringLayout.WEST, panelMainSettings);
-  layoutSettings.putConstraint(SpringLayout.NORTH, labelPortConfig, 10, SpringLayout.NORTH, panelMainSettings);
-  panelMainSettings.add(labelPortConfig);
+  layoutSettings.putConstraint(SpringLayout.WEST, labelPortConfig, 10, SpringLayout.WEST, dialogSettingsMain);
+  layoutSettings.putConstraint(SpringLayout.NORTH, labelPortConfig, 10, SpringLayout.NORTH, dialogSettingsMain);
+  dialogSettingsMain.add(labelPortConfig);
 
   //draw (Port) label
   labelPort = new JLabel("Port");
   labelPort.setPreferredSize(new Dimension(80, 20));
   labelPort.setFont(labelFont);
-  layoutSettings.putConstraint(SpringLayout.WEST, labelPort, 10, SpringLayout.WEST, panelMainSettings);
+  layoutSettings.putConstraint(SpringLayout.WEST, labelPort, 10, SpringLayout.WEST, dialogSettingsMain);
   layoutSettings.putConstraint(SpringLayout.NORTH, labelPort, 30, SpringLayout.NORTH, labelPortConfig);
-  panelMainSettings.add(labelPort);
+  dialogSettingsMain.add(labelPort);
 
   //draw (Baud Rate) label
   labelBaudRate = new JLabel("Baud Rate");
   labelBaudRate.setPreferredSize(new Dimension(80, 20));
   labelBaudRate.setFont(labelFont);
-  layoutSettings.putConstraint(SpringLayout.WEST, labelBaudRate, 10, SpringLayout.WEST, panelMainSettings);
+  layoutSettings.putConstraint(SpringLayout.WEST, labelBaudRate, 10, SpringLayout.WEST, dialogSettingsMain);
   layoutSettings.putConstraint(SpringLayout.NORTH, labelBaudRate, 40, SpringLayout.NORTH, labelPort);
-  panelMainSettings.add(labelBaudRate);
+  dialogSettingsMain.add(labelBaudRate);
 
   //draw (Parity) label
   labelPortParity = new JLabel("Parity");
   labelPortParity.setPreferredSize(new Dimension(80, 20));
   labelPortParity.setFont(labelFont);
-  layoutSettings.putConstraint(SpringLayout.WEST, labelPortParity, 10, SpringLayout.WEST, panelMainSettings);
+  layoutSettings.putConstraint(SpringLayout.WEST, labelPortParity, 10, SpringLayout.WEST, dialogSettingsMain);
   layoutSettings.putConstraint(SpringLayout.NORTH, labelPortParity, 40, SpringLayout.NORTH, labelBaudRate);
   if (advancedOptions == true) {
-    panelMainSettings.add(labelPortParity);
+    dialogSettingsMain.add(labelPortParity);
   }
 
   //draw (Data Bits) label
   labelPortDataBits = new JLabel("Data Bits");
   labelPortDataBits.setPreferredSize(new Dimension(80, 20));
   labelPortDataBits.setFont(labelFont);
-  layoutSettings.putConstraint(SpringLayout.WEST, labelPortDataBits, 10, SpringLayout.WEST, panelMainSettings);
+  layoutSettings.putConstraint(SpringLayout.WEST, labelPortDataBits, 10, SpringLayout.WEST, dialogSettingsMain);
   layoutSettings.putConstraint(SpringLayout.NORTH, labelPortDataBits, 40, SpringLayout.NORTH, labelPortParity);
   if (advancedOptions == true) {
-    panelMainSettings.add(labelPortDataBits);
+    dialogSettingsMain.add(labelPortDataBits);
   }
 
   //draw (Stop Bits) label
   labelPortStopBits = new JLabel("Stop Bits");
   labelPortStopBits.setPreferredSize(new Dimension(80, 20));
   labelPortStopBits.setFont(labelFont);
-  layoutSettings.putConstraint(SpringLayout.WEST, labelPortStopBits, 10, SpringLayout.WEST, panelMainSettings);
+  layoutSettings.putConstraint(SpringLayout.WEST, labelPortStopBits, 10, SpringLayout.WEST, dialogSettingsMain);
   layoutSettings.putConstraint(SpringLayout.NORTH, labelPortStopBits, 40, SpringLayout.NORTH, labelPortDataBits);
   if (advancedOptions == true) {
-    panelMainSettings.add(labelPortStopBits);
+    dialogSettingsMain.add(labelPortStopBits);
   }
 
   //draw COM port combo box
@@ -102,7 +96,7 @@ void drawPortConfig() {
   //comboBoxPort.setSelectedIndex(0); //throws error on startup when there are no available COM ports
   layoutSettings.putConstraint(SpringLayout.WEST, comboBoxPort, 80, SpringLayout.WEST, labelPort);
   layoutSettings.putConstraint(SpringLayout.NORTH, comboBoxPort, 0, SpringLayout.NORTH, labelPort);
-  panelMainSettings.add(comboBoxPort);
+  dialogSettingsMain.add(comboBoxPort);
   comboBoxPort.addActionListener(new ActionListener() {
     public void actionPerformed(ActionEvent actionEvent) {
       systemPrintln("User selected " + comboBoxPort.getSelectedItem().toString());
@@ -116,7 +110,7 @@ void drawPortConfig() {
   buttonRefreshCOMs.setIcon(new ImageIcon(bufferedIconRefresh));
   layoutSettings.putConstraint(SpringLayout.WEST, buttonRefreshCOMs, 5, SpringLayout.EAST, comboBoxPort);
   layoutSettings.putConstraint(SpringLayout.NORTH, buttonRefreshCOMs, 0, SpringLayout.NORTH, comboBoxPort);
-  panelMainSettings.add(buttonRefreshCOMs);
+  dialogSettingsMain.add(buttonRefreshCOMs);
   buttonRefreshCOMs.addActionListener(new ActionListener() {
     public void actionPerformed(ActionEvent actionEvent) {
       if (connectedToCOM == false) {
@@ -132,14 +126,15 @@ void drawPortConfig() {
   );
 
   //draw Baud Rate combo box
-  comboBoxBaudRate = new JComboBox(baudRateList);
+  comboBoxBaudRate = new JComboBox();
   comboBoxBaudRate.setPreferredSize(new Dimension(110, 20));
-  comboBoxBaudRate.setSelectedIndex(2);
-  comboBoxBaudRate.setEditable(true);
+  comboBoxBaudRate.setEditable(false);
   layoutSettings.putConstraint(SpringLayout.WEST, comboBoxBaudRate, 80, SpringLayout.WEST, labelBaudRate);
   layoutSettings.putConstraint(SpringLayout.NORTH, comboBoxBaudRate, 0, SpringLayout.NORTH, labelBaudRate);
-  panelMainSettings.add(comboBoxBaudRate);
-
+  newBaudRateModel = currBaudRateModel;                       // set newBaudRateModel to currBaudRateModel values
+  comboBoxBaudRate.setModel(currBaudRateModel);               // set comboBoxBaudRate's model to currBaudRateModel
+  comboBoxBaudRate.setSelectedIndex(2);                       // select baudRate no.2 with default baud list it equals 9600
+  dialogSettingsMain.add(comboBoxBaudRate);
   //add action listener to comboBoxBaudRate
   comboBoxBaudRate.addActionListener(new ActionListener() {
 
@@ -151,6 +146,27 @@ void drawPortConfig() {
   }
   );
 
+  //draw Baud Rate edit button
+  buttonEditBaud = new JButton();
+  buttonEditBaud.setPreferredSize(new Dimension(20, 20));
+  buttonEditBaud.setIcon(new ImageIcon(bufferedIconEditBaud));
+  layoutSettings.putConstraint(SpringLayout.WEST, buttonEditBaud, 5, SpringLayout.EAST, comboBoxBaudRate);
+  layoutSettings.putConstraint(SpringLayout.NORTH, buttonEditBaud, 0, SpringLayout.NORTH, comboBoxBaudRate);
+  dialogSettingsMain.add(buttonEditBaud);
+  buttonEditBaud.addActionListener(new ActionListener() {
+    public void actionPerformed(ActionEvent actionEvent) {
+      if (dialogBaudEditIsInit == false) {
+        initDialogBaudEdit();
+      } else {
+        dialogBaudEdit.setLocationRelativeTo(dialogSettingsMain); // Center the baud edit dialog relative to the settings dialog
+        dialogBaudEdit.setVisible(true);                          // show baud edit window
+        dialogSettingsMain.setEnabled(false);                     // disable settings window
+      }
+      systemPrintln("buttonEditBaud clicked @ " + millis());
+    }
+  }
+  );
+
   //draw Parity combo box
   comboBoxPortParity = new JComboBox(parityList);
   comboBoxPortParity.setPreferredSize(new Dimension(110, 20));
@@ -158,7 +174,7 @@ void drawPortConfig() {
   layoutSettings.putConstraint(SpringLayout.WEST, comboBoxPortParity, 80, SpringLayout.WEST, labelPortParity);
   layoutSettings.putConstraint(SpringLayout.NORTH, comboBoxPortParity, 0, SpringLayout.NORTH, labelPortParity);
   if (advancedOptions == true) {
-    panelMainSettings.add(comboBoxPortParity);
+    dialogSettingsMain.add(comboBoxPortParity);
   }
 
   //add action listener to comboBoxPortParity
@@ -179,7 +195,7 @@ void drawPortConfig() {
   layoutSettings.putConstraint(SpringLayout.WEST, comboBoxPortDataBits, 80, SpringLayout.WEST, labelPortDataBits);
   layoutSettings.putConstraint(SpringLayout.NORTH, comboBoxPortDataBits, 0, SpringLayout.NORTH, labelPortDataBits);
   if (advancedOptions == true) {
-    panelMainSettings.add(comboBoxPortDataBits);
+    dialogSettingsMain.add(comboBoxPortDataBits);
   }
 
   //add action listener to comboBoxPortDataBits
@@ -199,7 +215,7 @@ void drawPortConfig() {
   layoutSettings.putConstraint(SpringLayout.WEST, comboBoxPortStopBits, 80, SpringLayout.WEST, labelPortStopBits);
   layoutSettings.putConstraint(SpringLayout.NORTH, comboBoxPortStopBits, 0, SpringLayout.NORTH, labelPortStopBits);
   if (advancedOptions == true) {
-    panelMainSettings.add(comboBoxPortStopBits);
+    dialogSettingsMain.add(comboBoxPortStopBits);
   }
 
   //add action listener to comboBoxPortStopBits
@@ -232,9 +248,9 @@ void drawDataConfig() {
   labelDataConfig = new JLabel("Data Configuration");
   labelDataConfig.setPreferredSize(new Dimension(150, 20));
   labelDataConfig.setFont(labelFont);
-  layoutSettings.putConstraint(SpringLayout.WEST, labelDataConfig, 255, SpringLayout.WEST, panelMainSettings);
-  layoutSettings.putConstraint(SpringLayout.NORTH, labelDataConfig, 10, SpringLayout.NORTH, panelMainSettings);
-  panelMainSettings.add(labelDataConfig);
+  layoutSettings.putConstraint(SpringLayout.WEST, labelDataConfig, 255, SpringLayout.WEST, dialogSettingsMain);
+  layoutSettings.putConstraint(SpringLayout.NORTH, labelDataConfig, 10, SpringLayout.NORTH, dialogSettingsMain);
+  dialogSettingsMain.add(labelDataConfig);
 
   //draw TimeStamp checkbox
   checkBoxTimeStamp = new JCheckBox("Time Stamp");
@@ -243,9 +259,9 @@ void drawDataConfig() {
   checkBoxTimeStamp.setOpaque(false);
   checkBoxTimeStamp.setFocusPainted(false);
   checkBoxTimeStamp.setSelected(showTimeStamp); //set checkBoxTimeStamp to tStampIsChecked value
-  layoutSettings.putConstraint(SpringLayout.WEST, checkBoxTimeStamp, 255, SpringLayout.WEST, panelMainSettings);
-  layoutSettings.putConstraint(SpringLayout.NORTH, checkBoxTimeStamp, 40, SpringLayout.NORTH, panelMainSettings);
-  panelMainSettings.add(checkBoxTimeStamp);
+  layoutSettings.putConstraint(SpringLayout.WEST, checkBoxTimeStamp, 255, SpringLayout.WEST, dialogSettingsMain);
+  layoutSettings.putConstraint(SpringLayout.NORTH, checkBoxTimeStamp, 40, SpringLayout.NORTH, dialogSettingsMain);
+  dialogSettingsMain.add(checkBoxTimeStamp);
 
   //add action listener to checkBoxTimeStamp
   checkBoxTimeStamp.addActionListener(new ActionListener() {
@@ -273,18 +289,18 @@ void drawLogConfig() {
   labelLogConfig = new JLabel("Log Configuration");
   labelLogConfig.setPreferredSize(new Dimension(120, 20));
   labelLogConfig.setFont(labelFont);
-  layoutSettings.putConstraint(SpringLayout.WEST, labelLogConfig, 255, SpringLayout.WEST, panelMainSettings);
-  layoutSettings.putConstraint(SpringLayout.NORTH, labelLogConfig, 100, SpringLayout.NORTH, panelMainSettings);
-  panelMainSettings.add(labelLogConfig);
+  layoutSettings.putConstraint(SpringLayout.WEST, labelLogConfig, 255, SpringLayout.WEST, dialogSettingsMain);
+  layoutSettings.putConstraint(SpringLayout.NORTH, labelLogConfig, 100, SpringLayout.NORTH, dialogSettingsMain);
+  dialogSettingsMain.add(labelLogConfig);
 
   // draw textFieldFileDir TextField
   textFieldFileDir = new JTextField(defaultLogDir);
   textFieldFileDir.setPreferredSize(new Dimension(155, 20));
   textFieldFileDir.setFont(new Font("Monospaced", Font.PLAIN, 12));
   textFieldFileDir.setForeground(Color.GRAY);
-  layoutSettings.putConstraint(SpringLayout.WEST, textFieldFileDir, 255, SpringLayout.WEST, panelMainSettings);
+  layoutSettings.putConstraint(SpringLayout.WEST, textFieldFileDir, 255, SpringLayout.WEST, dialogSettingsMain);
   layoutSettings.putConstraint(SpringLayout.NORTH, textFieldFileDir, 30, SpringLayout.NORTH, labelLogConfig);
-  panelMainSettings.add(textFieldFileDir);
+  dialogSettingsMain.add(textFieldFileDir);
 
   //add focus listener to textFieldFileDir
   textFieldFileDir.addFocusListener(new FocusListener() {
@@ -316,9 +332,9 @@ void drawLogConfig() {
   textFieldFileName.setPreferredSize(new Dimension(155, 20));
   textFieldFileName.setFont(new Font("Monospaced", Font.PLAIN, 12));
   textFieldFileName.setForeground(Color.GRAY);
-  layoutSettings.putConstraint(SpringLayout.WEST, textFieldFileName, 255, SpringLayout.WEST, panelMainSettings);
+  layoutSettings.putConstraint(SpringLayout.WEST, textFieldFileName, 255, SpringLayout.WEST, dialogSettingsMain);
   layoutSettings.putConstraint(SpringLayout.NORTH, textFieldFileName, 30, SpringLayout.NORTH, textFieldFileDir);
-  panelMainSettings.add(textFieldFileName);
+  dialogSettingsMain.add(textFieldFileName);
 
   //add focus listener to textFieldFileName
   textFieldFileName.addFocusListener(new FocusListener() {
@@ -353,7 +369,7 @@ void drawLogConfig() {
   buttonBrowse.setFocusPainted(false);
   layoutSettings.putConstraint(SpringLayout.WEST, buttonBrowse, 160, SpringLayout.WEST, textFieldFileName);
   layoutSettings.putConstraint(SpringLayout.NORTH, buttonBrowse, 0, SpringLayout.NORTH, textFieldFileDir);
-  panelMainSettings.add(buttonBrowse);
+  dialogSettingsMain.add(buttonBrowse);
 
   //add action listener to buttonBrowse
   buttonBrowse.addActionListener(new ActionListener() {
@@ -387,7 +403,7 @@ void drawLogConfig() {
   buttonStartLog.setFocusPainted(false);
   layoutSettings.putConstraint(SpringLayout.WEST, buttonStartLog, 0, SpringLayout.WEST, buttonBrowse);
   layoutSettings.putConstraint(SpringLayout.NORTH, buttonStartLog, 30, SpringLayout.NORTH, buttonBrowse);
-  panelMainSettings.add(buttonStartLog);
+  dialogSettingsMain.add(buttonStartLog);
   //add action listener to buttonStartLog
   buttonStartLog.addActionListener(new ActionListener() {
     //action performed event handler
@@ -408,7 +424,7 @@ void drawLogConfig() {
   buttonStopLog.setFocusPainted(false);
   layoutSettings.putConstraint(SpringLayout.WEST, buttonStopLog, 0, SpringLayout.WEST, buttonStartLog);
   layoutSettings.putConstraint(SpringLayout.NORTH, buttonStopLog, 30, SpringLayout.NORTH, buttonStartLog);
-  panelMainSettings.add(buttonStopLog);
+  dialogSettingsMain.add(buttonStopLog);
 
   //add action listener to buttonStopLog
   buttonStopLog.addActionListener(new ActionListener() {
@@ -451,9 +467,9 @@ public void drawOkCancelButtons() {
   buttonOk.setPreferredSize(new Dimension(60, 20));
   buttonOk.setMargin(new Insets(0, 0, 0, 0));
   buttonOk.setFocusPainted(false);
-  layoutSettings.putConstraint(SpringLayout.WEST, buttonOk, 399, SpringLayout.EAST, panelMainSettings);
-  layoutSettings.putConstraint(SpringLayout.SOUTH, buttonOk, 262, SpringLayout.SOUTH, panelMainSettings);
-  panelMainSettings.add(buttonOk);
+  layoutSettings.putConstraint(SpringLayout.WEST, buttonOk, 399, SpringLayout.EAST, dialogSettingsMain);
+  layoutSettings.putConstraint(SpringLayout.SOUTH, buttonOk, 262, SpringLayout.SOUTH, dialogSettingsMain);
+  dialogSettingsMain.add(buttonOk);
 
   //add action listener to buttonOk
   buttonOk.addActionListener(new ActionListener() {
@@ -463,7 +479,8 @@ public void drawOkCancelButtons() {
       if (connectedToCOM == false && portsFound == true) {
         selectedPort = comboBoxPort.getSelectedItem().toString();
         selectedBaudRate = comboBoxBaudRate.getSelectedItem().toString();
-
+        currBaudRateModel = newBaudRateModel;         // set currBaudRateModel to newBaudRateModel
+        comboBoxBaudRate.setModel(currBaudRateModel); // set comboBoxBaudRate model to currBaudRateModel
         switch (comboBoxPortParity.getSelectedItem().toString()) {
         case "None":
           selectedParity = 'N';
@@ -496,16 +513,20 @@ public void drawOkCancelButtons() {
         } else {
           buttonConnect.setText("Disconnected-click to connect " + selectedPort + "@" + selectedBaudRate);
         }
-        panelMainSettings.setVisible(false);
+        setTableData("basic");
+        frameMainWindow.setEnabled(true);     // disable main window when settings window is open
+        dialogSettingsMain.setVisible(false); // hide settings window
       } else {
         comboBoxPort.setSelectedItem(selectedPort);         // reset comboBoxPort to selectedPort
         comboBoxBaudRate.setSelectedItem(selectedBaudRate); // reset comboBoxBaudRate to selectedBaudRate
+        comboBoxBaudRate.setModel(currBaudRateModel);       // set comboBoxBaudRate model to currBaudRateModel
         if (advancedOptions == true) {
           comboBoxPortParity.setSelectedItem(selectedParityString);     // reset comboBoxPortParity to selectedParityString
           comboBoxPortDataBits.setSelectedItem(selectedDataBitsString); // reset comboBoxPortDataBits to selectedDataBitsString
           comboBoxPortStopBits.setSelectedItem(selectedStopBitsString); // reset comboBoxPortStopBits to selectedStopBitsString
         }
-        panelMainSettings.setVisible(false);
+        frameMainWindow.setEnabled(true);     // disable main window when settings window is open
+        dialogSettingsMain.setVisible(false); // hide settings window
       }
 
       if (checkBoxTimeStamp.isSelected() == true) {
@@ -524,24 +545,26 @@ public void drawOkCancelButtons() {
   buttonCancel.setMargin(new Insets(0, 0, 0, 0));
   buttonCancel.setFocusPainted(false);
   layoutSettings.putConstraint(SpringLayout.EAST, buttonCancel, -10, SpringLayout.WEST, buttonOk);
-  layoutSettings.putConstraint(SpringLayout.SOUTH, buttonCancel, 262, SpringLayout.SOUTH, panelMainSettings);
-  panelMainSettings.add(buttonCancel);
+  layoutSettings.putConstraint(SpringLayout.SOUTH, buttonCancel, 262, SpringLayout.SOUTH, dialogSettingsMain);
+  dialogSettingsMain.add(buttonCancel);
 
   //add action listener to buttonCancel
   buttonCancel.addActionListener(new ActionListener() {
 
     //action performed event handler
     public void actionPerformed(ActionEvent actionEvent) {
+      newBaudRateModel = currBaudRateModel;                         // set newBaudRateModel to currBaudRateModel values
       comboBoxPort.setSelectedItem(selectedPort);                   // reset comboBoxPort to selectedPort
+      comboBoxBaudRate.setModel(currBaudRateModel);                 // set comboBoxBaudRate model to currBaudRateModel
       comboBoxBaudRate.setSelectedItem(selectedBaudRate);           // reset comboBoxBaudRate to selectedBaudRate
       comboBoxPortParity.setSelectedItem(selectedParityString);     // reset comboBoxPortParity to selectedParityString
       comboBoxPortDataBits.setSelectedItem(selectedDataBitsString); // reset comboBoxPortDataBits to selectedDataBitsString
       comboBoxPortStopBits.setSelectedItem(selectedStopBitsString); // reset comboBoxPortStopBits to selectedStopBitsString
-      checkBoxTimeStamp.setSelected(showTimeStamp);               // reset checkBoxTimeStamp to tStampIsChecked
-      panelMainSettings.setVisible(false);
+      checkBoxTimeStamp.setSelected(showTimeStamp);                 // reset checkBoxTimeStamp to tStampIsChecked
+      frameMainWindow.setEnabled(true);                             // disable main window when settings window is open
+      dialogSettingsMain.setVisible(false);                         // hide settings window
       systemPrintln("buttonCancel clicked" + " @ " + millis());
     }
   }
   );
 }
-

@@ -22,14 +22,14 @@ public void processCommands() {
     if (enteredCommand.contains("=")) {
       String enteredCommandSplit = enteredCommand.split("=")[1];
       if (enteredCommandSplit.equals("true")) {
-        panelMainSettings = null; //reset settings frame to force rebuild with new advanced options
+        dialogSettingsMain = null; //reset settings frame to force rebuild with new advanced options
         advancedOptions = true; //enable advanced options
-        setTableData(); //save advanced options to preferences table
+        setTableData("advanced"); //save advanced options to preferences table
         textAreaMainMsg("\n", "Advanced serial port options enabled.", "");
       } else if (enteredCommandSplit.equals("false")) {
-        panelMainSettings = null; //reset settings frame to force rebuild with removed advanced options
+        dialogSettingsMain = null; //reset settings frame to force rebuild with removed advanced options
         advancedOptions = false;//disable advanced options
-        setTableData(); //save advanced options to preferences table
+        setTableData("advanced"); //save advanced options to preferences table
         textAreaMainMsg("\n", "Advanced serial port options disabled.", "");
       }
     } else {
@@ -51,12 +51,12 @@ public void processCommands() {
       textAreaMainMsg("\n", "Invalid command parameter. Use -tstamp=<true|false>", ""); //invalid format message
     }
   } else if (enteredCommand.equals("-settings")) { //open settings window
-    if (panelMainSettings == null) { //if settings window has not been drawn
+    if (dialogSettingsMain == null) { //if settings window has not been drawn
       settingsUI(); //draw settings window
       availableCOMs = processing.serial.Serial.list(); //get available serial ports
       comboBoxPort.setModel(new DefaultComboBoxModel(availableCOMs));
     } else { //otherwise if settings window has been drawn make it visible
-      panelMainSettings.setVisible(true);
+      dialogSettingsMain.setVisible(true);
       availableCOMs = processing.serial.Serial.list();//get available serial ports
       comboBoxPort.setModel(new DefaultComboBoxModel(availableCOMs));
     }
@@ -86,7 +86,7 @@ public void processCommands() {
       int fontIndex = int(enteredCommandSplit) - 1;
       if (fontIndex >= 0 && fontIndex < fontList.length) {
         selectedFont = fontList[fontIndex]; //set selected font
-        setTableData(); //save selected font to preferences table
+        setTableData("advanced"); //save selected font to preferences table
         setFont(selectedFont, selectedFontSize); //apply selected font
         textAreaMainMsg("\n", "Set font to " + selectedFont + ".", "");
       } else {
@@ -101,7 +101,7 @@ public void processCommands() {
       int fontSize = int(enteredCommandSplit);
       if (fontSize == 10 || fontSize == 12 || fontSize == 14 || fontSize == 16 || fontSize == 18) {
         selectedFontSize = fontSize; //set selected font size
-        setTableData(); //save selected font size to preferences table
+        setTableData("advanced"); //save selected font size to preferences table
         setFont(selectedFont, selectedFontSize); //apply selected font size
         textAreaMainMsg("\n", "Set font size to " + selectedFontSize + ".", "");
       } else {
@@ -111,4 +111,4 @@ public void processCommands() {
       textAreaMainMsg("\n", "Invalid command parameter. Use -fontsize=<size>", ""); //invalid format message
     }
   }
-} // END processCommands
+} // end of processCommands()
