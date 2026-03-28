@@ -98,10 +98,9 @@ public void writeToPort(String i) {
   try {
     if (i.length() > 0) {
       COMPort.write(i);
-      textAreaMainMsg("\n", i, "\n");
+      COMPort.clear();
     } else {
       COMPort.write('\n');
-      textAreaMainMsg("", "\n", "");
     }
   }
   catch (Exception error) {

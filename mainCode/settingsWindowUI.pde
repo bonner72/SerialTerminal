@@ -133,7 +133,7 @@ void drawPortConfig() {
   layoutSettings.putConstraint(SpringLayout.NORTH, comboBoxBaudRate, 0, SpringLayout.NORTH, labelBaudRate);
   newBaudRateModel = currBaudRateModel;                       // set newBaudRateModel to currBaudRateModel values
   comboBoxBaudRate.setModel(currBaudRateModel);               // set comboBoxBaudRate's model to currBaudRateModel
-  comboBoxBaudRate.setSelectedIndex(2);                       // select baudRate no.2 with default baud list it equals 9600
+  comboBoxBaudRate.setSelectedIndex(1);                       // select baudRate no.1 with default baud list it equals 9600
   dialogSettingsMain.add(comboBoxBaudRate);
   //add action listener to comboBoxBaudRate
   comboBoxBaudRate.addActionListener(new ActionListener() {

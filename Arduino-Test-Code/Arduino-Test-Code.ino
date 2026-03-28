@@ -1,17 +1,14 @@
-int l = 0;
-
 void setup() {
-  Serial.begin(9600);  //initialize serial
+  Serial.begin(9600);  //initialize serial at 9600 baud rate
 }
 
 void loop() {
-  l++; //count program scans
+  if (Serial.available()) {          // if serial port is connected and has data
+    if (Serial.availableForWrite()){ // if serial port can be written to        
+      Serial.write(Serial.read());   // echo received data
+    }
+  }
 
-    Serial.print("hello world ");
-    //Serial.print(" @ ");
-   // Serial.print(l); //print program scan count
-    //Serial.print(" scans");
-    //Serial.write(10);
 
   
 }
