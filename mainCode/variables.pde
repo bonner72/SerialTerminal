@@ -33,7 +33,7 @@ boolean mainUiInit, settingsUiInit, dialogBaudEditIsInit, drawPortConfigInit, dr
 boolean commandFound = false;                                                                                                // true if entered command is a valid command        
 boolean advancedOptions = false;                                                                                             // true if advanced serial port options are enabled
 
-String versionInfo = "SerialTerminal 2.3.0";
+String versionInfo = "SerialTerminal 3.0.0";
 String selectedPort = null;                                                                                                                            // Name of selected COM port
 String[] baudRateList = {"4800", "9600", "38400", "57600", "115200"};
 String selectedBaudRate = baudRateList[1];
@@ -109,6 +109,7 @@ FileWriter Writer;                                  // create object of FileWrit
 int intBaudRate = int(selectedBaudRate);            // integer value of selectedBaudRate for Serial constructor
 processing.serial.Serial COMPort = null;            // create object of Serial class
 Table preferenceTable;                              // preferences table
+
 
 //Controls for main window
 javax.swing.JFrame frameMainWindow; //create instance of JFrame

@@ -1,7 +1,11 @@
 //draw main ui for settings window
 void settingsUI() {
   dialogSettingsMain = new JDialog(frameMainWindow, "Settings");
-  dialogSettingsMain.setSize(500, 350);
+  if (OS.equals("linux")) { // linux misplaces the ui components. this adjusts according to the OS.
+    dialogSettingsMain.setSize(486, 343);
+  } else {
+    dialogSettingsMain.setSize(500, 350);
+  }
   dialogSettingsMain.setResizable(false);
   dialogSettingsMain.setIconImage(bufferedIconMain);
   dialogSettingsMain.setLocationRelativeTo(frameMainWindow);
@@ -466,7 +470,11 @@ public void drawOkCancelButtons() {
   buttonOk.setPreferredSize(new Dimension(60, 20));
   buttonOk.setMargin(new Insets(0, 0, 0, 0));
   buttonOk.setFocusPainted(false);
-  layoutSettings.putConstraint(SpringLayout.WEST, buttonOk, 399, SpringLayout.EAST, dialogSettingsMain);
+  if (OS.equals("linux")) { // linux misplaces the ui components. this adjusts according to the OS.
+    layoutSettings.putConstraint(SpringLayout.WEST, buttonOk, 413, SpringLayout.EAST, dialogSettingsMain);
+  } else {
+    layoutSettings.putConstraint(SpringLayout.WEST, buttonOk, 399, SpringLayout.EAST, dialogSettingsMain);
+  }
   layoutSettings.putConstraint(SpringLayout.SOUTH, buttonOk, 262, SpringLayout.SOUTH, dialogSettingsMain);
   dialogSettingsMain.add(buttonOk);
 
@@ -515,16 +523,23 @@ public void drawOkCancelButtons() {
         frameMainWindow.setEnabled(true);     // disable main window when settings window is open
         dialogSettingsMain.setVisible(false); // hide settings window
       } else {
-        comboBoxPort.setSelectedItem(selectedPort);         // reset comboBoxPort to selectedPort
-        comboBoxBaudRate.setSelectedItem(selectedBaudRate); // reset comboBoxBaudRate to selectedBaudRate
-        comboBoxBaudRate.setModel(currBaudRateModel);       // set comboBoxBaudRate model to currBaudRateModel
-        if (advancedOptions == true) {
-          comboBoxPortParity.setSelectedItem(selectedParityString);     // reset comboBoxPortParity to selectedParityString
-          comboBoxPortDataBits.setSelectedItem(selectedDataBitsString); // reset comboBoxPortDataBits to selectedDataBitsString
-          comboBoxPortStopBits.setSelectedItem(selectedStopBitsString); // reset comboBoxPortStopBits to selectedStopBitsString
+        try {
+          comboBoxPort.setSelectedItem(selectedPort);         // reset comboBoxPort to selectedPort
+          comboBoxBaudRate.setSelectedItem(selectedBaudRate); // reset comboBoxBaudRate to selectedBaudRate
+          comboBoxBaudRate.setModel(currBaudRateModel);       // set comboBoxBaudRate model to currBaudRateModel
+          if (advancedOptions == true) {
+            comboBoxPortParity.setSelectedItem(selectedParityString);     // reset comboBoxPortParity to selectedParityString
+            comboBoxPortDataBits.setSelectedItem(selectedDataBitsString); // reset comboBoxPortDataBits to selectedDataBitsString
+            comboBoxPortStopBits.setSelectedItem(selectedStopBitsString); // reset comboBoxPortStopBits to selectedStopBitsString
+          }
+          frameMainWindow.setEnabled(true);     // disable main window when settings window is open
+          dialogSettingsMain.setVisible(false); // hide settings window
         }
-        frameMainWindow.setEnabled(true);     // disable main window when settings window is open
-        dialogSettingsMain.setVisible(false); // hide settings window
+        catch (Exception error) {
+          frameMainWindow.setEnabled(true);     // disable main window when settings window is open
+          dialogSettingsMain.setVisible(false); // hide settings window
+          systemPrintln("Ok button error likely a comboBox has no data @ " + millis(), error.toString());
+        }
       }
 
       if (checkBoxTimeStamp.isSelected() == true) {
@@ -551,16 +566,23 @@ public void drawOkCancelButtons() {
 
     //action performed event handler
     public void actionPerformed(ActionEvent actionEvent) {
-      newBaudRateModel = currBaudRateModel;                         // set newBaudRateModel to currBaudRateModel values
-      comboBoxPort.setSelectedItem(selectedPort);                   // reset comboBoxPort to selectedPort
-      comboBoxBaudRate.setModel(currBaudRateModel);                 // set comboBoxBaudRate model to currBaudRateModel
-      comboBoxBaudRate.setSelectedItem(selectedBaudRate);           // reset comboBoxBaudRate to selectedBaudRate
-      checkBoxTimeStamp.setSelected(showTimeStamp);                 // reset checkBoxTimeStamp to tStampIsChecked
+      try {
+        newBaudRateModel = currBaudRateModel;                         // set newBaudRateModel to currBaudRateModel values
+        comboBoxPort.setSelectedItem(selectedPort);                   // reset comboBoxPort to selectedPort
+        comboBoxBaudRate.setModel(currBaudRateModel);                 // set comboBoxBaudRate model to currBaudRateModel
+        comboBoxBaudRate.setSelectedItem(selectedBaudRate);           // reset comboBoxBaudRate to selectedBaudRate
+        checkBoxTimeStamp.setSelected(showTimeStamp);                 // reset checkBoxTimeStamp to tStampIsChecked
 
-      if (advancedOptions == true) {
-        comboBoxPortParity.setSelectedItem(selectedParityString);     // reset comboBoxPortParity to selectedParityString
-        comboBoxPortDataBits.setSelectedItem(selectedDataBitsString); // reset comboBoxPortDataBits to selectedDataBitsString
-        comboBoxPortStopBits.setSelectedItem(selectedStopBitsString); // reset comboBoxPortStopBits to selectedStopBitsString
+        if (advancedOptions == true) {
+          comboBoxPortParity.setSelectedItem(selectedParityString);     // reset comboBoxPortParity to selectedParityString
+          comboBoxPortDataBits.setSelectedItem(selectedDataBitsString); // reset comboBoxPortDataBits to selectedDataBitsString
+          comboBoxPortStopBits.setSelectedItem(selectedStopBitsString); // reset comboBoxPortStopBits to selectedStopBitsString
+        }
+      }
+      catch (Exception error) {
+        frameMainWindow.setEnabled(true);     // disable main window when settings window is open
+        dialogSettingsMain.setVisible(false); // hide settings window
+        systemPrintln("CANCEL button error likely a comboBox has no data @ " + millis(), error.toString());
       }
       frameMainWindow.setEnabled(true);                             // disable main window when settings window is open
       dialogSettingsMain.setVisible(false);                         // hide settings window
@@ -569,4 +591,3 @@ public void drawOkCancelButtons() {
   }
   );
 }
-
