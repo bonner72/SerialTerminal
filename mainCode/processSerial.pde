@@ -19,7 +19,7 @@ public void searchForPorts() {
   } else if (connectedToCOM) {
     availableCOMs = Serial.list();
     if (availableCOMs[0].equals(selectedPort) == true || availableCOMs[comboBoxPortSelectedIndex].equals(selectedPort) == true) {
-      systemPrintln("connected port found" + availableCOMs[0]);
+      systemPrintln("connected port found" + availableCOMs[0], "debug");
     } else {
     }
   }
@@ -32,11 +32,11 @@ public void connectPort() {
       if (advancedOptions == true) {
         // print connecting statements
         textAreaMainMsg("\n", "Connecting to.. " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits, "");
-        systemPrintln("Connecting to.. " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits);
+        systemPrintln("Connecting to.. " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits, "debug");
 
         // initialize processing serial port
         COMPort = new processing.serial. Serial(this, selectedPort, intBaudRate, selectedParity, selectedDataBits, selectedStopBits);
-        systemPrintln("Connected to: " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits);
+        systemPrintln("Connected to: " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits, "debug");
         textAreaMainMsg("\n", "Connected to: " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits, "\n");
         buttonConnect.setText("Connected to: " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits);
         buttonConnect.setBackground(buttonConnectGreen);
@@ -44,11 +44,11 @@ public void connectPort() {
       } else {
         // print connecting statements
         textAreaMainMsg("\n", "Connecting to.. " + selectedPort + "@" + selectedBaudRate, "");
-        systemPrintln("Connecting to.. " + selectedPort + "@" + selectedBaudRate);
+        systemPrintln("Connecting to.. " + selectedPort + "@" + selectedBaudRate, "debug");
 
         // initialize processing serial port
         COMPort = new processing.serial. Serial(this, selectedPort, intBaudRate);
-        systemPrintln("Connected to: " + selectedPort + "@" + selectedBaudRate);
+        systemPrintln("Connected to: " + selectedPort + "@" + selectedBaudRate, "debug");
         textAreaMainMsg("\n", "Connected to: " + selectedPort + "@" + selectedBaudRate, "\n");
         buttonConnect.setText("Connected-click to disconnect " + selectedPort + "@" + selectedBaudRate);
         buttonConnect.setBackground(buttonConnectGreen);
@@ -60,7 +60,7 @@ public void connectPort() {
       connectedToCOM = false;
       COMPort = null;
       textAreaMainMsg("\n", error.toString(), "");
-      systemPrintln(error.toString());
+      systemPrintln(error.toString(), "error");
     }
   }
 }
@@ -75,12 +75,12 @@ public void disconnectPort() {
       COMPort = null;
       connectedToCOM = false;
       if (advancedOptions == true) {
-        systemPrintln("Disconnected from: " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits);
+        systemPrintln("Disconnected from: " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits, "debug");
         textAreaMainMsg("\n", "Disconnected from: " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits, "");
         buttonConnect.setText("Disconnected-click to connect " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits);
         buttonConnect.setBackground(buttonConnectRed);
       } else {
-        systemPrintln("Disconnected from: " + selectedPort + "@" + selectedBaudRate);
+        systemPrintln("Disconnected from: " + selectedPort + "@" + selectedBaudRate, "debug");
         textAreaMainMsg("\n", "Disconnected from: " + selectedPort + "@" + selectedBaudRate, "");
         buttonConnect.setText("Disconnected-click to connect " + selectedPort + "@" + selectedBaudRate);
         buttonConnect.setBackground(buttonConnectRed);
@@ -88,7 +88,7 @@ public void disconnectPort() {
     }
     catch (Exception error) {
       textAreaMainMsg("\n", error.toString(), "");
-      systemPrintln(error.toString());
+      systemPrintln(error.toString(), "error");
     }
   }
 }
@@ -107,10 +107,10 @@ public void writeToPort(String i) {
 
     if (!connectedToCOM) {
       textAreaMainMsg("\n", "ERROR--Failed to send data... Not connected to serial port.", "");
-      systemPrintln("ERROR--Failed to send data... Not connected to serial port.");
+      systemPrintln("ERROR--Failed to send data... Not connected to serial port.", "debug");
     } else {
       textAreaMainMsg("\n", "ERROR--Failed to send data..." + '\n' + error, "");
-      systemPrintln("ERROR--Failed to send data..." + '\n' + error);
+      systemPrintln("ERROR--Failed to send data..." + '\n' + error, "error");
     }
   }
 }

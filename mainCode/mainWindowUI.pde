@@ -10,7 +10,7 @@ void buildMainUI() {
   drawTextFieldSearch();
   if (panelMain != null && textAreaMain != null && textFieldMain != null && textFieldSearch != null && buttonConnect != null && buttonClear != null && buttonSettings != null && buttonLogPauseResume != null) {
     mainUiInit = true;
-    systemPrintln("Main UI initialized @ " + millis());
+    systemPrintln("Main UI initialized @ " + millis(), "debug");
   } else {
     mainUiInit = false;
   }
@@ -20,21 +20,20 @@ void drawPanelMain() {
   panelMain = new JPanel();
   panelMain.setLocation(0, 0);
   panelMain.setBounds(0, 0, width, height);
-  panelMain.setBackground(Color.WHITE);
   panelMain.setLayout(new FlowLayout());
   frameMainWindow.add(panelMain); //add panel to main frame
-  systemPrintln("EDT panelMain = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
+  systemPrintln("EDT panelMain = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis(), "debug");
   panelMain.repaint();
 }
 //draw main window textarea
 void drawTextAreaMain() {
   textAreaMain = new JTextArea();
   textAreaMainScrollPane = new JScrollPane(textAreaMain);
-  textAreaMainScrollPane.setPreferredSize(new Dimension(width - 10, height - 75));
+  textAreaMainScrollPane.setPreferredSize(new Dimension(width - 10, height - 106));
   textAreaMain.setEditable(false);
   //textAreaMain.setLineWrap(true);
   panelMain.add(textAreaMainScrollPane);
-  systemPrintln("EDT txtAreaMain = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
+  systemPrintln("EDT txtAreaMain = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis(), "debug");
   textAreaMain.repaint();
 }
 
@@ -56,7 +55,7 @@ void drawTextFieldMain() {
       if (textFieldMain.getText().equals("Press return key to send text...")) {
         textFieldMain.setText("");
         textFieldMain.setForeground(Color.BLACK);
-        systemPrintln("textFieldMain focus gained" + " @ " + millis());
+        systemPrintln("textFieldMain focus gained" + " @ " + millis(), "debug");
       }
     }
 
@@ -66,7 +65,7 @@ void drawTextFieldMain() {
       if (textFieldMain.getText().isEmpty()) {
         textFieldMain.setText("Press return key to send text...");
         textFieldMain.setForeground(Color.GRAY);
-        systemPrintln("textFieldMain focus lost" + " @ " + millis());
+        systemPrintln("textFieldMain focus lost" + " @ " + millis(), "debug");
       }
     }
   }
@@ -104,7 +103,7 @@ void drawTextFieldMain() {
         previousEnteredCommands.remove(0); //remove oldest entry
       }
       textFieldMain.setText("");                //clear text field after enter pressed
-      systemPrintln("textFieldMain keyPressed Enter" + " @ " + millis());
+      systemPrintln("textFieldMain keyPressed Enter" + " @ " + millis(), "debug");
     }
   }
   );
@@ -123,7 +122,7 @@ void drawTextFieldMain() {
           String lastCommand = previousEnteredCommands.get(previousEnteredCommands.size() - prevCommandsIndex); // get last entered command
           textFieldMain.setText(lastCommand); // print last entered command to textFieldMain
         }
-        systemPrintln("Up arrow key pressed");
+        systemPrintln("Up arrow key pressed @ " + millis(), "debug");
       }
 
       //handle down arrow keyPress
@@ -140,13 +139,13 @@ void drawTextFieldMain() {
         } else {
           textFieldMain.setText(""); // clear textFieldMain if at the most recent command
         }
-        systemPrintln("Down arrow key pressed"); // debug print
+        systemPrintln("Down arrow key pressed @ " + millis(), "debug"); // debug print
       }
-      systemPrintln("Key pressed: " + evt.getKeyCode() + " " + prevCommandsIndex); // debug print
+      systemPrintln("Key pressed: " + evt.getKeyCode() + " " + prevCommandsIndex, "debug"); // debug print
     }
   }
   );
-  systemPrintln("EDT txtAreaMain = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis()); // debug print
+  systemPrintln("EDT txtAreaMain = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis(), "debug"); // debug print
   textFieldMain.repaint(); // repaint textFieldMain
 }
 
@@ -170,7 +169,7 @@ void drawTextFieldSearch() {
         textFieldSearch.setText("");
         textFieldSearch.setForeground(Color.BLACK);
         textFieldSearchHasText = false;
-        systemPrintln("textFieldSearch focus gained" + " @ " + millis());
+        systemPrintln("textFieldSearch focus gained" + " @ " + millis(), "debug");
       }
       textFieldSearchHasText = true;
     }
@@ -182,7 +181,7 @@ void drawTextFieldSearch() {
         textFieldSearch.setText("Enter search text.");
         textFieldSearch.setForeground(Color.GRAY);
         textFieldSearchHasText = false;
-        systemPrintln("textFieldSearch focus lost" + " @ " + millis());
+        systemPrintln("textFieldSearch focus lost" + " @ " + millis(), "debug");
       }
       textFieldSearchHasText = true;
     }
@@ -196,7 +195,7 @@ void drawTextFieldSearch() {
       public void actionPerformed(ActionEvent e) {
       textFieldSearchHasText = true;
       getSearch(textFieldSearch.getText());
-      systemPrintln("textFieldSearch keyPressed Enter" + " @ " + millis());
+      systemPrintln("textFieldSearch keyPressed Enter" + " @ " + millis(), "debug");
     }
   }
   );
@@ -222,7 +221,7 @@ void drawTextFieldSearch() {
   }
   );
 
-  systemPrintln("EDT textFieldSearch = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
+  systemPrintln("EDT textFieldSearch = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis(), "debug");
   textFieldSearch.repaint();
 }
 
@@ -245,12 +244,12 @@ void drawButtonConnect() {
         //connectToCOM = false;
         disconnectPort();
       }
-      systemPrintln("buttonConnect clicked" + " @ " + millis());
+      systemPrintln("buttonConnect clicked" + " @ " + millis(), "debug");
     }
   }
 
   );
-  systemPrintln("EDT buttonConnect = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
+  systemPrintln("EDT buttonConnect = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis(), "debug");
   buttonConnect.repaint();
 }
 
@@ -268,11 +267,11 @@ void drawButtonClear() {
     public void actionPerformed(ActionEvent actionEvent) {
       textAreaMain.setText("");
 
-      systemPrintln("buttonClear clicked" + " @ " + millis());
+      systemPrintln("buttonClear clicked" + " @ " + millis(), "debug");
     }
   }
   );
-  systemPrintln("EDT buttonClear = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
+  systemPrintln("EDT buttonClear = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis(), "debug");
   buttonClear.repaint();
 }
 
@@ -298,11 +297,11 @@ void drawButtonSettings() {
         frameMainWindow.setEnabled(false);                         // disable main window
         availableCOMs = processing.serial.Serial.list();           // get available serial ports
       }
-      systemPrintln("buttonSettings clicked" + " @ " + millis());
+      systemPrintln("buttonSettings clicked" + " @ " + millis(), "debug");
     }
   }
   );
-  systemPrintln("EDT buttonSettings = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
+  systemPrintln("EDT buttonSettings = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis(), "debug");
   buttonSettings.repaint();
 }
 
@@ -328,10 +327,10 @@ void drawButtonLogPauseResume() {
           textAreaMainMsg("\n", "Resumed data logging", "");
         }
       }
-      systemPrintln("buttonLogPauseResume clicked" + " @ " + millis());
+      systemPrintln("buttonLogPauseResume clicked" + " @ " + millis(), "debug");
     }
   }
   );
-  systemPrintln("EDT buttonLogPauseResume = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
+  systemPrintln("EDT buttonLogPauseResume = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis(), "debug");
   buttonLogPauseResume.repaint();
 }

@@ -59,39 +59,46 @@ String selectedStopBitsString = stopBitList[0]; // String value of selected stop
 String serialPortList[];
 String enteredCommand = "";                     // command entered in textFieldMain updates on enter press
 String validCommands[] = {                      // list of valid commands
-  "-h", // help
-  "-v", // version
-  "-s", // connection status
-  "-a", // advanced options
-  "-a=true", // enable advanced options
-  "-a=false", // disable advanced options
-  "-connect", // connect
-  "-disconnect", // disconnect
-  "-clear", // clear
-  "-lpause", // log pause
-  "-lresume", // log resume
-  "-settings", // settings
-  "-tstamp", // timestamp
-  "-tstamp=true", // enable timestamp
-  "-tstamp=false", // disable timestamp
-  "-lstart", // log start
-  "-lstop", // log stop
-  "-font", // set font
-  "-font=1", // set font to Courier
-  "-font=2", // set font to Cascadia Code
-  "-font=3", // set font to JetBrains Mono (default)
-  "-font=4", // set font to Liberation Mono
-  "-fontsize", // set font size
-  "-fontsize=10", // set font size to 10
-  "-fontsize=12", // set font size to 12
-  "-fontsize=14", // set font size to 14
-  "-fontsize=16", // set font size to 16
-  "-fontsize=18"   // set font size to 18
+  "-h",              // help                                
+  "-v",              // version                             
+  "-s",              // connection status                   
+  "-a",              // advanced options                    
+  "-a=true",         // enable advanced options             
+  "-a=false",        // disable advanced options            
+  "-connect",        // connect                             
+  "-disconnect",     // disconnect                          
+  "-clear",          // clear                               
+  "-lpause",         // log pause                           
+  "-lresume",        // log resume                          
+  "-settings",       // settings                            
+  "-tstamp",         // timestamp                           
+  "-tstamp=true",    // enable timestamp                    
+  "-tstamp=false",   // disable timestamp                   
+  "-lstart",         // log start                           
+  "-lstop",          // log stop                            
+  "-font",           // set font                            
+  "-font=1",         // set font to Courier                 
+  "-font=2",         // set font to Cascadia Code           
+  "-font=3",         // set font to JetBrains Mono (default)
+  "-font=4",         // set font to Liberation Mono         
+  "-fontsize",       // set font size                       
+  "-fontsize=10",    // set font size to 10                 
+  "-fontsize=12",    // set font size to 12                 
+  "-fontsize=14",    // set font size to 14                 
+  "-fontsize=16",    // set font size to 16                 
+  "-fontsize=18",    // set font size to 18                 
+  "-theme",          // set theme                           
+  "-theme=light",    // set theme to light                  
+  "-theme=dark",     // set theme to dark                   
+  "-theme=intellij", // set theme to intellij               
+  "-theme=darcula"   // set theme to darcula
 }; //list of valid commands END
 
 String fontList[] = {"courier-prime.regular.ttf", "cascadia.code.ttf", "jetbrains-mono.regular.ttf", "liberation-mono.regular.ttf"}; // list of available fonts for textAreaMain and textFieldMain
-String selectedFont = fontList[0];                                                                                                   // selected font for textAreaMain and textFieldMain
+String selectedFont = fontList[0];                                                                                                   // selected font for textAreaMain and textFieldMain          
+String theme = "light";                                                                                                              // software theme
 StringList previousEnteredCommands = new StringList();                                                                               // previous command entered in textFieldMain
+
 
 Color buttonConnectRed = new Color(#EC4242);   //red color for disconnected button
 Color buttonConnectGreen = new Color(#3DC73D); //green color for connected button
@@ -104,6 +111,8 @@ processing.serial.Serial COMPort = null;            // create object of Serial c
 Table preferenceTable;                              // preferences table
 
 //Controls for main window
+javax.swing.JFrame frameMainWindow; //create instance of JFrame
+java.awt.Canvas canvasMainWindow;   //create instance of Canvas
 JPanel panelMain;                     // main window panel
 JTextArea textAreaMain;               // main window text area
 JTextField textFieldMain;             // main window text field
@@ -113,7 +122,7 @@ JButton buttonConnect;                // main window connect button
 JButton buttonClear;                  // main window clear button
 JButton buttonSettings;               // main window settings button
 JButton buttonLogPauseResume;         // main window log pause/resume button
-Highlighter hilit;                    // highlighter for textAreaMain search function
+Highlighter highlighter;                    // highlighter for textAreaMain search function
 Highlighter.HighlightPainter painter; // painter for textAreaMain search function
 BufferedImage bufferedIconMain;       // buffered image for software icon
 PImage iconMain; //software icon

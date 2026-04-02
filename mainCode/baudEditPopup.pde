@@ -5,7 +5,6 @@ public void initDialogBaudEdit() {
   dialogBaudEdit.setAlwaysOnTop(true);
   dialogBaudEdit.setLocationRelativeTo(dialogSettingsMain);
   dialogBaudEdit.setLayout(layoutBaudEdit);
-  dialogBaudEdit.getContentPane().setBackground(Color.WHITE);
   dialogBaudEdit.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
   dialogBaudEdit.addWindowListener(new WindowAdapter() {
     @Override
@@ -19,7 +18,6 @@ public void initDialogBaudEdit() {
   textAreaBaudEdit = new JTextArea(java.util.Arrays.toString(baudRateList).replace(",", "\n").replace("[", "").replace("]", "").replace(" ", "").trim());
   scrollPaneBaudEdit = new JScrollPane(textAreaBaudEdit);
   scrollPaneBaudEdit.setPreferredSize(new Dimension(274, 226));
-  textAreaBaudEdit.setBackground(Color.WHITE);
   textAreaBaudEdit.setLineWrap(true);
   textAreaBaudEdit.setAutoscrolls(true);
 
@@ -50,7 +48,7 @@ public void initDialogBaudEdit() {
 
           // Step 2: Add the new element to the last index of the new array
           textAreaBaudEditArray[textAreaBaudEditArray.length - 1] = textAreaBaudEdit.getText(start, end-start).trim();
-          systemPrintln(textAreaBaudEdit.getText(start, end-start).trim());
+          systemPrintln(textAreaBaudEdit.getText(start, end-start).trim(), "debug");
         }
       }
       catch(BadLocationException e) {
@@ -62,7 +60,7 @@ public void initDialogBaudEdit() {
       comboBoxBaudRate.setModel(newBaudRateModel);                        // set comboBoxBaudRate's model to currBaudRateModel
       dialogSettingsMain.setEnabled(true);                                // enable settings window
       dialogBaudEdit.setVisible(false);                                   // hide baud edit window
-      systemPrintln("buttonBaudEditOk clicked @ " + millis());            // print debug statement
+      systemPrintln("buttonBaudEditOk clicked @ " + millis(), "debug");            // print debug statement
     }
   }
   );
@@ -90,7 +88,7 @@ public void initDialogBaudEdit() {
 
           // Step 2: Add the new element to the last index of the new array
           textAreaBaudEditArray[textAreaBaudEditArray.length - 1] = textAreaBaudEdit.getText(start, end-start).trim();
-          systemPrintln(textAreaBaudEdit.getText(start, end-start).trim());
+          systemPrintln(textAreaBaudEdit.getText(start, end-start).trim(), "debug");
         }
       }
       catch(BadLocationException e) {

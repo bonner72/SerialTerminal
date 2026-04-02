@@ -11,16 +11,16 @@ public void initLogFile() {
     if (logFile.createNewFile()) {
       logFileExists = false;
       textAreaMainMsg("\n", "File created: " + textFieldFileDirInput + logFile.getName(), "");
-      systemPrintln("File created: " + textFieldFileDirInput + logFile.getName());
+      systemPrintln("File created: " + textFieldFileDirInput + logFile.getName(), "debug");
     } else if (logFile.exists()) {
       logFileExists = true;
       textAreaMainMsg("\n", "File already exists: " + textFieldFileDirInput + logFile.getName(), "");
-      systemPrintln("File already exists: " + textFieldFileDirInput + logFile.getName());
+      systemPrintln("File already exists: " + textFieldFileDirInput + logFile.getName(), "debug");
     }
   }
-  catch (IOException e) {
-    textAreaMainMsg("\n", "Failed to create log file. " + e, "");
-    systemPrintln("Failed to create log file. " + e);
+  catch (IOException error) {
+    textAreaMainMsg("\n", "Failed to create log file. " + error, "");
+    systemPrintln("Failed to create log file. " + error, "error");
     initLogFileOk = false;
   }
 

@@ -110,5 +110,20 @@ public void processCommands() {
     } else {
       textAreaMainMsg("\n", "Invalid command parameter. Use -fontsize=<size>", ""); //invalid format message
     }
+  } else if (enteredCommand.startsWith("-theme")) { //set font size
+    if (enteredCommand.contains("=")) {
+      String enteredCommandSplit = enteredCommand.split("=")[1].trim();
+      String newTheme = enteredCommandSplit;
+      if (newTheme.equals("light") || newTheme.equals("dark") || newTheme.equals("intellij") || newTheme.equals("darcula")) {
+        theme = newTheme; //set selected theme
+        setTableData("advanced"); //save selected font size to preferences table
+        setTheme(theme);
+        textAreaMainMsg("\n", "Set theme to " + theme + ".", "");
+      } else {
+        textAreaMainMsg("\n", "Invalid theme. Use -theme=<type> where type is light, dark, intellij, or darcula.", ""); //invalid theme message
+      }
+    } else {
+      textAreaMainMsg("\n", "Invalid command parameter. Use -theme=<type> where type is light, dark, intellij, or darcula.", ""); //invalid format message
+    }
   }
 } // end of processCommands()

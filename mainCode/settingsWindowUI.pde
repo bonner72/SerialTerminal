@@ -5,7 +5,6 @@ void settingsUI() {
   dialogSettingsMain.setResizable(false);
   dialogSettingsMain.setIconImage(bufferedIconMain);
   dialogSettingsMain.setLocationRelativeTo(frameMainWindow);
-  dialogSettingsMain.getContentPane().setBackground(Color.WHITE);
   dialogSettingsMain.setLayout(layoutSettings);
   dialogSettingsMain.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE); //simulate cancel button click on close to reset settings values
   dialogSettingsMain.addWindowListener(new WindowAdapter() {
@@ -23,7 +22,7 @@ void settingsUI() {
 
   //check if settings UI initialized successfully
   if (dialogSettingsMain != null && drawPortConfigInit == true && drawDataConfigInit == true && drawLogConfigInit == true) {
-    systemPrintln("EDT settingsUI = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
+    systemPrintln("EDT settingsUI = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis(), "debug");
     settingsUiInit = true;
     dialogSettingsMain.setVisible(true); // show settings window
     frameMainWindow.setEnabled(false);   // disable main window
@@ -99,7 +98,7 @@ void drawPortConfig() {
   dialogSettingsMain.add(comboBoxPort);
   comboBoxPort.addActionListener(new ActionListener() {
     public void actionPerformed(ActionEvent actionEvent) {
-      systemPrintln("User selected " + comboBoxPort.getSelectedItem().toString());
+      systemPrintln("User selected " + comboBoxPort.getSelectedItem().toString(), "debug");
     }
   }
   );
@@ -116,8 +115,8 @@ void drawPortConfig() {
       if (connectedToCOM == false) {
         availableCOMs = processing.serial.Serial.list(); //get available serial ports
         comboBoxPort.setModel(new DefaultComboBoxModel(availableCOMs));
-        systemPrintln("Available COMs:" + java.util.Arrays.toString(availableCOMs));
-        systemPrintln("buttonRefreshCOMs clicked @ " + millis());
+        systemPrintln("Available COMs:" + java.util.Arrays.toString(availableCOMs), "debug");
+        systemPrintln("buttonRefreshCOMs clicked @ " + millis(), "debug");
       } else {
         textAreaMainMsg("\n", "Cannot refresh COM ports while connected to port.", "");
       }
@@ -141,7 +140,7 @@ void drawPortConfig() {
     //action performed event handler
     public void actionPerformed(ActionEvent actionEvent) {
 
-      systemPrintln("User selected " + comboBoxBaudRate.getSelectedItem().toString() + " @ " + millis());
+      systemPrintln("User selected " + comboBoxBaudRate.getSelectedItem().toString() + " @ " + millis(), "debug");
     }
   }
   );
@@ -162,7 +161,7 @@ void drawPortConfig() {
         dialogBaudEdit.setVisible(true);                          // show baud edit window
         dialogSettingsMain.setEnabled(false);                     // disable settings window
       }
-      systemPrintln("buttonEditBaud clicked @ " + millis());
+      systemPrintln("buttonEditBaud clicked @ " + millis(), "debug");
     }
   }
   );
@@ -183,7 +182,7 @@ void drawPortConfig() {
     //action performed event handler
     public void actionPerformed(ActionEvent actionEvent) {
 
-      systemPrintln("User selected " + comboBoxPortParity.getSelectedItem().toString() + " @ " + millis());
+      systemPrintln("User selected " + comboBoxPortParity.getSelectedItem().toString() + " @ " + millis(), "debug");
     }
   }
   );
@@ -203,7 +202,7 @@ void drawPortConfig() {
 
     //action performed event handler
     public void actionPerformed(ActionEvent actionEvent) {
-      systemPrintln("User selected " + comboBoxPortDataBits.getSelectedItem().toString() + " @ " + millis());
+      systemPrintln("User selected " + comboBoxPortDataBits.getSelectedItem().toString() + " @ " + millis(), "debug");
     }
   }
   );
@@ -224,7 +223,7 @@ void drawPortConfig() {
     //action performed event handler
     public void actionPerformed(ActionEvent actionEvent) {
 
-      systemPrintln("User selected " + comboBoxPortStopBits.getSelectedItem().toString() + " @ " + millis());
+      systemPrintln("User selected " + comboBoxPortStopBits.getSelectedItem().toString() + " @ " + millis(), "debug");
     }
   }
   );
@@ -234,7 +233,7 @@ void drawPortConfig() {
   //check if all components initialized successfully
   if (labelPortConfig != null && labelPort != null && labelBaudRate != null && labelPortParity != null && labelPortDataBits != null && labelPortStopBits != null && comboBoxPort != null && comboBoxBaudRate != null && comboBoxPortParity != null && comboBoxPortDataBits != null && comboBoxPortStopBits != null) {
     drawPortConfigInit = true;
-    systemPrintln("EDT drawPortConfig = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
+    systemPrintln("EDT drawPortConfig = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis(), "debug");
   } else {
     drawPortConfigInit = false;
   }
@@ -268,7 +267,7 @@ void drawDataConfig() {
 
     //action performed event handler
     public void actionPerformed(ActionEvent actionEvent) {
-      systemPrintln("checkBoxTimeStamp clicked" + " @ " + millis());
+      systemPrintln("checkBoxTimeStamp clicked" + " @ " + millis(), "debug");
     }
   }
   );
@@ -276,7 +275,7 @@ void drawDataConfig() {
   //check if all components initialized successfully
   if (labelDataConfig != null && checkBoxTimeStamp != null) {
     drawDataConfigInit = true;
-    systemPrintln("EDT drawDataConfig = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
+    systemPrintln("EDT drawDataConfig = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis(), "debug");
   } else {
     drawDataConfigInit = false;
   }
@@ -312,7 +311,7 @@ void drawLogConfig() {
       //  textFieldFileDir.setText("");
       textFieldFileDir.setForeground(Color.BLACK);
       //}
-      systemPrintln("textFieldFileDir focus gained" + " @ " + millis());
+      systemPrintln("textFieldFileDir focus gained" + " @ " + millis(), "debug");
     }
 
     //add focusLost event listener to textFieldFileDir
@@ -322,7 +321,7 @@ void drawLogConfig() {
       //textFieldFileDir.setText("file directory");
       textFieldFileDir.setForeground(Color.GRAY);
       //}
-      systemPrintln("textFieldFileDir focus lost" + " @ " + millis());
+      systemPrintln("textFieldFileDir focus lost" + " @ " + millis(), "debug");
     }
   }
   );
@@ -346,7 +345,7 @@ void drawLogConfig() {
       //textFieldFileName.setText("");
       textFieldFileName.setForeground(Color.BLACK);
       //}
-      systemPrintln("textFieldFileName focus gained" + " @ " + millis());
+      systemPrintln("textFieldFileName focus gained" + " @ " + millis(), "debug");
     }
 
     //focus lost event handler
@@ -356,7 +355,7 @@ void drawLogConfig() {
       //textFieldFileName.setText("file name");
       textFieldFileName.setForeground(Color.GRAY);
       //}
-      systemPrintln("textFieldFileName focus lost" + " @ " + millis());
+      systemPrintln("textFieldFileName focus lost" + " @ " + millis(), "debug");
     }
   }
   );
@@ -384,14 +383,14 @@ void drawLogConfig() {
       //if user selected a valid directory and logData is false
       if (i == JFileChooser.APPROVE_OPTION && logData == false) {
         File file = fileChooser.getSelectedFile();
-        systemPrintln("User selected " + file.toString());
+        systemPrintln("User selected " + file.toString(), "debug");
         textFieldFileDir.setText(file.toString());
         textAreaMainMsg("\n", "Log path set to: " + file.toString(), "");
       } else if (i == JFileChooser.APPROVE_OPTION && logData == true) {
         textAreaMainMsg("\n", "Data logging must be stopped to change log directory.", "");
       }
 
-      systemPrintln("buttonBrowse clicked" + " @ " + millis());
+      systemPrintln("buttonBrowse clicked" + " @ " + millis(), "debug");
     }
   }
   );
@@ -412,7 +411,7 @@ void drawLogConfig() {
         dataLogPause = false;
         initLogFile();
       }
-      systemPrintln("buttonStartLog clicked" + " @ " + millis());
+      systemPrintln("buttonStartLog clicked" + " @ " + millis(), "debug");
     }
   }
   );
@@ -444,7 +443,7 @@ void drawLogConfig() {
       catch (Exception e) {
         textAreaMainMsg("\n", "Failed to stop logging data. " + e, "");
       }
-      systemPrintln("buttonStopLog clicked" + " @ " + millis());
+      systemPrintln("buttonStopLog clicked" + " @ " + millis(), "debug");
     }
   }
   );
@@ -452,7 +451,7 @@ void drawLogConfig() {
   //check if all components initialized successfully
   if (labelLogConfig != null && textFieldFileDir != null && textFieldFileName != null && buttonBrowse != null && buttonStartLog != null && buttonStopLog != null) {
     drawLogConfigInit = true;
-    systemPrintln("EDT drawLogConfig = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
+    systemPrintln("EDT drawLogConfig = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis(), "debug");
   } else {
     drawLogConfigInit = false;
   }
@@ -476,33 +475,32 @@ public void drawOkCancelButtons() {
 
     //action performed event handler
     public void actionPerformed(ActionEvent actionEvent) {
-      if (connectedToCOM == false && portsFound == true) {
+      if (connectedToCOM == false && portsFound == true) { //only allow to save settings if not currently connected to COM port and there are available COM ports
         selectedPort = comboBoxPort.getSelectedItem().toString();
         selectedBaudRate = comboBoxBaudRate.getSelectedItem().toString();
         currBaudRateModel = newBaudRateModel;         // set currBaudRateModel to newBaudRateModel
         comboBoxBaudRate.setModel(currBaudRateModel); // set comboBoxBaudRate model to currBaudRateModel
-        switch (comboBoxPortParity.getSelectedItem().toString()) {
-        case "None":
-          selectedParity = 'N';
-          break;
-        case "Even":
-          selectedParity = 'E';
-          break;
-        case "Odd":
-          selectedParity = 'O';
-          break;
-        case "Mark":
-          selectedParity = 'M';
-          break;
-        case "Space":
-          selectedParity = 'S';
-          break;
-        default:
-          selectedParity = 'N';
-          break;
-        }
-
         if (advancedOptions == true) {
+          switch (comboBoxPortParity.getSelectedItem().toString()) {
+          case "None":
+            selectedParity = 'N';
+            break;
+          case "Even":
+            selectedParity = 'E';
+            break;
+          case "Odd":
+            selectedParity = 'O';
+            break;
+          case "Mark":
+            selectedParity = 'M';
+            break;
+          case "Space":
+            selectedParity = 'S';
+            break;
+          default:
+            selectedParity = 'N';
+            break;
+          }
           selectedDataBits = int(comboBoxPortDataBits.getSelectedItem().toString());
           selectedStopBits = float(comboBoxPortStopBits.getSelectedItem().toString());
           comboBoxPortSelectedIndex = comboBoxPort.getSelectedIndex();
@@ -534,7 +532,7 @@ public void drawOkCancelButtons() {
       } else {
         showTimeStamp = false;
       }
-      systemPrintln("buttonOk clicked" + " @ " + millis());
+      systemPrintln("buttonOk clicked" + " @ " + millis(), "debug");
     }
   }
   );
@@ -557,14 +555,18 @@ public void drawOkCancelButtons() {
       comboBoxPort.setSelectedItem(selectedPort);                   // reset comboBoxPort to selectedPort
       comboBoxBaudRate.setModel(currBaudRateModel);                 // set comboBoxBaudRate model to currBaudRateModel
       comboBoxBaudRate.setSelectedItem(selectedBaudRate);           // reset comboBoxBaudRate to selectedBaudRate
-      comboBoxPortParity.setSelectedItem(selectedParityString);     // reset comboBoxPortParity to selectedParityString
-      comboBoxPortDataBits.setSelectedItem(selectedDataBitsString); // reset comboBoxPortDataBits to selectedDataBitsString
-      comboBoxPortStopBits.setSelectedItem(selectedStopBitsString); // reset comboBoxPortStopBits to selectedStopBitsString
       checkBoxTimeStamp.setSelected(showTimeStamp);                 // reset checkBoxTimeStamp to tStampIsChecked
+
+      if (advancedOptions == true) {
+        comboBoxPortParity.setSelectedItem(selectedParityString);     // reset comboBoxPortParity to selectedParityString
+        comboBoxPortDataBits.setSelectedItem(selectedDataBitsString); // reset comboBoxPortDataBits to selectedDataBitsString
+        comboBoxPortStopBits.setSelectedItem(selectedStopBitsString); // reset comboBoxPortStopBits to selectedStopBitsString
+      }
       frameMainWindow.setEnabled(true);                             // disable main window when settings window is open
       dialogSettingsMain.setVisible(false);                         // hide settings window
-      systemPrintln("buttonCancel clicked" + " @ " + millis());
+      systemPrintln("buttonCancel clicked" + " @ " + millis(), "debug");
     }
   }
   );
 }
+

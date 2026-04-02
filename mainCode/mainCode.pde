@@ -1,170 +1,145 @@
-import processing.serial.Serial;         // import processing Serial
-import com.formdev.flatlaf.FlatLightLaf; // import flatlaf light theme
-import com.formdev.flatlaf.FlatDarkLaf;  // import flatlaf dark theme
-import java.awt.Font;                    // import java Font
-import java.awt.FontFormatException;     // import java FontFormatException
-import java.awt.event.WindowAdapter;     // import java WindowAdapter
-import java.awt.event.WindowEvent;       // import java WindowEvent
-import java.awt.event.ActionListener;    // import java ActionListener
-import java.awt.event.ActionEvent;       // import java ActionEvent
-import java.awt.event.KeyAdapter;        // import java KeyAdapter
-import java.awt.event.KeyEvent;          // import java KeyEvent
-import java.awt.event.ComponentEvent;    // import java ComponentEvent
-import java.awt.event.FocusListener;     // import java FocusListener
-import java.awt.event.FocusEvent;        // import java FocusEvent
-import java.awt.KeyboardFocusManager;    // import java KeyBoardFocusManger
-import java.awt.Dimension;               // import java dimension library
-import java.awt.image.BufferedImage;     // import java buffered image library
-import java.awt.FlowLayout;              // import java FlowLayout
-import java.awt.Color;                   // import java Color
-import java.awt.Insets;                  // import java insets
-
-import javax.swing.JFrame;                          // import javax JFrame
-import javax.swing.JPanel;                          // import javax JPanel
-import javax.swing.JButton;                         // import javax JButton
-import javax.swing.JDialog;                         // import javax JDialog
-import javax.swing.JTextArea;                       // import javax JTextArea
-import javax.swing.JTextField;                      // import javax JTextField
-import javax.swing.JScrollPane;                     // import javax JScrollPane
-import javax.swing.JComboBox;                       // import javax JComboBox
-import javax.swing.JCheckBox;                       // import javax JCheckBox
-import javax.swing.JLabel;                          // import javax JLabel
-import javax.swing.SpringLayout;                    // import javax SpringLayout
-import javax.swing.DefaultComboBoxModel;            // import javax DefaultComboBox
-import javax.swing.UIManager;                       // import javax UIManager
-import javax.swing.UnsupportedLookAndFeelException; // import javax UnsupportedLookAndFeelManager
-import javax.swing.event.DocumentListener;          // import javax DocumentListener
-import javax.swing.event.DocumentEvent;             // import javax DocumentEvent
-import javax.swing.text.Highlighter;                // import javax Highlighter
-import javax.swing.text.DefaultHighlighter;         // import javax DefaultHighlighter
-import javax.swing.text.BadLocationException;       // import javax BadLocationException
-import javax.swing.ImageIcon;                       // import javax ImageIcon
-import javax.swing.JFileChooser;                    // import javax JFileChooser
-
-import java.io.File;                 //import file library
-import java.io.FileWriter;           //import file writer library
-import java.util.Collections;        //import collections library
-import java.util.Scanner;            //import scanner library
-import java.util.Arrays;             //import arrays library
-
-javax.swing.JFrame frameMainWindow; //create instance of JFrame
-java.awt.Canvas canvasMainWindow;   //create instance of Canvas
-
 //append text to textAreaMain
 public void textAreaMainMsg(String A, String MSG, String B) {
-  textAreaMainMsgIsRunning = true;
-  if (showTimeStamp == true && A == "\n") {
-    textAreaMain.append(A + hour() + ":" + minute() + ":" + second() + " " + MSG + B);
-    textAreaMain.setCaretPosition(textAreaMain.getDocument().getLength());
-    logOutputData = A + hour() + ":" + minute() + ":" + second() + " " + MSG + B;
-    if (initLogFileOk) {
-      writeToFile(logOutputData);
+  try {
+    textAreaMainMsgIsRunning = true;
+    if (showTimeStamp == true && A == "\n") {
+      textAreaMain.append(A + hour() + ":" + minute() + ":" + second() + " " + MSG + B);
+      textAreaMain.setCaretPosition(textAreaMain.getDocument().getLength());
+      logOutputData = A + hour() + ":" + minute() + ":" + second() + " " + MSG + B;
+      if (initLogFileOk) {
+        writeToFile(logOutputData);
+      }
+    } else if (showTimeStamp == true && MSG.startsWith("\n")) {
+      textAreaMain.append(A + MSG + hour() + ":" + minute() + ":" + second() + " " + B);
+      textAreaMain.setCaretPosition(textAreaMain.getDocument().getLength());
+      logOutputData = A + MSG + hour() + ":" + minute() + ":" + second() + " " + B;
+      if (initLogFileOk) {
+        writeToFile(logOutputData);
+      }
+    } else {
+      textAreaMain.append(A + MSG + B);
+      textAreaMain.setCaretPosition(textAreaMain.getDocument().getLength());
+      logOutputData = A + MSG + B;
+      //print(logOutputData);
+      if (initLogFileOk) {
+        writeToFile(logOutputData);
+      }
     }
-  } else if (showTimeStamp == true && MSG.startsWith("\n")) {
-    textAreaMain.append(A + MSG + hour() + ":" + minute() + ":" + second() + " " + B);
-    textAreaMain.setCaretPosition(textAreaMain.getDocument().getLength());
-    logOutputData = A + MSG + hour() + ":" + minute() + ":" + second() + " " + B;
-    if (initLogFileOk) {
-      writeToFile(logOutputData);
-    }
-  } else {
-    textAreaMain.append(A + MSG + B);
-    textAreaMain.setCaretPosition(textAreaMain.getDocument().getLength());
-    logOutputData = A + MSG + B;
-    //print(logOutputData);
-    if (initLogFileOk) {
-      writeToFile(logOutputData);
-    }
+  }
+  catch (Exception error) {
+    systemPrintln("textAreaMainMsg failed @ " + millis() + "error = " + error, "error");
   }
 }
 
 //generate default random file name
 public String genFileName(String randomFileName) {
-  if (lettersIndex == 26) {
-    lettersIndex = 0;
+  try {
+    if (lettersIndex == 26) {
+      lettersIndex = 0;
+    }
+    randomFileName = "log_" + day() + "-" + month() + "-" + year() + letters[lettersIndex] + hour()+minute()+second();
+    lettersIndex++;
   }
-  randomFileName = "log_" + day() + "-" + month() + "-" + year() + letters[lettersIndex] + hour()+minute()+second();
-  lettersIndex++;
+  catch (Exception error) {
+    systemPrintln("genFileName failed @ " + millis() + "error = " + error, "error");
+  }
+  systemPrintln("textAreaMainMsg complete @ " + millis(), "debug");
   return randomFileName;
 }
 
 // get current operating system
-public void getOS() {
+public String getOS() {
   if (platform == MACOS) {
     OS = "mac";
-    systemPrintln("OS = MACOS");
+    systemPrintln("OS = MACOS", "debug");
   } else if (platform == WINDOWS) {
     OS = "windows";
     OsDirChar = "\\";
     defaultLogDir = (System.getProperty("user.home") + OsDirChar + "Desktop"); //set default log directory to user's desktop
-    systemPrintln("OS = WINDOWS" + " @ " + millis());
+    systemPrintln("OS = WINDOWS" + " @ " + millis(), "debug");
   } else if (platform == LINUX) {
     OS = "linux";
     OsDirChar = "/";
     defaultLogDir = (System.getProperty("user.home") + OsDirChar + "Desktop"); //set default log directory to user's desktop
-    systemPrintln("OS = LINUX" + " @ " + millis());
+    systemPrintln("OS = LINUX" + " @ " + millis(), "debug");
   } else if (platform == OTHER) {
     OS = "other";
-    systemPrintln("OS not recognized" + " @ " + millis());
+    systemPrintln("OS not recognized" + " @ " + millis(), "debug");
   }
+  systemPrintln("getOS complete @ " + millis(), "debug");
+  return OS;
 }
 
 //initialize controls for search function
 public void initSearch() {
   try {
-    hilit = new DefaultHighlighter();
-    painter = new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW);
-    systemPrintln("initSearch complete @ " + millis());
+    highlighter = new DefaultHighlighter();                                 // create new DefaultHighlighter
+    painter = new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW); // create new DefaultHighlightPainter
+    systemPrintln("initSearch complete @ " + millis(), "debug");                     // print debug statement
   }
-  catch (Exception e) {
-    systemPrintln("initSearch failed @ " + millis());
+  catch (Exception error) {
+    systemPrintln("initSearch failed @ " + millis() + "error = " + error, "error"); //print debug statement
   }
 }
 
 //search textAreaMain
 public void getSearch(String searchText) {
-  try { // try searching textAreaMain
-    if (textFieldSearchHasText == true) { //textFieldSearch has text other than prompt text
-      if (searchText.length() > 0) { //only run if search text is longer than zero
-        String textAreaMainText = textAreaMain.getText();
-        hilit = textAreaMain.getHighlighter();
-        hilit.removeAllHighlights();
-        int index = textAreaMainText.indexOf(searchText);
-        while (index >= 0) { //search text
-          int searchTextLength = searchText.length();
-          hilit.addHighlight(index, index+searchTextLength, painter);
-          index = textAreaMainText.indexOf(searchText, index + searchTextLength);
+  try {                                                                           // try searching textAreaMain
+    if (textFieldSearchHasText == true) {                                         // textFieldSearch has text other than prompt text
+      if (searchText.length() > 0) {                                              // only run if search text is longer than zero
+        String textAreaMainText = textAreaMain.getText();                         // get text from textAreaMain
+        highlighter = textAreaMain.getHighlighter();                              // get textAreaMain's highlighter
+        highlighter.removeAllHighlights();                                        // remove old highlights
+        int index = textAreaMainText.indexOf(searchText);                         // position of first index of search text
+        while (index >= 0) {                                                      // search for text
+          int searchTextLength = searchText.length();                             // get length of search text
+          highlighter.addHighlight(index, index+searchTextLength, painter);       // add highlight to textAreaMain
+          index = textAreaMainText.indexOf(searchText, index + searchTextLength); // update index to next search text
         }
-      } else { //remove all highlights
-        hilit.removeAllHighlights();
+      } else {
+        highlighter.removeAllHighlights(); // remove all highlights
       }
     }
-    systemPrintln("getSearch complete @ " + millis());
+    systemPrintln("getSearch complete @ " + millis(), "debug"); // print debug statement
   }
-  catch (Exception e) { //catch search exception
-    systemPrintln("getSearch failed @ " + millis());
+  catch (Exception error) { //catch search exception
+    systemPrintln("getSearch failed @ " + millis() + "error = " + error, "error"); // print debug statement
   }
 }
 
 //convert PImage to BufferedImage
 BufferedImage convertToBufferedImage(PImage imgToConvert) {
-  imgToConvert.loadPixels(); //load pixel data
   BufferedImage convertedImg = new BufferedImage(imgToConvert.width, imgToConvert.height, BufferedImage.TYPE_INT_ARGB);
+  try {
+    imgToConvert.loadPixels(); //load pixel data
 
-  for (int y = 0; y < imgToConvert.height; y++) {
-    for (int x = 0; x < imgToConvert.width; x++) {
-      int loc = x + y * imgToConvert.width;
-      convertedImg.setRGB(x, y, imgToConvert.pixels[loc]); // Copy pixel data
+    for (int y = 0; y < imgToConvert.height; y++) {
+      for (int x = 0; x < imgToConvert.width; x++) {
+        int loc = x + y * imgToConvert.width;
+        convertedImg.setRGB(x, y, imgToConvert.pixels[loc]); // Copy pixel data
+      }
     }
   }
+  catch (Exception error) {
+    systemPrintln("convertToBufferedImage failed @ " + millis() + "error = " + error, "error");
+  }
+  systemPrintln("convertToBufferedImage complete @ " + millis(), "debug");
   return convertedImg;
 }
 // print to system console
-public void systemPrintln(String msg) {
-  if (showDebugStatements == true) {
-    System.out.println(msg);
-  } else {
-    //do nothing
+public void systemPrintln(String msg, String type) {
+  try {
+    if (showDebugStatements == true) {
+      if (type.equals("debug")) {
+        System.out.println(msg);
+      } else if (type.equals("error")) {
+        System.err.println(msg);
+      }
+    } else {
+      //do nothing
+    }
+  }
+  catch (Exception error) {
   }
 }
 
@@ -172,7 +147,7 @@ public void systemPrintln(String msg) {
 public void setFont(String fontName, float fontSize) {
   try {
     // Path to your font file (TTF or OTF)
-    File fontFile = new File(dataPath("") + OsDirChar + fontName);
+    File fontFile = new File(dataPath("") + OsDirChar + fontName); //get font file
     //println(fontFile.getAbsolutePath());
     if (!fontFile.exists()) {
       throw new IOException("Font file not found: " + fontFile.getAbsolutePath());
@@ -182,10 +157,9 @@ public void setFont(String fontName, float fontSize) {
     Font customFont = Font.createFont(Font.TRUETYPE_FONT, fontFile)
       .deriveFont(Font.PLAIN, fontSize); // Set style and size
 
-    // Apply font to textAreaMain and textFieldMain
-    textAreaMain.setFont(customFont);
-    textFieldMain.setFont(customFont);
-    systemPrintln("setFont complete @ " + millis());
+    textAreaMain.setFont(customFont);  // set textAreaMain font
+    textFieldMain.setFont(customFont); // set textFieldMain font
+    systemPrintln("setFont complete @ " + millis(), "debug");
   }
   catch (FontFormatException e) {
     System.err.println("Invalid font format: " + e.getMessage());
@@ -199,24 +173,43 @@ public void setFont(String fontName, float fontSize) {
 public void setTheme(String theme) {
   try {
     if (theme.equals("light")) {
-      UIManager.setLookAndFeel(new FlatLightLaf());
-      systemPrintln("setTheme complete @ " + millis());
+      UIManager.setLookAndFeel(new FlatLightLaf());              // set theme to light
+      FlatLightLaf.setup();
+      FlatLaf.updateUI();
+      systemPrintln("setTheme complete @ " + millis(), "debug"); // print debug statement
     } else if (theme.equals("dark")) {
-      UIManager.setLookAndFeel(new FlatDarkLaf());
-      systemPrintln("setTheme complete @ " + millis());
+      UIManager.setLookAndFeel(new FlatDarkLaf());               // set theme to dark
+      FlatDarkLaf.setup();
+      FlatLaf.updateUI();
+      systemPrintln("setTheme complete @ " + millis(), "debug"); // print debug statement
+    } else if (theme.equals("intellij")) {
+      UIManager.setLookAndFeel(new FlatIntelliJLaf());               // set theme to dark
+      FlatIntelliJLaf.setup();
+      FlatLaf.updateUI();
+      systemPrintln("setTheme complete @ " + millis(), "debug"); // print debug statement
+    } else if (theme.equals("darcula")) {
+      UIManager.setLookAndFeel(new FlatDarculaLaf());               // set theme to dark
+      FlatDarculaLaf.setup();
+      FlatLaf.updateUI();
+      systemPrintln("setTheme complete @ " + millis(), "debug"); // print debug statement
     } else {
-      systemPrintln("Theme not recognized, defaulting to light theme @ " + millis());
-      UIManager.setLookAndFeel(new FlatLightLaf());
+      systemPrintln("Theme not recognized, defaulting to light theme @ " + millis(), "debug"); // print debug statement
+      UIManager.setLookAndFeel(new FlatLightLaf());                                            // default theme to light
+      FlatLightLaf.setup();
+      FlatLaf.updateUI();
     }
   }
-  catch (UnsupportedLookAndFeelException e) {
-    systemPrintln("Error setting theme: " + e.getMessage());
+  catch (UnsupportedLookAndFeelException error) {
+    systemPrintln("Error setting theme: " + error.getMessage(), "error"); // print error statement
   }
 }
 
-// Processing setup function
-public void setup() {
-  setTheme("light");                                           // set software theme
+// software main setup function
+public void setupMain() {
+  OS = getOS();     // get operating system             
+  loadTable();      // load preferences table           
+  getTableData();   // get preferences table data    
+  setTheme(theme);  // set software theme               
   iconMain = loadImage("icon.png");                            // import software icon
   iconRefresh = loadImage("refresh.png");                      // import refresh button icon
   iconEditBaud = loadImage("editBaud.png");                    // import edit baud rate button icon
@@ -246,7 +239,7 @@ public void setup() {
         textAreaMain.repaint();
         textAreaMain.updateUI();
         textAreaMain.setCaretPosition(textAreaMain.getDocument().getLength());
-        textAreaMainScrollPane.setPreferredSize(new Dimension(width - 10, height - 75));
+        textAreaMainScrollPane.setPreferredSize(new Dimension(width - 10, height - 106));
         textAreaMainScrollPane.repaint();
 
         textFieldMain.setPreferredSize(new Dimension(width - 215, 30));
@@ -289,12 +282,10 @@ public void setup() {
   //wait for main UI to initialize before continuing
   while (mainUiInit == false) {
     delay(1);
-  }
-  getOS();          //get operating system
-  loadTable();    //load preferences table
-  getTableData(); //get preferences table data
-  searchForPorts(); //search for available serial ports
-  initSearch();     //initialize textAreaMain searching
+  }   
+  setFont(selectedFont, selectedFontSize);
+  searchForPorts(); // search for available serial ports
+  initSearch();     // initialize textAreaMain searching
   //set startup message length based on selected font size
   if (selectedFontSize == 12) {
     textAreaMainMsg("", " -------------------------------------" + versionInfo +  "-------------------------------------", "");
@@ -306,15 +297,23 @@ public void setup() {
     textAreaMainMsg("", " -------------------" + versionInfo +  "--------------------", "");
   }
   textAreaMainMsg("\n", "Enter -h for help", ""); //print help message
-  systemPrintln("Startup complete" + " @ " + millis());
-} // end of setup()
+  systemPrintln("Startup complete" + " @ " + millis(), "debug");
+}
+
+// Processing setup function
+public void setup() {
+  setupMain(); // software setup function
+
+  // enter code here
+}
 
 // Processing loop function
 public void draw() {
+  // enter code here
 }
 
 //Processing settings function
 public void settings() {
-  size(wndMinW, wndMinH);
+  size(wndMinW, wndMinH); // set main window size
 }
 
