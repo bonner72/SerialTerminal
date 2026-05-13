@@ -37,4 +37,4 @@ jobs:
         ls /snap/bin | grep processing
     - name: Run Processing sketch
       run: |
-        processing-java --sketch=$(pwd)/sketch --run
+        /snap/bin/processing.processing --sketch=$(pwd)/sketch --run
