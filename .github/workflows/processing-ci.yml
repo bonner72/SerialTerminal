@@ -23,6 +23,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo snap install processing --classic
+        sudo processing-java --version
 
     - name: Compile Processing Sketch
       run: |
