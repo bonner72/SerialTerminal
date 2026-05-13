@@ -27,7 +27,7 @@ jobs:
         run: |
           wget https://download.processing.org/processing-4.5.3-linux-x64.tgz -O processing.tgz
           tar -xzf processing.tgz
-          mv processing-4.4 processing
+          mv processing-4.5.3 processing
 
       # Step 4: Compile the sketch
       - name: Compile Processing Sketch
