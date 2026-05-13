@@ -29,4 +29,3 @@ public void setTableData(String mode) {
   saveTable(preferenceTable, "data/preferences.csv");
   systemPrintln("setTableData complete @ " + millis(), "debug");
 }
-

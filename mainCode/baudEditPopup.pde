@@ -114,4 +114,3 @@ public void initDialogBaudEdit() {
     dialogBaudEditIsInit = false;
   }
 }
-
