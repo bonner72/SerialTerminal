@@ -27,7 +27,8 @@ jobs:
         sudo apt install -y snapd
         sudo systemctl start snapd
         sudo systemctl enable snapd
-
+        export PATH=$PATH:/snap/bin
+        source ~/.bashrc
     - name: Install Processing 4 using Snap
       run: |
         sudo snap install processing --classic
