@@ -10,7 +10,7 @@ void buildMainUI() {
   drawTextFieldSearch();
   if (panelMain != null && textAreaMain != null && textFieldMain != null && textFieldSearch != null && buttonConnect != null && buttonClear != null && buttonSettings != null && buttonLogPauseResume != null) {
     mainUiInit = true;
-    systemPrintln("Main UI initialized @ " + millis());
+    systemPrintln("Main UI initialized @ " + millis(), "debug");
   } else {
     mainUiInit = false;
   }
@@ -20,21 +20,25 @@ void drawPanelMain() {
   panelMain = new JPanel();
   panelMain.setLocation(0, 0);
   panelMain.setBounds(0, 0, width, height);
-  panelMain.setBackground(Color.WHITE);
   panelMain.setLayout(new FlowLayout());
-  frame.add(panelMain); //add panel to main frame
-  systemPrintln("EDT panelMain = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
+  frameMainWindow.add(panelMain); //add panel to main frame
+  systemPrintln("EDT panelMain = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis(), "debug");
   panelMain.repaint();
 }
 //draw main window textarea
 void drawTextAreaMain() {
   textAreaMain = new JTextArea();
   textAreaMainScrollPane = new JScrollPane(textAreaMain);
-  textAreaMainScrollPane.setPreferredSize(new Dimension(width - 10, height - 75));
+  println(OS);
+  if (OS.equals("linux")) { // linux misplaces the ui components. this adjusts according to the OS.
+    textAreaMainScrollPane.setPreferredSize(new Dimension(width - 10, height - 110));
+  } else {
+    textAreaMainScrollPane.setPreferredSize(new Dimension(width - 10, height - 105));
+  }
   textAreaMain.setEditable(false);
-  textAreaMain.setLineWrap(true);
+  //textAreaMain.setLineWrap(true);
   panelMain.add(textAreaMainScrollPane);
-  systemPrintln("EDT txtAreaMain = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
+  systemPrintln("EDT txtAreaMain = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis(), "debug");
   textAreaMain.repaint();
 }
 
@@ -56,7 +60,7 @@ void drawTextFieldMain() {
       if (textFieldMain.getText().equals("Press return key to send text...")) {
         textFieldMain.setText("");
         textFieldMain.setForeground(Color.BLACK);
-        systemPrintln("textFieldMain focus gained" + " @ " + millis());
+        systemPrintln("textFieldMain focus gained" + " @ " + millis(), "debug");
       }
     }
 
@@ -66,7 +70,7 @@ void drawTextFieldMain() {
       if (textFieldMain.getText().isEmpty()) {
         textFieldMain.setText("Press return key to send text...");
         textFieldMain.setForeground(Color.GRAY);
-        systemPrintln("textFieldMain focus lost" + " @ " + millis());
+        systemPrintln("textFieldMain focus lost" + " @ " + millis(), "debug");
       }
     }
   }
@@ -80,19 +84,21 @@ void drawTextFieldMain() {
       prevCommandsIndex = 0;  //reset up key press count on enter keyPress
       commandFound = false; //reset commandFound variable
 
-      // check if entered data is a valid command
-      for (int i = 0; i < validCommands.length; i ++) {
-        if (textFieldMain.getText().equals(validCommands[i])) {
-          commandFound = true;
-          enteredCommand = textFieldMain.getText(); //update enteredCommand variable
-          processCommands();                        //process entered command
+      for (int i = 0; i < validCommands.length; i ++) {                            // check if entered data is a valid command
+        if (textFieldMain.getText().equals(validCommands[i]) && !connectedToCOM) { // if entered text is equal to a command and serialPort is not connected
+          commandFound = true;                                                     // set commandFound to to true
+          enteredCommand = textFieldMain.getText();                                // update enteredCommand variable
         }
       }
-      // if entered data is not a command, send to serial port
-      if (!commandFound && !textFieldMain.getText().startsWith("-")) {
-        writeToPort(textFieldMain.getText());     //send entered text to serial port write process
-      } else if (!commandFound && textFieldMain.getText().startsWith("-")) {
-        textAreaMainMsg("\n", "Invalid command entered. Type -h for help.", ""); //invalid command message
+
+      if (commandFound && !connectedToCOM) {                                     // if entered data is a command and serialPort is not connected
+        processCommands();                                                       // process entered command
+      } else if (!commandFound && !connectedToCOM) {                             // if entered data is not a command and serialPort is not connected
+        textAreaMainMsg("\n", "Invalid command entered. Type -h for help.", ""); // print invalid command message
+      }
+
+      if (connectedToCOM) {                   // if connected to com send to serial port
+        writeToPort(textFieldMain.getText()); // send entered text to serial port write process
       }
 
       previousEnteredCommands.append(textFieldMain.getText()); //store entered command
@@ -101,10 +107,8 @@ void drawTextFieldMain() {
       if (previousEnteredCommands.size() > prevCommandsLimit) {
         previousEnteredCommands.remove(0); //remove oldest entry
       }
-      systemPrintln(previousEnteredCommands.toString()); //print previous commands size and content to console
-
       textFieldMain.setText("");                //clear text field after enter pressed
-      systemPrintln("textFieldMain keyPressed Enter" + " @ " + millis());
+      systemPrintln("textFieldMain keyPressed Enter" + " @ " + millis(), "debug");
     }
   }
   );
@@ -123,10 +127,10 @@ void drawTextFieldMain() {
           String lastCommand = previousEnteredCommands.get(previousEnteredCommands.size() - prevCommandsIndex); // get last entered command
           textFieldMain.setText(lastCommand); // print last entered command to textFieldMain
         }
-        systemPrintln("Up arrow key pressed");
+        systemPrintln("Up arrow key pressed @ " + millis(), "debug");
       }
 
-      // //handle down arrow keyPress
+      //handle down arrow keyPress
       if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
         if (prevCommandsIndex > 1) {
           prevCommandsIndex--; // decrement previous commands index
@@ -140,13 +144,13 @@ void drawTextFieldMain() {
         } else {
           textFieldMain.setText(""); // clear textFieldMain if at the most recent command
         }
-        systemPrintln("Down arrow key pressed"); // debug print
+        systemPrintln("Down arrow key pressed @ " + millis(), "debug"); // debug print
       }
-      systemPrintln("Key pressed: " + evt.getKeyCode() + " " + prevCommandsIndex); // debug print
+      systemPrintln("Key pressed: " + evt.getKeyCode() + " " + prevCommandsIndex, "debug"); // debug print
     }
   }
   );
-  systemPrintln("EDT txtAreaMain = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis()); // debug print
+  systemPrintln("EDT txtAreaMain = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis(), "debug"); // debug print
   textFieldMain.repaint(); // repaint textFieldMain
 }
 
@@ -170,7 +174,7 @@ void drawTextFieldSearch() {
         textFieldSearch.setText("");
         textFieldSearch.setForeground(Color.BLACK);
         textFieldSearchHasText = false;
-        systemPrintln("textFieldSearch focus gained" + " @ " + millis());
+        systemPrintln("textFieldSearch focus gained" + " @ " + millis(), "debug");
       }
       textFieldSearchHasText = true;
     }
@@ -182,7 +186,7 @@ void drawTextFieldSearch() {
         textFieldSearch.setText("Enter search text.");
         textFieldSearch.setForeground(Color.GRAY);
         textFieldSearchHasText = false;
-        systemPrintln("textFieldSearch focus lost" + " @ " + millis());
+        systemPrintln("textFieldSearch focus lost" + " @ " + millis(), "debug");
       }
       textFieldSearchHasText = true;
     }
@@ -196,7 +200,7 @@ void drawTextFieldSearch() {
       public void actionPerformed(ActionEvent e) {
       textFieldSearchHasText = true;
       getSearch(textFieldSearch.getText());
-      systemPrintln("textFieldSearch keyPressed Enter" + " @ " + millis());
+      systemPrintln("textFieldSearch keyPressed Enter" + " @ " + millis(), "debug");
     }
   }
   );
@@ -222,7 +226,7 @@ void drawTextFieldSearch() {
   }
   );
 
-  systemPrintln("EDT textFieldSearch = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
+  systemPrintln("EDT textFieldSearch = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis(), "debug");
   textFieldSearch.repaint();
 }
 
@@ -245,12 +249,12 @@ void drawButtonConnect() {
         //connectToCOM = false;
         disconnectPort();
       }
-      systemPrintln("buttonConnect clicked" + " @ " + millis());
+      systemPrintln("buttonConnect clicked" + " @ " + millis(), "debug");
     }
   }
 
   );
-  systemPrintln("EDT buttonConnect = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
+  systemPrintln("EDT buttonConnect = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis(), "debug");
   buttonConnect.repaint();
 }
 
@@ -268,11 +272,11 @@ void drawButtonClear() {
     public void actionPerformed(ActionEvent actionEvent) {
       textAreaMain.setText("");
 
-      systemPrintln("buttonClear clicked" + " @ " + millis());
+      systemPrintln("buttonClear clicked" + " @ " + millis(), "debug");
     }
   }
   );
-  systemPrintln("EDT buttonClear = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
+  systemPrintln("EDT buttonClear = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis(), "debug");
   buttonClear.repaint();
 }
 
@@ -288,20 +292,21 @@ void drawButtonSettings() {
   buttonSettings.addActionListener(new ActionListener() {
     @Override
       public void actionPerformed(ActionEvent actionEvent) {
-      if (frameSettings == null) { //if settings window has not been drawn
+      if (dialogSettingsMain == null) { //if settings window has not been drawn
         settingsUI(); //draw settings window
         availableCOMs = processing.serial.Serial.list(); //get available serial ports
         comboBoxPort.setModel(new DefaultComboBoxModel(availableCOMs));
       } else { //otherwise if settings window has been drawn make it visible
-        frameSettings.setVisible(true);
-        availableCOMs = processing.serial.Serial.list();//get available serial ports
-        comboBoxPort.setModel(new DefaultComboBoxModel(availableCOMs));
+        dialogSettingsMain.setLocationRelativeTo(frameMainWindow); // Center the settings window relative to the main frame
+        dialogSettingsMain.setVisible(true);                       // show settings window
+        frameMainWindow.setEnabled(false);                         // disable main window
+        availableCOMs = processing.serial.Serial.list();           // get available serial ports
       }
-      systemPrintln("buttonSettings clicked" + " @ " + millis());
+      systemPrintln("buttonSettings clicked" + " @ " + millis(), "debug");
     }
   }
   );
-  systemPrintln("EDT buttonSettings = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
+  systemPrintln("EDT buttonSettings = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis(), "debug");
   buttonSettings.repaint();
 }
 
@@ -327,10 +332,10 @@ void drawButtonLogPauseResume() {
           textAreaMainMsg("\n", "Resumed data logging", "");
         }
       }
-      systemPrintln("buttonLogPauseResume clicked" + " @ " + millis());
+      systemPrintln("buttonLogPauseResume clicked" + " @ " + millis(), "debug");
     }
   }
   );
-  systemPrintln("EDT buttonLogPauseResume = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis());
+  systemPrintln("EDT buttonLogPauseResume = " + javax.swing.SwingUtilities.isEventDispatchThread() + " @ " + millis(), "debug");
   buttonLogPauseResume.repaint();
 }

@@ -14,6 +14,7 @@ public void processCommands() {
     textAreaMainMsg("", "-tstamp=<true|false> : Enable/disable time stamp", "\n"); //toggle time stamp
     textAreaMainMsg("", "-font=<fontNumber> : Set font for main text area and input field" + "\n" + "available font types:" + "\n \t" + "1. Courier" + "\n \t" + "2. Cascadia Code" + "\n \t" + "3. JetBrains Mono(default)" + "\n \t" + "4. Liberation Mono", "\n"); //set font
     textAreaMainMsg("", "-fontsize=<size> : Set font size for main text area and input field" + "\n" + "available font sizes:" + "\n \t" + "10" + "\n \t" + "12" + "\n \t" + "14(Default)" + "\n \t" + "16" + "\n \t" + "18", "\n"); //set font size
+    textAreaMainMsg("", "-theme=<theme> : Set software theme" + "\n" + "available themes:" + "\n \t" + "light(default)" + "\n \t" + "dark" + "\n \t" + "intelij" + "\n \t" + "darcula" ,"\n"); //print set theme command help
   } else if (enteredCommand.equals("-clear")) { //clear main text area
     textAreaMain.setText(""); //clear main text area
   } else if (enteredCommand.equals("-v")) { //display version info
@@ -22,14 +23,14 @@ public void processCommands() {
     if (enteredCommand.contains("=")) {
       String enteredCommandSplit = enteredCommand.split("=")[1];
       if (enteredCommandSplit.equals("true")) {
-        frameSettings = null; //reset settings frame to force rebuild with new advanced options
+        dialogSettingsMain = null; //reset settings frame to force rebuild with new advanced options
         advancedOptions = true; //enable advanced options
-        setTableData(); //save advanced options to preferences table
+        setTableData("advanced"); //save advanced options to preferences table
         textAreaMainMsg("\n", "Advanced serial port options enabled.", "");
       } else if (enteredCommandSplit.equals("false")) {
-        frameSettings = null; //reset settings frame to force rebuild with removed advanced options
+        dialogSettingsMain = null; //reset settings frame to force rebuild with removed advanced options
         advancedOptions = false;//disable advanced options
-        setTableData(); //save advanced options to preferences table
+        setTableData("advanced"); //save advanced options to preferences table
         textAreaMainMsg("\n", "Advanced serial port options disabled.", "");
       }
     } else {
@@ -51,12 +52,12 @@ public void processCommands() {
       textAreaMainMsg("\n", "Invalid command parameter. Use -tstamp=<true|false>", ""); //invalid format message
     }
   } else if (enteredCommand.equals("-settings")) { //open settings window
-    if (frameSettings == null) { //if settings window has not been drawn
+    if (dialogSettingsMain == null) { //if settings window has not been drawn
       settingsUI(); //draw settings window
       availableCOMs = processing.serial.Serial.list(); //get available serial ports
       comboBoxPort.setModel(new DefaultComboBoxModel(availableCOMs));
     } else { //otherwise if settings window has been drawn make it visible
-      frameSettings.setVisible(true);
+      dialogSettingsMain.setVisible(true);
       availableCOMs = processing.serial.Serial.list();//get available serial ports
       comboBoxPort.setModel(new DefaultComboBoxModel(availableCOMs));
     }
@@ -86,7 +87,7 @@ public void processCommands() {
       int fontIndex = int(enteredCommandSplit) - 1;
       if (fontIndex >= 0 && fontIndex < fontList.length) {
         selectedFont = fontList[fontIndex]; //set selected font
-        setTableData(); //save selected font to preferences table
+        setTableData("advanced"); //save selected font to preferences table
         setFont(selectedFont, selectedFontSize); //apply selected font
         textAreaMainMsg("\n", "Set font to " + selectedFont + ".", "");
       } else {
@@ -101,7 +102,7 @@ public void processCommands() {
       int fontSize = int(enteredCommandSplit);
       if (fontSize == 10 || fontSize == 12 || fontSize == 14 || fontSize == 16 || fontSize == 18) {
         selectedFontSize = fontSize; //set selected font size
-        setTableData(); //save selected font size to preferences table
+        setTableData("advanced"); //save selected font size to preferences table
         setFont(selectedFont, selectedFontSize); //apply selected font size
         textAreaMainMsg("\n", "Set font size to " + selectedFontSize + ".", "");
       } else {
@@ -110,5 +111,20 @@ public void processCommands() {
     } else {
       textAreaMainMsg("\n", "Invalid command parameter. Use -fontsize=<size>", ""); //invalid format message
     }
+  } else if (enteredCommand.startsWith("-theme")) { //set font size
+    if (enteredCommand.contains("=")) {
+      String enteredCommandSplit = enteredCommand.split("=")[1].trim();
+      String newTheme = enteredCommandSplit;
+      if (newTheme.equals("light") || newTheme.equals("dark") || newTheme.equals("intellij") || newTheme.equals("darcula")) {
+        theme = newTheme; //set selected theme
+        setTableData("advanced"); //save selected font size to preferences table
+        setTheme(theme);
+        textAreaMainMsg("\n", "Set theme to " + theme + ".", "");
+      } else {
+        textAreaMainMsg("\n", "Invalid theme. Use -theme=<type> where type is light, dark, intellij, or darcula.", ""); //invalid theme message
+      }
+    } else {
+      textAreaMainMsg("\n", "Invalid command parameter. Use -theme=<type> where type is light, dark, intellij, or darcula.", ""); //invalid format message
+    }
   }
-} // END processCommands
+} // end of processCommands()

@@ -1,137 +1,145 @@
-import processing.serial.*;          //import serial library
-import java.awt.*;                   //import awt library
-import java.awt.Font;                //import awt font library
-import java.awt.event.*;             //import awt event library
-import java.awt.event.KeyAdapter;    //import awt key adapter library
-import java.awt.event.KeyEvent;      //import awt key event library
-import java.awt.Dimension.*;         //import awt dimension library
-import java.awt.image.BufferedImage; //import awt buffered image library
-import javax.swing.*;                //import swing library
-import javax.swing.event.*;          //import swing event library
-import javax.swing.text.*;           //import swing text library
-import java.io.File;                 //import file library
-import java.io.FileWriter;           //import file writer library
-import java.util.Collections;        //import collections library
-import java.util.Scanner;            //import scanner library
-
-javax.swing.JFrame frame; //create instance of JFrame
-java.awt.Canvas canvas;   //create instance of Canvas
-
 //append text to textAreaMain
 public void textAreaMainMsg(String A, String MSG, String B) {
-  textAreaMainMsgIsRunning = true;
-  if (showTimeStamp == true && A == "\n") {
-    textAreaMain.append(A + hour() + ":" + minute() + ":" + second() + " " + MSG + B);
-    textAreaMain.setCaretPosition(textAreaMain.getDocument().getLength());
-    logOutputData = A + hour() + ":" + minute() + ":" + second() + " " + MSG + B;
-    if (initLogFileOk) {
-      writeToFile(logOutputData);
+  try {
+    textAreaMainMsgIsRunning = true;
+    if (showTimeStamp == true && A == "\n") {
+      textAreaMain.append(A + hour() + ":" + minute() + ":" + second() + " " + MSG + B);
+      textAreaMain.setCaretPosition(textAreaMain.getDocument().getLength());
+      logOutputData = A + hour() + ":" + minute() + ":" + second() + " " + MSG + B;
+      if (initLogFileOk) {
+        writeToFile(logOutputData);
+      }
+    } else if (showTimeStamp == true && MSG.startsWith("\n")) {
+      textAreaMain.append(A + MSG + hour() + ":" + minute() + ":" + second() + " " + B);
+      textAreaMain.setCaretPosition(textAreaMain.getDocument().getLength());
+      logOutputData = A + MSG + hour() + ":" + minute() + ":" + second() + " " + B;
+      if (initLogFileOk) {
+        writeToFile(logOutputData);
+      }
+    } else {
+      textAreaMain.append(A + MSG + B);
+      textAreaMain.setCaretPosition(textAreaMain.getDocument().getLength());
+      logOutputData = A + MSG + B;
+      //print(logOutputData);
+      if (initLogFileOk) {
+        writeToFile(logOutputData);
+      }
     }
-  } else if (showTimeStamp == true && MSG.startsWith("\n")) {
-    textAreaMain.append(A + MSG + hour() + ":" + minute() + ":" + second() + " " + B);
-    textAreaMain.setCaretPosition(textAreaMain.getDocument().getLength());
-    logOutputData = A + MSG + hour() + ":" + minute() + ":" + second() + " " + B;
-    if (initLogFileOk) {
-      writeToFile(logOutputData);
-    }
-  } else {
-    textAreaMain.append(A + MSG + B);
-    textAreaMain.setCaretPosition(textAreaMain.getDocument().getLength());
-    logOutputData = A + MSG + B;
-    //print(logOutputData);
-    if (initLogFileOk) {
-      writeToFile(logOutputData);
-    }
+  }
+  catch (Exception error) {
+    systemPrintln("textAreaMainMsg failed @ " + millis() + "error = " + error, "error");
   }
 }
 
 //generate default random file name
 public String genFileName(String randomFileName) {
-  if (lettersIndex == 26) {
-    lettersIndex = 0;
+  try {
+    if (lettersIndex == 26) {
+      lettersIndex = 0;
+    }
+    randomFileName = "log_" + day() + "-" + month() + "-" + year() + letters[lettersIndex] + hour()+minute()+second();
+    lettersIndex++;
   }
-  randomFileName = "log_" + day() + "-" + month() + "-" + year() + letters[lettersIndex] + hour()+minute()+second();
-  lettersIndex++;
+  catch (Exception error) {
+    systemPrintln("genFileName failed @ " + millis() + "error = " + error, "error");
+  }
+  systemPrintln("textAreaMainMsg complete @ " + millis(), "debug");
   return randomFileName;
 }
 
 // get current operating system
-public void getOS() {
+public String getOS() {
   if (platform == MACOS) {
     OS = "mac";
-    systemPrintln("OS = MACOS");
+    systemPrintln("OS = MACOS", "debug");
   } else if (platform == WINDOWS) {
     OS = "windows";
     OsDirChar = "\\";
     defaultLogDir = (System.getProperty("user.home") + OsDirChar + "Desktop"); //set default log directory to user's desktop
-    systemPrintln("OS = WINDOWS" + " @ " + millis());
+    systemPrintln("OS = WINDOWS" + " @ " + millis(), "debug");
   } else if (platform == LINUX) {
     OS = "linux";
     OsDirChar = "/";
     defaultLogDir = (System.getProperty("user.home") + OsDirChar + "Desktop"); //set default log directory to user's desktop
-    systemPrintln("OS = LINUX" + " @ " + millis());
+    systemPrintln("OS = LINUX" + " @ " + millis(), "debug");
   } else if (platform == OTHER) {
     OS = "other";
-    systemPrintln("OS not recognized" + " @ " + millis());
+    systemPrintln("OS not recognized" + " @ " + millis(), "debug");
   }
+  systemPrintln("getOS complete @ " + millis(), "debug");
+  return OS;
 }
 
 //initialize controls for search function
 public void initSearch() {
   try {
-    hilit = new DefaultHighlighter();
-    painter = new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW);
-    systemPrintln("initSearch complete @ " + millis());
+    highlighter = new DefaultHighlighter();                                 // create new DefaultHighlighter
+    painter = new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW); // create new DefaultHighlightPainter
+    systemPrintln("initSearch complete @ " + millis(), "debug");                     // print debug statement
   }
-  catch (Exception e) {
-    systemPrintln("initSearch failed @ " + millis());
+  catch (Exception error) {
+    systemPrintln("initSearch failed @ " + millis() + "error = " + error, "error"); //print debug statement
   }
 }
 
 //search textAreaMain
 public void getSearch(String searchText) {
-  try { // try searching textAreaMain
-    if (textFieldSearchHasText == true) { //textFieldSearch has text other than prompt text
-      if (searchText.length() > 0) { //only run if search text is longer than zero
-        String textAreaMainText = textAreaMain.getText();
-        hilit = textAreaMain.getHighlighter();
-        hilit.removeAllHighlights();
-        int index = textAreaMainText.indexOf(searchText);
-        while (index >= 0) { //search text
-          int searchTextLength = searchText.length();
-          hilit.addHighlight(index, index+searchTextLength, painter);
-          index = textAreaMainText.indexOf(searchText, index + searchTextLength);
+  try {                                                                           // try searching textAreaMain
+    if (textFieldSearchHasText == true) {                                         // textFieldSearch has text other than prompt text
+      if (searchText.length() > 0) {                                              // only run if search text is longer than zero
+        String textAreaMainText = textAreaMain.getText();                         // get text from textAreaMain
+        highlighter = textAreaMain.getHighlighter();                              // get textAreaMain's highlighter
+        highlighter.removeAllHighlights();                                        // remove old highlights
+        int index = textAreaMainText.indexOf(searchText);                         // position of first index of search text
+        while (index >= 0) {                                                      // search for text
+          int searchTextLength = searchText.length();                             // get length of search text
+          highlighter.addHighlight(index, index+searchTextLength, painter);       // add highlight to textAreaMain
+          index = textAreaMainText.indexOf(searchText, index + searchTextLength); // update index to next search text
         }
-      } else { //remove all highlights
-        hilit.removeAllHighlights();
+      } else {
+        highlighter.removeAllHighlights(); // remove all highlights
       }
     }
-    systemPrintln("getSearch complete @ " + millis());
+    systemPrintln("getSearch complete @ " + millis(), "debug"); // print debug statement
   }
-  catch (Exception e) { //catch search exception
-    systemPrintln("getSearch failed @ " + millis());
+  catch (Exception error) { //catch search exception
+    systemPrintln("getSearch failed @ " + millis() + "error = " + error, "error"); // print debug statement
   }
 }
 
 //convert PImage to BufferedImage
 BufferedImage convertToBufferedImage(PImage imgToConvert) {
-  imgToConvert.loadPixels(); //load pixel data
   BufferedImage convertedImg = new BufferedImage(imgToConvert.width, imgToConvert.height, BufferedImage.TYPE_INT_ARGB);
+  try {
+    imgToConvert.loadPixels(); //load pixel data
 
-  for (int y = 0; y < imgToConvert.height; y++) {
-    for (int x = 0; x < imgToConvert.width; x++) {
-      int loc = x + y * imgToConvert.width;
-      convertedImg.setRGB(x, y, imgToConvert.pixels[loc]); // Copy pixel data
+    for (int y = 0; y < imgToConvert.height; y++) {
+      for (int x = 0; x < imgToConvert.width; x++) {
+        int loc = x + y * imgToConvert.width;
+        convertedImg.setRGB(x, y, imgToConvert.pixels[loc]); // Copy pixel data
+      }
     }
   }
+  catch (Exception error) {
+    systemPrintln("convertToBufferedImage failed @ " + millis() + "error = " + error, "error");
+  }
+  systemPrintln("convertToBufferedImage complete @ " + millis(), "debug");
   return convertedImg;
 }
 // print to system console
-public void systemPrintln(String msg) {
-  if (showDebugStatements == true) {
-    System.out.println(msg);
-  } else {
-    //do nothing
+public void systemPrintln(String msg, String type) {
+  try {
+    if (showDebugStatements == true) {
+      if (type.equals("debug")) {
+        System.out.println(msg);
+      } else if (type.equals("error")) {
+        System.err.println(msg);
+      }
+    } else {
+      //do nothing
+    }
+  }
+  catch (Exception error) {
   }
 }
 
@@ -139,7 +147,7 @@ public void systemPrintln(String msg) {
 public void setFont(String fontName, float fontSize) {
   try {
     // Path to your font file (TTF or OTF)
-    File fontFile = new File(dataPath("") + OsDirChar + fontName);
+    File fontFile = new File(dataPath("") + OsDirChar + fontName); //get font file
     //println(fontFile.getAbsolutePath());
     if (!fontFile.exists()) {
       throw new IOException("Font file not found: " + fontFile.getAbsolutePath());
@@ -149,10 +157,9 @@ public void setFont(String fontName, float fontSize) {
     Font customFont = Font.createFont(Font.TRUETYPE_FONT, fontFile)
       .deriveFont(Font.PLAIN, fontSize); // Set style and size
 
-    // Apply font to textAreaMain and textFieldMain
-    textAreaMain.setFont(customFont);
-    textFieldMain.setFont(customFont);
-    systemPrintln("setFont complete @ " + millis());
+    textAreaMain.setFont(customFont);  // set textAreaMain font
+    textFieldMain.setFont(customFont); // set textFieldMain font
+    systemPrintln("setFont complete @ " + millis(), "debug");
   }
   catch (FontFormatException e) {
     System.err.println("Invalid font format: " + e.getMessage());
@@ -162,24 +169,67 @@ public void setFont(String fontName, float fontSize) {
   }
 }
 
-// Processing setup function
-public void setup() {
-  icon = loadImage("icon.png");    //import software icon
-  bufferedIcon = convertToBufferedImage(icon); //convert PImage to BufferedImage for use as JFrame icon
-  frame = (javax.swing.JFrame) ((processing.awt.PSurfaceAWT.SmoothCanvas) surface.getNative()).getFrame();
-  canvas = (processing.awt.PSurfaceAWT.SmoothCanvas) ((processing.awt.PSurfaceAWT)surface).getNative();
-  frame.setLocation(displayWidth/2 - wndMinW/2, displayHeight/2 - wndMinH/2);
-  frame.setSize(wndMinW, wndMinH);
-  frame.remove(canvas);
-  frame.setMinimumSize(new Dimension(wndMinW, wndMinH));
-  frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-  frame.setIconImage(bufferedIcon); //set custom icon
-  frame.setTitle(versionInfo); //set frame title
-  frame.setResizable(true); //allow frame resizing
-  frame.setVisible(true); //make frame visible
+// set software theme
+public void setTheme(String theme) {
+  try {
+    if (theme.equals("light")) {
+      UIManager.setLookAndFeel(new FlatLightLaf());              // set theme to light
+      FlatLightLaf.setup();
+      FlatLaf.updateUI();
+      systemPrintln("setTheme complete @ " + millis(), "debug"); // print debug statement
+    } else if (theme.equals("dark")) {
+      UIManager.setLookAndFeel(new FlatDarkLaf());               // set theme to dark
+      FlatDarkLaf.setup();
+      FlatLaf.updateUI();
+      systemPrintln("setTheme complete @ " + millis(), "debug"); // print debug statement
+    } else if (theme.equals("intellij")) {
+      UIManager.setLookAndFeel(new FlatIntelliJLaf());               // set theme to dark
+      FlatIntelliJLaf.setup();
+      FlatLaf.updateUI();
+      systemPrintln("setTheme complete @ " + millis(), "debug"); // print debug statement
+    } else if (theme.equals("darcula")) {
+      UIManager.setLookAndFeel(new FlatDarculaLaf());               // set theme to dark
+      FlatDarculaLaf.setup();
+      FlatLaf.updateUI();
+      systemPrintln("setTheme complete @ " + millis(), "debug"); // print debug statement
+    } else {
+      systemPrintln("Theme not recognized, defaulting to light theme @ " + millis(), "debug"); // print debug statement
+      UIManager.setLookAndFeel(new FlatLightLaf());                                            // default theme to light
+      FlatLightLaf.setup();
+      FlatLaf.updateUI();
+    }
+  }
+  catch (UnsupportedLookAndFeelException error) {
+    systemPrintln("Error setting theme: " + error.getMessage(), "error"); // print error statement
+  }
+}
+
+// software main setup function
+public void setupMain() {
+  OS = getOS();     // get operating system
+  loadTable();      // load preferences table
+  getTableData();   // get preferences table data
+  setTheme(theme);  // set software theme
+  iconMain = loadImage("icon.png");                            // import software icon
+  iconRefresh = loadImage("refresh.png");                      // import refresh button icon
+  iconEditBaud = loadImage("editBaud.png");                    // import edit baud rate button icon
+  bufferedIconMain = convertToBufferedImage(iconMain);         // convert PImage to BufferedImage for use as JFrame icon
+  bufferedIconRefresh = convertToBufferedImage(iconRefresh);   // convert PImage to BufferedImage for use as refresh button icon
+  bufferedIconEditBaud = convertToBufferedImage(iconEditBaud); // convert PImage to BufferedImage for use as edit baud rate button icon
+  frameMainWindow = (javax.swing.JFrame) ((processing.awt.PSurfaceAWT.SmoothCanvas) surface.getNative()).getFrame();
+  canvasMainWindow = (processing.awt.PSurfaceAWT.SmoothCanvas) ((processing.awt.PSurfaceAWT)surface).getNative();
+  frameMainWindow.setLocation(displayWidth/2 - wndMinW/2, displayHeight/2 - wndMinH/2);
+  frameMainWindow.setSize(wndMinW, wndMinH);
+  frameMainWindow.remove(canvasMainWindow);
+  frameMainWindow.setMinimumSize(new Dimension(wndMinW, wndMinH));
+  frameMainWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+  frameMainWindow.setIconImage(bufferedIconMain);                    // set custom icon
+  frameMainWindow.setTitle(versionInfo);                             // set frame title
+  frameMainWindow.setResizable(true);                                // allow frame resizing
+  frameMainWindow.setVisible(true);                                  // make frame visible
 
   //add component listener for main frame
-  frame.addComponentListener(new java.awt.event.ComponentAdapter() {
+  frameMainWindow.addComponentListener(new java.awt.event.ComponentAdapter() {
     public void componentResized(ComponentEvent e) {
       if (mainUiInit == true) { //only run if main UI has been initialized
         panelMain.setBounds(0, 0, width, height);
@@ -189,7 +239,11 @@ public void setup() {
         textAreaMain.repaint();
         textAreaMain.updateUI();
         textAreaMain.setCaretPosition(textAreaMain.getDocument().getLength());
-        textAreaMainScrollPane.setPreferredSize(new Dimension(width - 10, height - 75));
+        if (OS.equals("linux")) { // linux misplaces the ui components. this adjusts according to the OS.
+          textAreaMainScrollPane.setPreferredSize(new Dimension(width - 10, height - 110));
+        } else {
+          textAreaMainScrollPane.setPreferredSize(new Dimension(width - 10, height - 105));
+        }
         textAreaMainScrollPane.repaint();
 
         textFieldMain.setPreferredSize(new Dimension(width - 215, 30));
@@ -233,11 +287,9 @@ public void setup() {
   while (mainUiInit == false) {
     delay(1);
   }
-  getOS();          //get operating system
-  loadTable();    //load preferences table
-  getTableData(); //get preferences table data
-  searchForPorts(); //search for available serial ports
-  initSearch();     //initialize textAreaMain searching
+  setFont(selectedFont, selectedFontSize);
+  searchForPorts(); // search for available serial ports
+  initSearch();     // initialize textAreaMain searching
   //set startup message length based on selected font size
   if (selectedFontSize == 12) {
     textAreaMainMsg("", " -------------------------------------" + versionInfo +  "-------------------------------------", "");
@@ -249,14 +301,24 @@ public void setup() {
     textAreaMainMsg("", " -------------------" + versionInfo +  "--------------------", "");
   }
   textAreaMainMsg("\n", "Enter -h for help", ""); //print help message
-  systemPrintln("Startup complete" + " @ " + millis());
-} // END setup
+  systemPrintln("Startup complete" + " @ " + millis(), "debug");
+}
+
+// Processing setup function
+public void setup() {
+  setupMain(); // software setup function
+
+  // enter code here
+}
 
 // Processing loop function
 public void draw() {
+  // enter code here
 }
 
 //Processing settings function
 public void settings() {
-  size(wndMinW, wndMinH);
+  JFrame.setDefaultLookAndFeelDecorated(true); // set JFrame DefaultLookAndFeelDecorated to true for custom window decorations
+  JDialog.setDefaultLookAndFeelDecorated(true);// set JDialog DefaultLookAndFeelDecorated to true for custom window decorations
+  size(wndMinW, wndMinH); // set main window size
 }
