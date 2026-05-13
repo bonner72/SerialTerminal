@@ -30,7 +30,7 @@ jobs:
 
     - name: Install Processing 4 using Snap
       run: |
-        sudo snap install processing
+        sudo snap install processing --clasic
         # Confirm installation
         processing --version
 
