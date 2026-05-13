@@ -22,7 +22,7 @@ jobs:
     - name: Install Processing CLI
       run: |
         sudo apt-get update
-        sudo apt-get install -y processing
+        sudo snap install processing
 
     - name: Compile Processing Sketch
       run: |
