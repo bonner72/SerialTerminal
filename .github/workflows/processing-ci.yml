@@ -33,7 +33,8 @@ jobs:
         sudo snap install processing --classic
         # Confirm installation
         processing --version
-
+        snap list | grep processing
+        ls /snap/bin | grep processing
     - name: Run Processing sketch
       run: |
         processing-java --sketch=$(pwd)/sketch --run
