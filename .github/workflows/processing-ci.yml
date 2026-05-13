@@ -14,15 +14,22 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-
+      
+    - name: Install Core-Utils
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y coreutils
+        export PATH=$PATH:/usr/bin
+        env:
+          PATH: /snap/bin:$PATH
+          
     - name: Install Snapd
       run: |
         sudo apt update
         sudo apt install -y snapd
         sudo systemctl start snapd
         sudo systemctl enable snapd
-        env:
-          PATH: /snap/bin:$PATH
+
     - name: Install Processing 4 using Snap
       run: |
         sudo snap install processing
