@@ -2,7 +2,6 @@ public void initDialogBaudEdit() {
   dialogBaudEdit = new JDialog(dialogSettingsMain, "Baud Rate list");
   dialogBaudEdit.setSize(new Dimension(300, 300));
   dialogBaudEdit.setResizable(false);
-  dialogBaudEdit.setAlwaysOnTop(true);
   dialogBaudEdit.setLocationRelativeTo(dialogSettingsMain);
   dialogBaudEdit.setLayout(layoutBaudEdit);
   dialogBaudEdit.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
