@@ -23,11 +23,11 @@ jobs:
       run: |
         sudo apt-get update
         sudo snap install processing --classic
-        sudo processing-java --version
+        sudo processing --version
 
     - name: Compile Processing Sketch
       run: |
         # Navigate to your sketch folder
         cd ./
         # Export sketch using processing-java CLI
-        processing-java --sketch=`pwd` --output=`pwd`/build --run
+        processing --sketch=`pwd` --output=`pwd`/build --run
