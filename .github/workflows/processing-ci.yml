@@ -35,7 +35,7 @@ jobs:
         # Confirm installation
         processing --version
         snap list | grep processing
-        ls /snap/bin | grep processing
+        ls -l /snap/bin | grep processing
     - name: Run Processing sketch
       run: |
         /snap/bin/processing.processing --sketch=$(pwd)/sketch --run
