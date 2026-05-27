@@ -5,7 +5,7 @@
 
 Windows10, Kubuntu25.04, Ubuntu24.04.2, LinuxMint 22.1 Cinnamon
 
-[Releases]https://github.com/bonner72/Serial-Terminal/releases)•[Arduino test code]https://github.com/bonner72/Serial-Terminal/blob/main/Arduino-Test-Code/Arduino-Test-Code/Arduino-Test-Code.ino)
+•[Releases](https://github.com/bonner72/Serial-Terminal/releases)•[Arduino test code](https://github.com/bonner72/Serial-Terminal/blob/main/Arduino-Test-Code/Arduino-Test-Code/Arduino-Test-Code.ino)
 
 ## Screenshots
 
