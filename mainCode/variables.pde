@@ -14,7 +14,7 @@ int prevCommandsIndex = 0;         // count of up key presses for previous comma
 
 char selectedParity = 'N'; //serial port parity 'N' for none, 'E' for even, 'O' for odd, 'M' for mark, 'S' for space ('N' is the default)
 
-boolean showDebugStatements = false;                                                                                          // if true show debug statements in console          
+boolean showDebugStatements = true;                                                                                          // if true show debug statements in console          
 boolean connectToCOM = false;                                                                                                // if connecting to com port                         
 boolean connectedToCOM = false;                                                                                              // if connected to com port                          
 boolean loggingData = false ;                                                                                                // if logging succeeded                              
@@ -56,7 +56,6 @@ String stopBitList[] = {"1.0", "1.5", "2.0"};
 String selectedParityString = parityList[0];    // String value of selected parity for display purposes
 String selectedDataBitsString = dataBitList[3]; // String value of selected data bits for display purposes
 String selectedStopBitsString = stopBitList[0]; // String value of selected stop bits for display purposes
-String serialPortList[];
 String enteredCommand = "";                     // command entered in textFieldMain updates on enter press
 String validCommands[] = {                      // list of valid commands
   "-h",              // help                                
@@ -109,6 +108,8 @@ FileWriter Writer;                                  // create object of FileWrit
 int intBaudRate = int(selectedBaudRate);            // integer value of selectedBaudRate for Serial constructor
 processing.serial.Serial COMPort = null;            // create object of Serial class
 Table preferenceTable;                              // preferences table
+
+SerialPort[] commPorts; // list of available serial ports
 
 
 //Controls for main window

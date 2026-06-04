@@ -48,3 +48,5 @@ import java.io.FileWriter;           //import file writer library
 import java.util.Collections;        //import collections library
 import java.util.Scanner;            //import scanner library
 import java.util.Arrays;             //import arrays library
+
+import com.fazecast.jSerialComm.*;

@@ -126,7 +126,7 @@ BufferedImage convertToBufferedImage(PImage imgToConvert) {
   systemPrintln("convertToBufferedImage complete @ " + millis(), "debug");
   return convertedImg;
 }
-// print to system console
+// print newline to system console
 public void systemPrintln(String msg, String type) {
   try {
     if (showDebugStatements == true) {
@@ -134,6 +134,22 @@ public void systemPrintln(String msg, String type) {
         System.out.println(msg);
       } else if (type.equals("error")) {
         System.err.println(msg);
+      }
+    } else {
+      //do nothing
+    }
+  }
+  catch (Exception error) {
+  }
+}
+// print to system console
+public void systemPrint(String msg, String type) {
+    try {
+    if (showDebugStatements == true) {
+      if (type.equals("debug")) {
+        System.out.print(msg);
+      } else if (type.equals("error")) {
+        System.err.print(msg);
       }
     } else {
       //do nothing
@@ -287,9 +303,6 @@ public void setupMain() {
   while (mainUiInit == false) {
     delay(1);
   }
-  setFont(selectedFont, selectedFontSize);
-  searchForPorts(); // search for available serial ports
-  initSearch();     // initialize textAreaMain searching
   //set startup message length based on selected font size
   if (selectedFontSize == 12) {
     textAreaMainMsg("", " -------------------------------------" + versionInfo +  "-------------------------------------", "");
@@ -301,13 +314,16 @@ public void setupMain() {
     textAreaMainMsg("", " -------------------" + versionInfo +  "--------------------", "");
   }
   textAreaMainMsg("\n", "Enter -h for help", ""); //print help message
+  setFont(selectedFont, selectedFontSize);
+  searchForPortsDEV();
+  //searchForPorts(); // search for available serial ports
+  initSearch();     // initialize textAreaMain searching
   systemPrintln("Startup complete" + " @ " + millis(), "debug");
 }
 
 // Processing setup function
 public void setup() {
   setupMain(); // software setup function
-
   // enter code here
 }
 

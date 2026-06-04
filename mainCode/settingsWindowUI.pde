@@ -117,8 +117,12 @@ void drawPortConfig() {
   buttonRefreshCOMs.addActionListener(new ActionListener() {
     public void actionPerformed(ActionEvent actionEvent) {
       if (connectedToCOM == false) {
-        availableCOMs = processing.serial.Serial.list(); //get available serial ports
-        comboBoxPort.setModel(new DefaultComboBoxModel(availableCOMs));
+        commPorts = SerialPort.getCommPorts();
+        availableCOMs = new String[commPorts.length];
+        // iterate through port list and add them to availableCOMs
+        for (int i = 0; i < commPorts.length; i ++) {
+            availableCOMs[i] = commPorts[i].getSystemPortName();
+        }        comboBoxPort.setModel(new DefaultComboBoxModel(availableCOMs));
         systemPrintln("Available COMs:" + java.util.Arrays.toString(availableCOMs), "debug");
         systemPrintln("buttonRefreshCOMs clicked @ " + millis(), "debug");
       } else {

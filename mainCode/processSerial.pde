@@ -2,7 +2,7 @@
 //search for available serial ports
 public void searchForPorts() {
 
-  if (connectedToCOM == false) {
+  if (connectedToCOM == false) {//
     availableCOMs = Serial.list();
     if (availableCOMs.length > 0) {
       portsFound = true;

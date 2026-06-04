@@ -8,6 +8,8 @@ void loop() {
       Serial.write(Serial.read());   // echo received data
     }
   }
+  Serial.println("Hello World");
+  delay(100);
 
 
   
