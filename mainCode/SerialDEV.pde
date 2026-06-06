@@ -46,6 +46,65 @@ public void searchForPortsDEV() {
     }
 }
 
+public void connectPortDEV() {
+    // if (COMPort == null) {
+    //     //try {
+    //         // print connecting statements
+    //         textAreaMainMsg("\n", "Connecting to.. " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits, "");
+    //         systemPrintln("Connecting to.. " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits, "debug");
+
+    //         serialPort = SerialPort.getCommPort("COM3");
+    //         serialPort.setComPortParameters(9600, 8, 1, SerialPort.EVEN_PARITY);
+
+    //         serialPort.openPort();
+    //         if (serialPort.isOpen()) {
+    //             println("CONNECTED");
+    //         }
+        
+    // }
+
+    if (COMPort == null) {
+        try {
+            if (advancedOptions == true) {
+                // print connecting statements
+                textAreaMainMsg("\n", "Connecting to.. " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits, "");
+                systemPrintln("Connecting to.. " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits, "debug");
+
+                // initialize processing serial port
+                //COMPort = new processing.serial. Serial(this, selectedPort, intBaudRate, selectedParity, selectedDataBits, selectedStopBits);
+                serialPort = SerialPort.getCommPort(selectedPort);
+                serialPort.setComPortParameters(selectedBaudRate, 8, 1, SerialPort.EVEN_PARITY);
+                serialPort.openPort();
+                systemPrintln("Connected to: " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits, "debug");
+                textAreaMainMsg("\n", "Connected to: " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits, "\n");
+                buttonConnect.setText("Connected to: " + selectedPort + "@" + selectedBaudRate + "," + selectedParity + "," + selectedDataBits + "," + selectedStopBits);
+                buttonConnect.setBackground(buttonConnectGreen);
+                connectedToCOM = true;
+            } else {
+                // print connecting statements
+                textAreaMainMsg("\n", "Connecting to.. " + selectedPort + "@" + selectedBaudRate, "");
+                systemPrintln("Connecting to.. " + selectedPort + "@" + selectedBaudRate, "debug");
+
+                // initialize processing serial port
+                serialPort = SerialPort.getCommPort(selectedPort);
+                serialPort.setComPortParameters(9600, 8, 1, SerialPort.EVEN_PARITY);
+                serialPort.openPort();                systemPrintln("Connected to: " + selectedPort + "@" + selectedBaudRate, "debug");
+                textAreaMainMsg("\n", "Connected to: " + selectedPort + "@" + selectedBaudRate, "\n");
+                buttonConnect.setText("Connected-click to disconnect " + selectedPort + "@" + selectedBaudRate);
+                buttonConnect.setBackground(buttonConnectGreen);
+                connectedToCOM = true;
+            }
+        }
+        catch (Exception error) {
+            connectToCOM = false;
+            connectedToCOM = false;
+            COMPort = null;
+            textAreaMainMsg("\n", error.toString(), "");
+            systemPrintln(error.toString(), "error");
+        }
+    }
+}
+
 
     
     // if (connectedToCOM == false) {

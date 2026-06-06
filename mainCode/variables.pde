@@ -7,6 +7,8 @@ int wndMinH = 500;                 // minimum height of main window
 int wndMinW = 700;                 // minimum width of main window
 int serialInputDataInt;            // serial input data as integer for data logging
 int selectedDataBits = 8;          // serial port data bits 5-6-7-8 (8 is default)
+Integer[] baudRateList = {4800, 9600, 38400, 57600, 115200};
+Integer selectedBaudRate = baudRateList[2];
 int comboBoxPortSelectedIndex = 0; // index of selected port in comboBoxPort, used to check if selected port was removed while connected
 int tmr1_lastMillis = 0;           // tmr1 last millis reading
 int prevCommandsLimit = 10;        // limit of previous entered commands stored
@@ -35,8 +37,8 @@ boolean advancedOptions = false;                                                
 
 String versionInfo = "SerialTerminal 3.0.0";
 String selectedPort = null;                                                                                                                            // Name of selected COM port
-String[] baudRateList = {"4800", "9600", "38400", "57600", "115200"};
-String selectedBaudRate = baudRateList[1];
+//String[] baudRateList = {"4800", "9600", "38400", "57600", "115200"};
+//String selectedBaudRate = baudRateList[1];
 String[] availableCOMs;                                                                                                                                // List of available COM ports
 String serialInputData = "0";
 String textFieldFileDirInput;                                                                                                                          // Input from fileDirectoryTextField
@@ -105,10 +107,11 @@ Color buttonConnectGreen = new Color(#3DC73D); //green color for connected butto
 Font labelFont = new Font("Arial", Font.PLAIN, 12); // font for labels
 Font terminalFont;                                  // font for terminal
 FileWriter Writer;                                  // create object of FileWriter for data logging
-int intBaudRate = int(selectedBaudRate);            // integer value of selectedBaudRate for Serial constructor
+//int intBaudRate = int(selectedBaudRate);            // integer value of selectedBaudRate for Serial constructor
 processing.serial.Serial COMPort = null;            // create object of Serial class
 Table preferenceTable;                              // preferences table
 
+SerialPort serialPort;
 SerialPort[] commPorts; // list of available serial ports
 
 
@@ -141,7 +144,7 @@ JLabel labelPortDataBits;                                                       
 JLabel labelPortStopBits;                                                        // settings window Port Stop Bits label
 JDialog dialogSettingsMain;                                                      // settings window main panel
 JComboBox comboBoxPort;                                                          // settings window Port combo box
-JComboBox comboBoxBaudRate;                                                      // settings window Baud Rate combo box
+JComboBox<Integer> comboBoxBaudRate;                                                      // settings window Baud Rate combo box
 JComboBox comboBoxPortParity;                                                    // settings window Port Parity combo box
 JComboBox comboBoxPortDataBits;                                                  // settings window Port Data Bits combo box
 JComboBox comboBoxPortStopBits;                                                  // settings window Port Stop Bits combo box
@@ -158,8 +161,8 @@ JTextField textFieldFileDir;                                                    
 SpringLayout layoutSettings = new SpringLayout();                                // settings window layout manager
 BufferedImage bufferedIconRefresh;                                               // buffered image for refresh button icon
 BufferedImage bufferedIconEditBaud;                                              // buffered image for edit baud rate button icon
-DefaultComboBoxModel currBaudRateModel = new DefaultComboBoxModel(baudRateList); // current model for comboBoxBaudRate
-DefaultComboBoxModel newBaudRateModel = new DefaultComboBoxModel();              // new model for comboBoxBaudRate is defined on baudEdit OK, set on settings OK
+DefaultComboBoxModel<Integer> currBaudRateModel = new DefaultComboBoxModel<>(); // current model for comboBoxBaudRate
+DefaultComboBoxModel<Integer> newBaudRateModel = new DefaultComboBoxModel<>();              // new model for comboBoxBaudRate is defined on baudEdit OK, set on settings OK
 PImage iconRefresh;                                                              // serial port refresh button icon
 PImage iconEditBaud;                                                             // serial port custom baud rate icon
 

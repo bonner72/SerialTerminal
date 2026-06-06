@@ -36,7 +36,7 @@ public void initDialogBaudEdit() {
     public void actionPerformed(ActionEvent actionEvent) {
       /*Process TextArea Get text from textArea and append it to string array*/
       int textAreaBaudEditLineCount = textAreaBaudEdit.getLineCount();
-      String[] textAreaBaudEditArray = {};
+      Integer[] textAreaBaudEditArray = {};
       try {// Traverse the text in the JTextArea line by line
         for (int i = 0; i < textAreaBaudEditLineCount; i ++) {
           int start = textAreaBaudEdit.getLineStartOffset(i);
@@ -46,7 +46,7 @@ public void initDialogBaudEdit() {
           textAreaBaudEditArray = Arrays.copyOf(textAreaBaudEditArray, textAreaBaudEditArray.length + 1);
 
           // Step 2: Add the new element to the last index of the new array
-          textAreaBaudEditArray[textAreaBaudEditArray.length - 1] = textAreaBaudEdit.getText(start, end-start).trim();
+          textAreaBaudEditArray[textAreaBaudEditArray.length - 1] = Integer.parseInt(textAreaBaudEdit.getText(start, end-start).trim());
           systemPrintln(textAreaBaudEdit.getText(start, end-start).trim(), "debug");
         }
       }

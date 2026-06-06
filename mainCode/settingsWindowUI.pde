@@ -119,10 +119,13 @@ void drawPortConfig() {
       if (connectedToCOM == false) {
         commPorts = SerialPort.getCommPorts();
         availableCOMs = new String[commPorts.length];
-        // iterate through port list and add them to availableCOMs
+        
+        //iterate through port list and add them to availableCOMs
         for (int i = 0; i < commPorts.length; i ++) {
             availableCOMs[i] = commPorts[i].getSystemPortName();
-        }        comboBoxPort.setModel(new DefaultComboBoxModel(availableCOMs));
+        }  
+        //availableCOMs = Serial.list();      
+        comboBoxPort.setModel(new DefaultComboBoxModel(availableCOMs));
         systemPrintln("Available COMs:" + java.util.Arrays.toString(availableCOMs), "debug");
         systemPrintln("buttonRefreshCOMs clicked @ " + millis(), "debug");
       } else {
@@ -133,7 +136,7 @@ void drawPortConfig() {
   );
 
   //draw Baud Rate combo box
-  comboBoxBaudRate = new JComboBox();
+  comboBoxBaudRate = new JComboBox<>(baudRateList);
   comboBoxBaudRate.setPreferredSize(new Dimension(110, 20));
   comboBoxBaudRate.setEditable(false);
   layoutSettings.putConstraint(SpringLayout.WEST, comboBoxBaudRate, 80, SpringLayout.WEST, labelBaudRate);
@@ -489,7 +492,7 @@ public void drawOkCancelButtons() {
     public void actionPerformed(ActionEvent actionEvent) {
       if (connectedToCOM == false && portsFound == true) { //only allow to save settings if not currently connected to COM port and there are available COM ports
         selectedPort = comboBoxPort.getSelectedItem().toString();
-        selectedBaudRate = comboBoxBaudRate.getSelectedItem().toString();
+        selectedBaudRate = (Integer)comboBoxBaudRate.getSelectedItem();
         currBaudRateModel = newBaudRateModel;         // set currBaudRateModel to newBaudRateModel
         comboBoxBaudRate.setModel(currBaudRateModel); // set comboBoxBaudRate model to currBaudRateModel
         if (advancedOptions == true) {

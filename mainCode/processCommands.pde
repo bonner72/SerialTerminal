@@ -62,7 +62,7 @@ public void processCommands() {
       comboBoxPort.setModel(new DefaultComboBoxModel(availableCOMs));
     }
   } else if (enteredCommand.equals("-connect")) { //connect to serial port
-    connectPort(); //connect to serial port
+    connectPortDEV(); //connect to serial port
   } else if (enteredCommand.equals("-disconnect")) { //disconnect from serial port
     disconnectPort(); //disconnect from serial port
   } else if (enteredCommand.equals("-lpause") && loggingData == true) { //pause data logging

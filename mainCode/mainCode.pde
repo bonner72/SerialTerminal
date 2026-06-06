@@ -316,6 +316,7 @@ public void setupMain() {
   textAreaMainMsg("\n", "Enter -h for help", ""); //print help message
   setFont(selectedFont, selectedFontSize);
   searchForPortsDEV();
+  //connectPortDEV();
   //searchForPorts(); // search for available serial ports
   initSearch();     // initialize textAreaMain searching
   systemPrintln("Startup complete" + " @ " + millis(), "debug");
@@ -330,6 +331,7 @@ public void setup() {
 // Processing loop function
 public void draw() {
   // enter code here
+
 }
 
 //Processing settings function

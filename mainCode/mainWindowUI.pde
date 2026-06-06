@@ -244,7 +244,7 @@ void drawButtonConnect() {
       public void actionPerformed(ActionEvent actionEvent) {
       if (connectedToCOM == false) {
         //connectToCOM = true;
-        connectPort();
+        connectPortDEV();
       } else if (connectedToCOM == true) {
         //connectToCOM = false;
         disconnectPort();
