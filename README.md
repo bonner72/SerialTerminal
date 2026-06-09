@@ -1,3 +1,13 @@
+⚠️ **Archived Repository**  
+
+This repository is no longer maintained here.  
+It has been **migrated to Codeberg** and will receive all future updates there.
+
+🔗 **New repo:** [https://codeberg.org/YourUsername/YourRepo](https://codeberg.org/YourUsername/YourRepo)
+
+---
+
+
 
 <img width="100" height="100" alt="icon" src="https://github.com/user-attachments/assets/2b929eea-9743-4355-8a82-663f248ab463" />
 
