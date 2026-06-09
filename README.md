@@ -3,7 +3,7 @@
 This repository is no longer maintained here.  
 It has been **migrated to Codeberg** and will receive all future updates there.
 
-🔗 **New repo:** [https://codeberg.org/YourUsername/YourRepo](https://codeberg.org/YourUsername/YourRepo)
+🔗 **New repo:** [(https://codeberg.org/Genesis791/SerialTerminal)](https://codeberg.org/Genesis791/SerialTerminal)
 
 ---
 
